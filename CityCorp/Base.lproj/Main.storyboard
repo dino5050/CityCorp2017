@@ -64,7 +64,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <segue destination="fMJ-Zg-Kkn" kind="show" identifier="mainmenu" id="mc1-H7-FYh"/>
+                        <segue destination="fMJ-Zg-Kkn" kind="show" identifier="login" id="mc1-H7-FYh"/>
                         <segue destination="6K4-k9-0Om" kind="show" identifier="map" id="7Yg-Hz-Pkd"/>
                     </connections>
                 </viewController>

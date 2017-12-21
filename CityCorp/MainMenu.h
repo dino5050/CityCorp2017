@@ -10,4 +10,6 @@
 
 @interface MainMenu : UIViewController
 
+@property (nonatomic, strong) NSString* name;
+
 @end

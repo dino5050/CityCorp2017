@@ -6,8 +6,10 @@
 //  Copyright © 2017 Nezennin Corp. All rights reserved.
 //
 
-@interface Button : UIButton
+@interface Button : NSObject
 
--(void)button: (NSString *)name : (NSInteger *)x :  (NSInteger *)y : (NSInteger *)width : (NSInteger *)height;
+@property(nonatomic, readwrite) NSString *name;
+//+(UIButton *)button: (NSString *)name : (NSInteger *)x :  (NSInteger *)y : (NSInteger *)width : (NSInteger *)height;
+-(UIButton *)button: (CGRect)rect;
 
 @end
