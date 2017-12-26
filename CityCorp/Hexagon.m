@@ -20,7 +20,7 @@
     while(y>100/3 && y<900/3){
         y = y + 175/3;
         x = 51/3;
-        while(x>50/3 && x<900/4 /* - y/2 && x<900/7 + y/2 && x > -900/7 + y/2 */){
+        while(x>50/3 - y*2 && x<900/5  - y/2 && x<900/10 + y/2 && x > -900/7 + y/2){
             x = x + 100/3;
             
             CGContextRef context = UIGraphicsGetCurrentContext();

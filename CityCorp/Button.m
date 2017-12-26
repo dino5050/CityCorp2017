@@ -9,6 +9,7 @@
 //#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Button.h"
+#import "Login.h"
 
 
 @implementation Button
@@ -30,9 +31,9 @@ UIButton *button;
 //}
 
 -(UIButton *) button: (CGRect) rect{
-    
+    SEL selector1 = NSSelectorFromString(name);
     button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:@selector(name) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:selector1 forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:name forState:UIControlStateNormal];
     button.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     [button setTitleColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:255] forState:UIControlStateNormal];
@@ -42,4 +43,5 @@ UIButton *button;
     [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
     return button;
 }
+
 @end

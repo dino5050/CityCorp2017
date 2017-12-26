@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface Login : UIViewController
-
+-(void)login;
 
 @end
 
