@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1CAA411FF83DFE00E48B78 /* Register.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CAA401FF83DFE00E48B78 /* Register.m */; };
 		4B2C46111FE5AD39006F645F /* ABDUCTION.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */; };
 		4B9ECE911FE09FEF00D55D5B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECE901FE09FEF00D55D5B /* AppDelegate.m */; };
 		4B9ECE941FE09FEF00D55D5B /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECE931FE09FEF00D55D5B /* Login.m */; };
@@ -20,6 +21,7 @@
 		4B9ECECC1FE169E500D55D5B /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECECB1FE169E500D55D5B /* MapView.m */; };
 		4BB3686D1FE817CC00801ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB3686C1FE817CC00801ED8 /* Assets.xcassets */; };
 		4BB368711FEBEBB600801ED8 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BB368701FEBEBB600801ED8 /* Button.m */; };
+		4BFF1DF81FF57465007902A1 /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFF1DF71FF57465007902A1 /* Functions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B1CAA3F1FF83DFE00E48B78 /* Register.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
+		4B1CAA401FF83DFE00E48B78 /* Register.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Register.m; sourceTree = "<group>"; };
 		4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = ABDUCTION.TTF; path = CityCorp/ABDUCTION.TTF; sourceTree = "<group>"; };
 		4B9ECE8C1FE09FEE00D55D5B /* CityCorp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityCorp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B9ECE8F1FE09FEE00D55D5B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 		4BB3686C1FE817CC00801ED8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BB368701FEBEBB600801ED8 /* Button.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Button.m; sourceTree = "<group>"; };
 		4BB368721FEBEBCD00801ED8 /* Button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		4BFF1DF71FF57465007902A1 /* Functions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
+		4BFF1DF91FF5751C007902A1 /* Functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,10 @@
 				4B9ECEC51FE0A18200D55D5B /* Hexagon.m */,
 				4BB368721FEBEBCD00801ED8 /* Button.h */,
 				4BB368701FEBEBB600801ED8 /* Button.m */,
+				4BFF1DF91FF5751C007902A1 /* Functions.h */,
+				4BFF1DF71FF57465007902A1 /* Functions.m */,
+				4B1CAA3F1FF83DFE00E48B78 /* Register.h */,
+				4B1CAA401FF83DFE00E48B78 /* Register.m */,
 			);
 			path = CityCorp;
 			sourceTree = "<group>";
@@ -291,11 +301,13 @@
 			files = (
 				4B9ECEC91FE169BA00D55D5B /* MainMenu.m in Sources */,
 				4BB368711FEBEBB600801ED8 /* Button.m in Sources */,
+				4B1CAA411FF83DFE00E48B78 /* Register.m in Sources */,
 				4B9ECECC1FE169E500D55D5B /* MapView.m in Sources */,
 				4B9ECE941FE09FEF00D55D5B /* Login.m in Sources */,
 				4B9ECE9F1FE09FF000D55D5B /* main.m in Sources */,
 				4B9ECEC61FE0A18200D55D5B /* Hexagon.m in Sources */,
 				4B9ECE911FE09FEF00D55D5B /* AppDelegate.m in Sources */,
+				4BFF1DF81FF57465007902A1 /* Functions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 //#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Button.h"
-#import "Login.h"
+//#import "Login.h"
 
 
 @implementation Button
@@ -40,8 +40,39 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:14]];
     return button;
 }
 
+-(UIButton *) button2: (CGRect) rect{
+    SEL selector1 = NSSelectorFromString(name);
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:selector1 forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:name forState:UIControlStateNormal];
+    button.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+    [button setTitleColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:255] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    button.layer.borderWidth = 2.0f;
+    button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:10]];
+    return button;
+}
+-(UIButton *) space: (CGRect) rect{
+    SEL selector1 = NSSelectorFromString(name);
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:selector1 forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:name forState:UIControlStateNormal];
+    button.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+    [button setTitleColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:255] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:255]];
+    button.layer.borderWidth = 2.0f;
+    button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:10]];
+    return button;
+}
+
+-(void)clicked:(UIButton *) button{
+    [button setTitleColor:[UIColor colorWithRed:0 green:255 blue:255 alpha:255] forState:UIControlStateNormal];
+    
+}
 @end

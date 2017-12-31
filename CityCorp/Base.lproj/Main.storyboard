@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="ABDUCTION.TTF">
+            <string>Abduction</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
@@ -72,11 +77,40 @@
                     <connections>
                         <segue destination="fMJ-Zg-Kkn" kind="show" identifier="login" id="mc1-H7-FYh"/>
                         <segue destination="6K4-k9-0Om" kind="show" identifier="map" id="7Yg-Hz-Pkd"/>
+                        <segue destination="Tkg-Ai-YYd" kind="show" identifier="register" id="kuO-4f-PQo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-34.399999999999999" y="65.217391304347828"/>
+            <point key="canvasLocation" x="-39" y="-51"/>
+        </scene>
+        <!--Register-->
+        <scene sceneID="aaa-Q8-Yxd">
+            <objects>
+                <viewController id="Tkg-Ai-YYd" customClass="Register" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K9z-W5-2ta">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Choose  a  Profession" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="u6c-BD-N9f">
+                                <rect key="frame" x="16" y="50" width="304" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.025916114449501038" green="0.038489554077386856" blue="0.038894828408956528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.99992281198501587" green="1" blue="0.99988037347793579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Abduction" family="Abduction" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="2Xp-qO-3Yh"/>
+                    </view>
+                    <connections>
+                        <segue destination="fMJ-Zg-Kkn" kind="show" identifier="registered" id="wki-F7-GVl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wv7-ak-cDo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-821.25" y="339.08450704225351"/>
         </scene>
         <!--Map View-->
         <scene sceneID="P2C-oL-8ZN">
@@ -112,16 +146,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYg-tL-hCn">
-                                <rect key="frame" x="164" y="80" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Map"/>
-                                <connections>
-                                    <segue destination="6K4-k9-0Om" kind="show" identifier="map" id="Tnq-0d-6Xe"/>
-                                </connections>
-                            </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="backgrounds125" translatesAutoresizingMaskIntoConstraints="NO" id="fig-eD-l7w">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fig-eD-l7w" firstAttribute="top" secondItem="EUB-iV-pGA" secondAttribute="top" id="PjZ-h9-6dt"/>
+                            <constraint firstAttribute="trailing" secondItem="fig-eD-l7w" secondAttribute="trailing" id="WPm-02-A9B"/>
+                            <constraint firstItem="fig-eD-l7w" firstAttribute="leading" secondItem="EUB-iV-pGA" secondAttribute="leading" id="oBB-2e-bmr"/>
+                            <constraint firstAttribute="bottom" secondItem="fig-eD-l7w" secondAttribute="bottom" id="pa9-Le-OVi"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Ueo-C7-mJz"/>
                     </view>
                 </viewController>
@@ -136,6 +171,6 @@
         <image name="sign" width="128" height="125"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tnq-0d-6Xe"/>
+        <segue reference="wki-F7-GVl"/>
     </inferredMetricsTieBreakers>
 </document>
