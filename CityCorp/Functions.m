@@ -29,6 +29,7 @@
          [parameters appendString:@"="];
          [parameters appendString:values[i]];
          [parameters appendString:@"&"];
+         i++;
      }
      
     

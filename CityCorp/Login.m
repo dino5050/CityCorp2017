@@ -10,6 +10,7 @@
 #import "MainMenu.h"
 #import "Hexagon.h"
 #import "Button.h"
+#import "Functions.h"
 @interface Login ()
 @property (weak, nonatomic) IBOutlet UITextField *username;
 
@@ -46,7 +47,8 @@ Button* login;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    Functions *users = [[Functions alloc] init];
+//    [users httprequest:@"name,password,email" :@"dino5050,1011,dino5050@hotmail.com" :@"users.php"];
 
 //add register button and ifregistered vdefault value
     CGRect screenBound = [[UIScreen mainScreen] bounds];
@@ -66,7 +68,7 @@ Button* login;
     [self performSegueWithIdentifier:@"login" sender:self];
 }
 -(void)signup{
-    [self performSegueWithIdentifier:@"register" sender:self];
+    [self performSegueWithIdentifier:@"signup" sender:self];
 }
 /*-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"login"]){

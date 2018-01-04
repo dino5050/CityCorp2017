@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4B1CAA411FF83DFE00E48B78 /* Register.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CAA401FF83DFE00E48B78 /* Register.m */; };
 		4B2C46111FE5AD39006F645F /* ABDUCTION.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */; };
+		4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B49D7A11FFBD1EF00F33B24 /* Signup.m */; };
 		4B9ECE911FE09FEF00D55D5B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECE901FE09FEF00D55D5B /* AppDelegate.m */; };
 		4B9ECE941FE09FEF00D55D5B /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECE931FE09FEF00D55D5B /* Login.m */; };
 		4B9ECE971FE09FF000D55D5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B9ECE951FE09FF000D55D5B /* Main.storyboard */; };
@@ -45,6 +46,8 @@
 		4B1CAA3F1FF83DFE00E48B78 /* Register.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
 		4B1CAA401FF83DFE00E48B78 /* Register.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Register.m; sourceTree = "<group>"; };
 		4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = ABDUCTION.TTF; path = CityCorp/ABDUCTION.TTF; sourceTree = "<group>"; };
+		4B49D7A01FFBD1EF00F33B24 /* Signup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Signup.h; sourceTree = "<group>"; };
+		4B49D7A11FFBD1EF00F33B24 /* Signup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Signup.m; sourceTree = "<group>"; };
 		4B9ECE8C1FE09FEE00D55D5B /* CityCorp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityCorp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B9ECE8F1FE09FEE00D55D5B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4B9ECE901FE09FEF00D55D5B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 				4BFF1DF71FF57465007902A1 /* Functions.m */,
 				4B1CAA3F1FF83DFE00E48B78 /* Register.h */,
 				4B1CAA401FF83DFE00E48B78 /* Register.m */,
+				4B49D7A01FFBD1EF00F33B24 /* Signup.h */,
+				4B49D7A11FFBD1EF00F33B24 /* Signup.m */,
 			);
 			path = CityCorp;
 			sourceTree = "<group>";
@@ -308,6 +313,7 @@
 				4B9ECEC61FE0A18200D55D5B /* Hexagon.m in Sources */,
 				4B9ECE911FE09FEF00D55D5B /* AppDelegate.m in Sources */,
 				4BFF1DF81FF57465007902A1 /* Functions.m in Sources */,
+				4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
