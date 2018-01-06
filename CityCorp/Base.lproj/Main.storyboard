@@ -168,7 +168,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <action selector="password:" destination="bgZ-my-JfV" eventType="editingChanged" id="bI9-9E-bBT"/>
                                 </connections>
@@ -178,7 +178,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <action selector="password2:" destination="bgZ-my-JfV" eventType="editingChanged" id="JRR-PS-K2t"/>
                                 </connections>
@@ -203,7 +203,7 @@
                                     <action selector="username:" destination="bgZ-my-JfV" eventType="editingChanged" id="2dL-mi-0lo"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Passwords don't match" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OgI-xy-AQt">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OgI-xy-AQt">
                                 <rect key="frame" x="233" y="137" width="87" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -211,7 +211,7 @@
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Email already taken" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="42t-Gc-h9q">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="42t-Gc-h9q">
                                 <rect key="frame" x="233" y="182" width="87" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -219,7 +219,7 @@
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Username already taken" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uJQ-CO-tzB">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uJQ-CO-tzB">
                                 <rect key="frame" x="233" y="62" width="87" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -227,8 +227,16 @@
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Too little characters" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IsO-59-ZF7">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IsO-59-ZF7">
                                 <rect key="frame" x="233" y="100" width="87" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="0.42488052209999999" blue="0.3950256835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="11"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qVx-mZ-kkY">
+                                <rect key="frame" x="107" y="221" width="87" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="1" green="0.42488052209999999" blue="0.3950256835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -241,6 +249,7 @@
                     </view>
                     <connections>
                         <outlet property="error" destination="uJQ-CO-tzB" id="x7E-R2-orE"/>
+                        <outlet property="errorCharacters" destination="qVx-mZ-kkY" id="IpG-pB-h8j"/>
                         <outlet property="errorEmail" destination="42t-Gc-h9q" id="Gdf-dQ-pcu"/>
                         <outlet property="errorPassword" destination="IsO-59-ZF7" id="TRc-Wz-0la"/>
                         <outlet property="errorPassword2" destination="OgI-xy-AQt" id="COt-JK-shR"/>
