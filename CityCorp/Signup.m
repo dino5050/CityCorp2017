@@ -74,7 +74,9 @@ NSString *email;
 -(void)next{
    // _error.text = username;
     _errorCharacters.text = @"";
-    ENCRYPT password
+ //   ENCRYPT password
+    
+    [self performSegueWithIdentifier:@"register" sender:self];
     Functions *users = [[Functions alloc] init];
     NSString *msg;
     if(username.length > 3 && username.length < 16 && password.length > 3 && password.length < 16 && [password isEqualToString:password2] && email.length > 3 && email.length < 32) {
