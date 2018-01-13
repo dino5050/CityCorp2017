@@ -36,10 +36,10 @@
     
     UITextView *hacker_info = [[UITextView alloc] init];
     hacker_info.font = [UIFont fontWithName:@"Arial" size:12];
-    hacker_info.frame = CGRectMake(130, 100, 195, 120);
+    hacker_info.frame = CGRectMake(130, 90, 195, 120);
     [hacker_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [hacker_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    hacker_info.text = @"A hackers specialty is in creating exploits for use in hacking which can be used or be sold to other players, and have bonuses when using exploits for hacking.";
+    hacker_info.text = @"A hackers specialty is in creating exploits for use in hacking which can be used or be sold to other players, and have bonuses when using exploits for hacking. They can also give their CEO bonuses for hacking tech districts.";
     [self.view addSubview:hacker_info];
     
     UITextView *corporate_info = [[UITextView alloc] init];
@@ -47,7 +47,7 @@
     corporate_info.frame = CGRectMake(130, 210, 195, 120);
     [corporate_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [corporate_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    corporate_info.text = @"Corporate CEOs are the only ones that can hack tech districts (but they can't make exploits for them). Capturing these districts gives bonuses to their corporation as well as their entire faction.";
+    corporate_info.text = @"Corporate CEOs are the only ones that can hack tech districts as only they can create a corporation. Capturing these districts gives bonuses to their corporation as well as their entire faction.";
     [self.view addSubview:corporate_info];
     
     UITextView *researcher_info = [[UITextView alloc] init];

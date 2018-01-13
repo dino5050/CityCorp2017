@@ -75,12 +75,12 @@ NSString *email;
    // _error.text = username;
     _errorCharacters.text = @"";
  //   ENCRYPT password
-    
-    [self performSegueWithIdentifier:@"register" sender:self];
+    NSString *key = @"1011240748";
+ //   [self performSegueWithIdentifier:@"register" sender:self];
     Functions *users = [[Functions alloc] init];
     NSString *msg;
-    if(username.length > 3 && username.length < 16 && password.length > 3 && password.length < 16 && [password isEqualToString:password2] && email.length > 3 && email.length < 32) {
-        msg = [users httprequest:@"name,password,email" :[NSString stringWithFormat:@"%@,%@,%@", username, password, email] :@"users.php"];
+    if(username.length > 3 && username.length < 17 && password.length > 3 && password.length < 17 && [password isEqualToString:password2] && email.length > 3 && email.length < 32) {
+        msg = [users httprequest:@"name,password,email,key" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, password, email, key] :@"users.php"];
     }
     if([msg isEqualToString:@"usernameTaken"]) _error.text = @"Username taken";
     else if([msg isEqualToString:@"emailTaken"]) _errorEmail.text = @"Email already exists";
@@ -89,7 +89,7 @@ NSString *email;
     else if([msg isEqualToString:@"illegalEmail"]) _errorEmail.text = @"Illegal characters used";
     else if([msg isEqualToString:@"accepted"])[self performSegueWithIdentifier:@"register" sender:self];
     else _errorCharacters.text = @"Illegal characters used";
-    printf("%s", [msg UTF8String]);
+ //   printf("%s", [msg UTF8String]);
     
 }
 /*

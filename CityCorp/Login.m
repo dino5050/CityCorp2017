@@ -12,31 +12,26 @@
 #import "Button.h"
 #import "Functions.h"
 @interface Login ()
-@property (weak, nonatomic) IBOutlet UITextField *username;
+
+@property (weak, nonatomic) IBOutlet UITextView *error;
 
 @end
 
 @implementation Login
-/*- (IBAction)Button:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"main" sender:self];
+- (IBAction)username:(UITextField *)sender {
+    username1 = sender.text;
 }
-*/
+- (IBAction)password:(UITextField *)sender {
+    password1 = sender.text;
+}
+
 
 //int login = 1;
 int registered = 1;
 Button* login;
-- (IBAction)username:(UITextField *)sender {
-    if(_username.text.length < 20){
-        //use and update textfield 'too many chars'
-     //   [self performSegueWithIdentifier:@"map" sender:nil];
-    }
-}
-- (IBAction)password:(UITextField *)sender {
-    if(_username.text.length < 20){
-        //use and update textfield 'too many chars'
+NSString *username1;
+NSString *password1;
 
-    }
-}
 
 
 /*-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
@@ -61,15 +56,33 @@ Button* login;
     Button *register1 = [[Button alloc] init];
     register1.name = @"signup";
     [self.view addSubview:[register1 button: CGRectMake(screenSize.width/2+5, screenSize.height/1.28 - 125, 110.0, 40.0)]];
+    
+    Button *forgot = [[Button alloc] init];
+    forgot.name = @"forgot_password";
+    [self.view addSubview:[forgot button2: CGRectMake(screenSize.width/2-100, screenSize.height/1.28 - 80, 215.0, 20.0)]];
   
 }
 
 -(void)login{    
-    [self performSegueWithIdentifier:@"login" sender:self];
+  //  [self performSegueWithIdentifier:@"login" sender:self];
+    Functions *login = [[Functions alloc] init];
+    NSString *key = @"1011240748";
+    NSString *auth = [login httprequest:@"name,password,key" :[NSString stringWithFormat:@"%@,%@,%@", username1, password1, key] :@"login.php"];
+    if([auth isEqualToString:@"granted"]) {
+        [self performSegueWithIdentifier:@"login" sender:self];
+        _error.text = @"";
+        //set preferences
+    }
+    else if([auth isEqualToString:@"denied"]) _error.text = @"Wrong combination of username/password";
+
 }
 -(void)signup{
     [self performSegueWithIdentifier:@"signup" sender:self];
 }
+-(void)forgot_password{
+    [self performSegueWithIdentifier:@"forgot" sender:self];
+}
+
 /*-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"login"]){
         MainMenu *destViewController = segue.destinationViewController;
