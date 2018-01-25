@@ -44,6 +44,9 @@ NSString *email1;
     else if([access isEqualToString:@"emailNotFound"]) _error.text = @"Email not found";
 
 }
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 /*
 #pragma mark - Navigation
 

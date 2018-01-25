@@ -31,6 +31,7 @@ int registered = 1;
 Button* login;
 NSString *username1;
 NSString *password1;
+NSUserDefaults *preferences;
 
 
 
@@ -44,7 +45,9 @@ NSString *password1;
     [super viewDidLoad];
 //    Functions *users = [[Functions alloc] init];
 //    [users httprequest:@"name,password,email" :@"dino5050,1011,dino5050@hotmail.com" :@"users.php"];
-
+    
+    
+    
 //add register button and ifregistered vdefault value
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
@@ -60,15 +63,23 @@ NSString *password1;
     Button *forgot = [[Button alloc] init];
     forgot.name = @"forgot_password";
     [self.view addSubview:[forgot button2: CGRectMake(screenSize.width/2-100, screenSize.height/1.28 - 80, 215.0, 20.0)]];
-  
+    preferences = [NSUserDefaults standardUserDefaults];
+    printf("%s", [[preferences stringForKey:@"username"] UTF8String]);
+    
+    [self.view endEditing:YES];
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 -(void)login{    
   //  [self performSegueWithIdentifier:@"login" sender:self];
     Functions *login = [[Functions alloc] init];
     NSString *key = @"1011240748";
     NSString *auth = [login httprequest:@"name,password,key" :[NSString stringWithFormat:@"%@,%@,%@", username1, password1, key] :@"login.php"];
     if([auth isEqualToString:@"granted"]) {
+        preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setObject:username1 forKey:@"username"];
+    //    [preferences synchronize];
         [self performSegueWithIdentifier:@"login" sender:self];
         _error.text = @"";
         //set preferences
@@ -93,9 +104,21 @@ NSString *password1;
    // if(registered==1) [self performSegueWithIdentifier:@"login" sender:self];
     //else if password correct [self performSegueWithIdentifier:@"login" sender:self];
     //else wrong password
-    
+    preferences = [NSUserDefaults standardUserDefaults];
+    Functions *hasProfession = [[Functions alloc] init];
+    if([preferences objectForKey:@"username"] != nil){
+        int profession = [[hasProfession httprequest:@"name" :[preferences objectForKey:@"username"] :@"checkProfession.php"] intValue];
+        if([preferences objectForKey:@"hasProfession"] != nil || profession != 0){
+            if([preferences objectForKey:@"hasProfession"] == nil){[preferences setInteger:1 forKey:@"hasProfession"];}
+            [self performSegueWithIdentifier:@"login" sender:self];
+        }
+        else [self performSegueWithIdentifier:@"profession" sender:self];
+    }
+    printf("%s", [[preferences stringForKey:@"hasProfession"] UTF8String]);
 }
+//FIX MINIMIZE KEYBOARD AND PROFESSION
 
+//ADD hasPROFESSION column in users
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

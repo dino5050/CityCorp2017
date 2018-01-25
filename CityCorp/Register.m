@@ -8,12 +8,15 @@
 
 #import "Register.h"
 #import "Button.h"
+#import "Functions.h"
 
 @interface Register ()
 
 @end
 
 @implementation Register
+
+NSUserDefaults *preferences1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,7 +50,7 @@
     corporate_info.frame = CGRectMake(130, 210, 195, 120);
     [corporate_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [corporate_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    corporate_info.text = @"Corporate CEOs are the only ones that can hack tech districts as only they can create a corporation. Capturing these districts gives bonuses to their corporation as well as their entire faction.";
+    corporate_info.text = @"Corporate CEOs are the only ones that can hack tech districts as only they can create a corporation. Capturing these districts gives bonuses to their corporation as well as their entire faction. (Note: You can only be in a corporation that you created)";
     [self.view addSubview:corporate_info];
     
     UITextView *researcher_info = [[UITextView alloc] init];
@@ -71,8 +74,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+// if hasProfession characterChange.php
 -(void)hacker{
-    
+    Functions *profession = [[Functions alloc] init];
+    preferences1 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences1 stringForKey:@"username"];
+    [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Hacker"] :@"character.php"];
+    [preferences1 setInteger:1 forKey:@"hasProfession"];
+    [self performSegueWithIdentifier:@"registered" sender:self];
+}
+-(void)corporate{
+    Functions *profession = [[Functions alloc] init];
+    preferences1 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences1 stringForKey:@"username"];
+    [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Corporate"] :@"character.php"];
+    [preferences1 setInteger:1 forKey:@"hasProfession"];
+    [self performSegueWithIdentifier:@"registered" sender:self];
+}
+-(void)researcher{
+    Functions *profession = [[Functions alloc] init];
+    preferences1 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences1 stringForKey:@"username"];
+    [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Researcher"] :@"character.php"];
+    [preferences1 setInteger:1 forKey:@"hasProfession"];
+    [self performSegueWithIdentifier:@"registered" sender:self];
+}
+-(void)constructor{
+    Functions *profession = [[Functions alloc] init];
+    preferences1 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences1 stringForKey:@"username"];
+    [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Constructor"] :@"character.php"];
+    [preferences1 setInteger:1 forKey:@"hasProfession"];
     [self performSegueWithIdentifier:@"registered" sender:self];
 }
 /*

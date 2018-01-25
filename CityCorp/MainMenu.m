@@ -8,6 +8,7 @@
 
 #import "MainMenu.h"
 #import "Button.h"
+#import "Functions.h"
 //#import <QuartzCore/QuartzCore.h>
 
 @interface MainMenu ()
@@ -16,6 +17,7 @@
 
 @implementation MainMenu
 
+NSUserDefaults *preferences3;
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
     
 }
@@ -51,6 +53,33 @@
     panel.layer.borderWidth = 2.0f;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [self.view addSubview:panel];
+    
+    Button* changeProfession = [[Button alloc] init];
+    changeProfession.name = @"change_profession";
+    [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
+    
+    Button* help = [[Button alloc] init];
+    help.name = @"help";
+    [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+//    make join corp/create corp/go to corp button
+ 
+//    try to make prefences variable global
+    
+    UITextView *info = [[UITextView alloc] init];
+    info.font = [UIFont fontWithName:@"Arial" size:14];
+    info.frame = CGRectMake(5, 5, 300, 250);
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *get_char_info = [[Functions alloc] init];
+    NSString *char_info = [get_char_info httprequest:@"name" :username :@"get_char_info.php"];
+    NSArray *values = [ char_info componentsSeparatedByString: @","];
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6]];
+    [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
+    [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    [panel addSubview:info];
+    
+  //  printf("%s", [[preferences3 stringForKey:@"hasProfession"] UTF8String]);
 }
 -(void)viewDidAppear:(BOOL)animated{
     //load data from default values (username)

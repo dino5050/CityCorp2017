@@ -24,6 +24,7 @@ NSString *username;
 NSString *password;
 NSString *password2;
 NSString *email;
+NSUserDefaults *preferences2;
 
 
 @implementation Signup
@@ -81,6 +82,8 @@ NSString *email;
     NSString *msg;
     if(username.length > 3 && username.length < 17 && password.length > 3 && password.length < 17 && [password isEqualToString:password2] && email.length > 3 && email.length < 32) {
         msg = [users httprequest:@"name,password,email,key" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, password, email, key] :@"users.php"];
+        preferences2 = [NSUserDefaults standardUserDefaults];
+        [preferences2 setObject:username forKey:@"username"];
     }
     if([msg isEqualToString:@"usernameTaken"]) _error.text = @"Username taken";
     else if([msg isEqualToString:@"emailTaken"]) _errorEmail.text = @"Email already exists";
@@ -91,6 +94,9 @@ NSString *email;
     else _errorCharacters.text = @"Illegal characters used";
  //   printf("%s", [msg UTF8String]);
     
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 /*
 #pragma mark - Navigation
