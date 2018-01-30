@@ -81,6 +81,7 @@ NSUserDefaults *preferences1;
     NSString *username = [preferences1 stringForKey:@"username"];
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Hacker"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
+    [preferences1 setObject:@"hacker" forKey:@"profession"];
     [self performSegueWithIdentifier:@"registered" sender:self];
 }
 -(void)corporate{
@@ -89,6 +90,7 @@ NSUserDefaults *preferences1;
     NSString *username = [preferences1 stringForKey:@"username"];
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Corporate"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
+    [preferences1 setObject:@"corporate" forKey:@"profession"];
     [self performSegueWithIdentifier:@"registered" sender:self];
 }
 -(void)researcher{
@@ -97,6 +99,7 @@ NSUserDefaults *preferences1;
     NSString *username = [preferences1 stringForKey:@"username"];
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Researcher"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
+    [preferences1 setObject:@"researcher" forKey:@"profession"];
     [self performSegueWithIdentifier:@"registered" sender:self];
 }
 -(void)constructor{
@@ -105,6 +108,7 @@ NSUserDefaults *preferences1;
     NSString *username = [preferences1 stringForKey:@"username"];
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Constructor"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
+    [preferences1 setObject:@"constructor" forKey:@"profession"];
     [self performSegueWithIdentifier:@"registered" sender:self];
 }
 /*
