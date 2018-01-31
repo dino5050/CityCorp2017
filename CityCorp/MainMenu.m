@@ -9,9 +9,13 @@
 #import "MainMenu.h"
 #import "Button.h"
 #import "Functions.h"
+@import GoogleMobileAds;
+
 //#import <QuartzCore/QuartzCore.h>
 
 @interface MainMenu ()
+
+@property(nonatomic, strong) GADBannerView *bannerView;
 
 @end
 
@@ -101,10 +105,18 @@ NSUserDefaults *preferences3;
     else corp.name = @"join_corp";
     [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-65, 180, 50.0)]];
     
-    dismiss main menu if corp button pressed
-    OR ALWAYS DISMISS VIEWCONTROLLERS
+ //   dismiss main menu if corp button pressed
+ //   OR ALWAYS DISMISS VIEWCONTROLLERS
     
   //  printf("%s", [[preferences3 stringForKey:@"hasProfession"] UTF8String]);
+    self.bannerView = [[GADBannerView alloc]
+                       initWithAdSize:kGADAdSizeBanner];
+    
+    [self addBannerViewToView:_bannerView];
+    
+    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.rootViewController = self;
+    [self.bannerView loadRequest:[GADRequest request]];
 }
 -(void)viewDidAppear:(BOOL)animated{
     //load data from default values (username)
@@ -113,7 +125,26 @@ NSUserDefaults *preferences3;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)addBannerViewToView:(UIView *)bannerView {
+    bannerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:bannerView];
+    [self.view addConstraints:@[
+                                [NSLayoutConstraint constraintWithItem:bannerView
+                                                             attribute:NSLayoutAttributeBottom
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.bottomLayoutGuide
+                                                             attribute:NSLayoutAttributeTop
+                                                            multiplier:1
+                                                              constant:0],
+                                [NSLayoutConstraint constraintWithItem:bannerView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.view
+                                                             attribute:NSLayoutAttributeCenterX
+                                                            multiplier:1
+                                                              constant:0]
+                                ]];
+}
 /*
 #pragma mark - Navigation
 
