@@ -21,6 +21,7 @@
 
 @implementation MainMenu
 
+UIView *panel;
 NSUserDefaults *preferences3;
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
     
@@ -52,7 +53,7 @@ NSUserDefaults *preferences3;
     space.name = @"";
     [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
     
-    UIView *panel = [[UIView alloc] initWithFrame:CGRectMake(10, 55+40, screenSize.width-10-10, screenSize.height-55-40-50)];
+    panel = [[UIView alloc] initWithFrame:CGRectMake(10, 55+40, screenSize.width-10-10, screenSize.height-55-40-50)];
     [panel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     panel.layer.borderWidth = 2.0f;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
@@ -125,6 +126,10 @@ NSUserDefaults *preferences3;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)create_corp{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
 - (void)addBannerViewToView:(UIView *)bannerView {
     bannerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:bannerView];
