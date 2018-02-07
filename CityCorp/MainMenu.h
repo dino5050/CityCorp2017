@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface MainMenu : UIViewController
 
 @property (nonatomic, strong) NSString* name;
-
 @end
