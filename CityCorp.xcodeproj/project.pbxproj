@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B057A892041C6F600619752 /* Faction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B057A882041C6F600619752 /* Faction.m */; };
 		4B1CAA411FF83DFE00E48B78 /* Register.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CAA401FF83DFE00E48B78 /* Register.m */; };
 		4B2C46111FE5AD39006F645F /* ABDUCTION.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */; };
 		4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B49D7A11FFBD1EF00F33B24 /* Signup.m */; };
@@ -48,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B057A872041C6F600619752 /* Faction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Faction.h; sourceTree = "<group>"; };
+		4B057A882041C6F600619752 /* Faction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Faction.m; sourceTree = "<group>"; };
 		4B1CAA3F1FF83DFE00E48B78 /* Register.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
 		4B1CAA401FF83DFE00E48B78 /* Register.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Register.m; sourceTree = "<group>"; };
 		4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = ABDUCTION.TTF; path = CityCorp/ABDUCTION.TTF; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 				4B62F17C202A733100DD99BD /* Market.m */,
 				4B62F17E202A738F00DD99BD /* Social.h */,
 				4B62F17F202A738F00DD99BD /* Social.m */,
+				4B057A872041C6F600619752 /* Faction.h */,
+				4B057A882041C6F600619752 /* Faction.m */,
 			);
 			path = CityCorp;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 				4B9ECEC61FE0A18200D55D5B /* Hexagon.m in Sources */,
 				4B9ECE911FE09FEF00D55D5B /* AppDelegate.m in Sources */,
 				4BFF1DF81FF57465007902A1 /* Functions.m in Sources */,
+				4B057A892041C6F600619752 /* Faction.m in Sources */,
 				4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -57,6 +57,20 @@ UIButton *button;
     [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:10]];
     return button;
 }
+
+-(UIButton *) back: (CGRect) rect{
+    SEL selector1 = NSSelectorFromString(name);
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:selector1 forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"<<" forState:UIControlStateNormal];
+    button.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+    [button setTitleColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:255] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    button.layer.borderWidth = 2.0f;
+    button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
+    return button;
+}
 -(UIButton *) space: (CGRect) rect{
     SEL selector1 = NSSelectorFromString(name);
     button = [UIButton buttonWithType:UIButtonTypeCustom];

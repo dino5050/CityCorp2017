@@ -25,7 +25,7 @@ static UIView *panel;
     
     Button* back = [[Button alloc] init];
     back.name = @"back";
-    [self.view addSubview:[back button2: CGRectMake(10, 40, 85, 50.0)]];
+    [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
     
     /*   Button* space = [[Button alloc] init];

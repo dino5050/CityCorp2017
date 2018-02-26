@@ -98,7 +98,7 @@ static NSUserDefaults *preferences3;
     get_char_info = [[Functions alloc] init];
     char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6]];
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]];
     [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:info];

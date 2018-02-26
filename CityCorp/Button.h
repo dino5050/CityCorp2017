@@ -12,6 +12,7 @@
 //+(UIButton *)button: (NSString *)name : (NSInteger *)x :  (NSInteger *)y : (NSInteger *)width : (NSInteger *)height;
 -(UIButton *)button: (CGRect)rect;
 -(UIButton *)button2: (CGRect)rect;
+-(UIButton *)back: (CGRect)rect;
 -(UIButton *)space: (CGRect)rect;
 -(void)clicked:(UIButton *) button;
 

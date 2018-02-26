@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *error;
 
+@property (weak, nonatomic) IBOutlet UITextView *connecting;
+
 @end
 
 @implementation Login
@@ -49,24 +51,7 @@ NSUserDefaults *preferences;
     
     
 //add register button and ifregistered vdefault value
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
-
-    Button* login = [[Button alloc] init];
-    login.name = @"login";
-    [self.view addSubview:[login button: CGRectMake(screenSize.width/2-100, screenSize.height/1.28-125, 100, 40.0)]];
-  
-    Button *register1 = [[Button alloc] init];
-    register1.name = @"signup";
-    [self.view addSubview:[register1 button: CGRectMake(screenSize.width/2+5, screenSize.height/1.28 - 125, 110.0, 40.0)]];
     
-    Button *forgot = [[Button alloc] init];
-    forgot.name = @"forgot_password";
-    [self.view addSubview:[forgot button2: CGRectMake(screenSize.width/2-100, screenSize.height/1.28 - 80, 215.0, 20.0)]];
-    preferences = [NSUserDefaults standardUserDefaults];
-    printf("%s", [[preferences stringForKey:@"username"] UTF8String]);
-    
-    [self.view endEditing:YES];
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
@@ -108,11 +93,36 @@ NSUserDefaults *preferences;
     Functions *hasProfession = [[Functions alloc] init];
     if([preferences objectForKey:@"username"] != nil){
         int profession = [[hasProfession httprequest:@"name" :[preferences objectForKey:@"username"] :@"checkProfession.php"] intValue];
+        int faction = [[hasProfession httprequest:@"name" :[preferences objectForKey:@"username"] :@"checkFaction.php"] intValue];
         if([preferences objectForKey:@"hasProfession"] != nil || profession != 0){
-            if([preferences objectForKey:@"hasProfession"] == nil){[preferences setInteger:1 forKey:@"hasProfession"];}
-            [self performSegueWithIdentifier:@"login" sender:self];
+            if([preferences objectForKey:@"hasProfession"] == nil && faction != 0){[preferences setInteger:1 forKey:@"hasProfession"];
+                [preferences setInteger:1 forKey:@"hasFaction"];
+                [self performSegueWithIdentifier:@"login" sender:self];}
+            else [self performSegueWithIdentifier:@"faction2" sender:self];
         }
+        //else if(profession != 0)[self performSegueWithIdentifier:@"faction2" sender:self];
         else [self performSegueWithIdentifier:@"profession" sender:self];
+    }else{
+        CGRect screenBound = [[UIScreen mainScreen] bounds];
+        CGSize screenSize = screenBound.size;
+        
+        [_connecting removeFromSuperview];
+        
+        Button* login = [[Button alloc] init];
+        login.name = @"login";
+        [self.view addSubview:[login button: CGRectMake(screenSize.width/2-100, screenSize.height/1.28-125, 100, 40.0)]];
+        
+        Button *register1 = [[Button alloc] init];
+        register1.name = @"signup";
+        [self.view addSubview:[register1 button: CGRectMake(screenSize.width/2+5, screenSize.height/1.28 - 125, 110.0, 40.0)]];
+        
+        Button *forgot = [[Button alloc] init];
+        forgot.name = @"forgot_password";
+        [self.view addSubview:[forgot button2: CGRectMake(screenSize.width/2-100, screenSize.height/1.28 - 80, 215.0, 20.0)]];
+        preferences = [NSUserDefaults standardUserDefaults];
+        printf("%s", [[preferences stringForKey:@"username"] UTF8String]);
+        
+        [self.view endEditing:YES];
     }
     printf("%s", [[preferences stringForKey:@"hasProfession"] UTF8String]);
 }

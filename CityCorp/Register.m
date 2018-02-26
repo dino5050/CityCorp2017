@@ -26,16 +26,16 @@ NSUserDefaults *preferences1;
     [self.view addSubview:[hacker button2: CGRectMake(5, 120, 120, 50.0)]];
     
     Button* corporate = [[Button alloc] init];
-    hacker.name = @"corporate";
-    [self.view addSubview:[hacker button2: CGRectMake(5, 240, 120, 50.0)]];
+    corporate.name = @"corporate";
+    [self.view addSubview:[corporate button2: CGRectMake(5, 240, 120, 50.0)]];
     
     Button* researcher = [[Button alloc] init];
-    hacker.name = @"researcher";
-    [self.view addSubview:[hacker button2: CGRectMake(5, 360, 120, 50.0)]];
+    researcher.name = @"researcher";
+    [self.view addSubview:[researcher button2: CGRectMake(5, 360, 120, 50.0)]];
     
     Button* constructor = [[Button alloc] init];
-    hacker.name = @"constructor";
-    [self.view addSubview:[hacker button2: CGRectMake(5, 480, 120, 50.0)]];
+    constructor.name = @"constructor";
+    [self.view addSubview:[constructor button2: CGRectMake(5, 480, 120, 50.0)]];
     
     UITextView *hacker_info = [[UITextView alloc] init];
     hacker_info.font = [UIFont fontWithName:@"Arial" size:12];
@@ -82,7 +82,7 @@ NSUserDefaults *preferences1;
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Hacker"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
     [preferences1 setObject:@"hacker" forKey:@"profession"];
-    [self performSegueWithIdentifier:@"registered" sender:self];
+    [self performSegueWithIdentifier:@"faction" sender:self];
 }
 -(void)corporate{
     Functions *profession = [[Functions alloc] init];
@@ -91,7 +91,7 @@ NSUserDefaults *preferences1;
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Corporate"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
     [preferences1 setObject:@"corporate" forKey:@"profession"];
-    [self performSegueWithIdentifier:@"registered" sender:self];
+    [self performSegueWithIdentifier:@"faction" sender:self];
 }
 -(void)researcher{
     Functions *profession = [[Functions alloc] init];
@@ -100,7 +100,7 @@ NSUserDefaults *preferences1;
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Researcher"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
     [preferences1 setObject:@"researcher" forKey:@"profession"];
-    [self performSegueWithIdentifier:@"registered" sender:self];
+    [self performSegueWithIdentifier:@"faction" sender:self];
 }
 -(void)constructor{
     Functions *profession = [[Functions alloc] init];
@@ -109,7 +109,7 @@ NSUserDefaults *preferences1;
     [profession httprequest:@"name,profession" :[NSString stringWithFormat:@"%@,%@", username, @"Constructor"] :@"character.php"];
     [preferences1 setInteger:1 forKey:@"hasProfession"];
     [preferences1 setObject:@"constructor" forKey:@"profession"];
-    [self performSegueWithIdentifier:@"registered" sender:self];
+    [self performSegueWithIdentifier:@"faction" sender:self];
 }
 /*
 #pragma mark - Navigation
