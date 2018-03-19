@@ -98,6 +98,11 @@ NSUserDefaults *preferences;
             if([preferences objectForKey:@"hasProfession"] == nil && faction != 0){[preferences setInteger:1 forKey:@"hasProfession"];
                 [preferences setInteger:1 forKey:@"hasFaction"];
                 [self performSegueWithIdentifier:@"login" sender:self];}
+            else if([preferences objectForKey:@"hasFaction"] == nil && faction != 0){
+                [preferences setInteger:1 forKey:@"hasFaction"];
+                [self performSegueWithIdentifier:@"login" sender:self];
+            }
+            else if([preferences objectForKey:@"hasFaction"] != nil) [self performSegueWithIdentifier:@"login" sender:self];
             else [self performSegueWithIdentifier:@"faction2" sender:self];
         }
         //else if(profession != 0)[self performSegueWithIdentifier:@"faction2" sender:self];

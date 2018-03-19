@@ -93,14 +93,16 @@ static NSUserDefaults *preferences3;
     info = [[UITextView alloc] init];
     info.font = [UIFont fontWithName:@"Arial" size:14];
     info.frame = CGRectMake(5, 5, 200, 150);
+    [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
+    [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    //info.text = @"";
     
     username3 = [preferences3 stringForKey:@"username"];
     get_char_info = [[Functions alloc] init];
-    char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
+    @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
     info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]];
-    [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
-    [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    
     [panel addSubview:info];
     
     message = [[UITextView alloc] init];
@@ -115,7 +117,8 @@ static NSUserDefaults *preferences3;
     else if([values[2] isEqualToString:@"Researcher"]) [preferences3 setObject:@"researcher" forKey:@"profession"];
     else if ([values[2] isEqualToString:@"Hacker"]) [preferences3 setObject:@"hacker" forKey:@"profession"];
     else if ([values[2] isEqualToString:@"Constructor"]) [preferences3 setObject:@"constructor" forKey:@"profession"];
-    
+    }@catch(NSException *error){info.text = @"No Internet Connection"; [panel addSubview:info];}
+  //  if([info.text isEqualToString:@""]) info.text = @"No Internet Connection";
     Button *corp = [[Button alloc] init];
     if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"] && [preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
     else if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"]) corp.name = @"create_corp";

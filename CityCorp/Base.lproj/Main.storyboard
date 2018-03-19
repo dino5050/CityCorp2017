@@ -185,7 +185,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Choose  a  Faction" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4PH-NW-iFW">
-                                <rect key="frame" x="16" y="45" width="304" height="44"/>
+                                <rect key="frame" x="16" y="35" width="304" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.02591611445" green="0.038489554080000002" blue="0.038894828409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" red="0.99992281199999999" green="1" blue="0.99988037350000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

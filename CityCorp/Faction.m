@@ -23,11 +23,11 @@ NSUserDefaults *preferences4;
     
     Button* statists = [[Button alloc] init];
     statists.name = @"statists";
-    [self.view addSubview:[statists button2: CGRectMake(5, 120, 120, 50.0)]];
+    [self.view addSubview:[statists button2: CGRectMake(5, 110, 120, 50.0)]];
     
     Button* globalists = [[Button alloc] init];
     globalists.name = @"globalists";
-    [self.view addSubview:[globalists button2: CGRectMake(5, 245, 120, 50.0)]];
+    [self.view addSubview:[globalists button2: CGRectMake(5, 235, 120, 50.0)]];
     
     Button* capitalists = [[Button alloc] init];
     capitalists.name = @"capitalists";
@@ -39,7 +39,7 @@ NSUserDefaults *preferences4;
     
     UITextView *statists_info = [[UITextView alloc] init];
     statists_info.font = [UIFont fontWithName:@"Arial" size:12];
-    statists_info.frame = CGRectMake(130, 90, 195, 120);
+    statists_info.frame = CGRectMake(130, 70, 195, 120);
     [statists_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [statists_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     statists_info.text = @"Statists argue for an indepentent socialist state. With nationalist tendencies, they are wary of outsiders, and push for limited immigration. They benefit within CityCorp's market where they enjoy a 15% discount on all CCMarket purchases.";
@@ -47,18 +47,18 @@ NSUserDefaults *preferences4;
     
     UITextView *globalists_info = [[UITextView alloc] init];
     globalists_info.font = [UIFont fontWithName:@"Arial" size:12];
-    globalists_info.frame = CGRectMake(130, 215, 195, 125);
+    globalists_info.frame = CGRectMake(130, 190, 195, 140);
     [globalists_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [globalists_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    globalists_info.text = @"Globalists argue for the city's sovereignty to be dissolved into the New World Order. They are for open borders and welcomes all outsiders, including their votes of course. They benefit within CityCorp's market where they enjoy a 15% subsidy when selling to the CCMarket";
+    globalists_info.text = @"Globalists argue for the city's sovereignty to be dissolved into the New World Order. They are for open borders and welcomes all outsiders, including their votes of course. They benefit within CityCorp's market where they enjoy a 15% subsidy when selling to the CCMarket.";
     [self.view addSubview:globalists_info];
     
     UITextView *capitalists_info = [[UITextView alloc] init];
     capitalists_info.font = [UIFont fontWithName:@"Arial" size:12];
-    capitalists_info.frame = CGRectMake(130, 335, 195, 125);
+    capitalists_info.frame = CGRectMake(130, 320, 195, 155);
     [capitalists_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [capitalists_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    capitalists_info.text = @"Capalists argue for anything that will make their wallets fatter. They are multiculturalists one day, and obtain a sense of nationalistic pride the next, whichever is most profitable during business hours. They benefit from extra bonuses given to them when hacking industrial districts, the main wealth injector of the city.";
+    capitalists_info.text = @"Capalists argue for anything that will make their wallets fatter. They are multiculturalists one day, and obtain a sense of nationalistic pride the next, whichever is most profitable during business hours. They benefit from extra bonuses given to them when hacking industrial districts."; //the main wealth injector of the city.";
     [self.view addSubview:capitalists_info];
     
     UITextView *outlaws_info = [[UITextView alloc] init];

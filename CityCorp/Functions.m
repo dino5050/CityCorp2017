@@ -56,7 +56,7 @@
      response = resp;
      error = err;
      fetchedData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-     }@catch(NSException *error){}
+     }@catch(NSException *error){}//{fetchedData = @"none";}
 
     return fetchedData;
 }
