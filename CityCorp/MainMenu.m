@@ -160,7 +160,28 @@ static NSUserDefaults *preferences3;
 }
 -(void)help{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    UITextView *help = [[UITextView alloc] init];
+    help.frame = CGRectMake(panel.frame.size.width/2- 130, 50, 260, 60);
+    [help setText:@"Write us a question, error, or bug, and we'll get to you as soon as possible:"];
+    help.textAlignment=NSTextAlignmentCenter;
+    help.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+    help.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+    [panel addSubview:help];
+    UITextField *message = [[UITextField alloc] init];
+    message.backgroundColor=[UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+ //   message.font = [UIFont fontWithName:@"Arial" size:16];
+    message.frame = CGRectMake(panel.frame.size.width/2 - 140, 100, 280, 120);
+    Button *send = [[Button alloc] init];
+    send.name = @"send";
+    [panel addSubview:[send button2: CGRectMake(panel.frame.size.width/2-30, 100+125, 60, 50.0)]];
+
+    [panel addSubview:message];
+    
 }
+-(void)send{}
 -(void)back{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -180,7 +201,7 @@ static NSUserDefaults *preferences3;
     
     
     username3 = [preferences3 stringForKey:@"username"];
-    char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
+    @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
     info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6]];
  //   [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
@@ -197,7 +218,7 @@ static NSUserDefaults *preferences3;
     else if([values[2] isEqualToString:@"Researcher"]) [preferences3 setObject:@"researcher" forKey:@"profession"];
     else if ([values[2] isEqualToString:@"Hacker"]) [preferences3 setObject:@"hacker" forKey:@"profession"];
     else if ([values[2] isEqualToString:@"Constructor"]) [preferences3 setObject:@"constructor" forKey:@"profession"];
-    
+    }@catch(NSException *error){info.text = @"No Internet Connection"; [panel addSubview:info];}
     Button *corp = [[Button alloc] init];
     if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"] && [preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
     else if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"]) corp.name = @"create_corp";
