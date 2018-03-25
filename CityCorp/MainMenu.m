@@ -68,13 +68,7 @@ static NSUserDefaults *preferences3;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [self.view addSubview:panel];
     
-    Button *changeProfession = [[Button alloc] init];
-    changeProfession.name = @"change_profession";
-    [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
     
-    Button *help = [[Button alloc] init];
-    help.name = @"help";
-    [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
   //  printf("%s", [[preferences3 stringForKey:@"hasProfession"] UTF8String]);
     self.bannerView = [[GADBannerView alloc]
@@ -88,6 +82,13 @@ static NSUserDefaults *preferences3;
 }
 -(void)viewDidAppear:(BOOL)animated{
     //load data from default values (username)
+    Button *changeProfession = [[Button alloc] init];
+    changeProfession.name = @"change_profession";
+    [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
+    
+    Button *help = [[Button alloc] init];
+    help.name = @"help";
+    [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     preferences3 = [NSUserDefaults standardUserDefaults];
     
     info = [[UITextView alloc] init];
@@ -141,20 +142,39 @@ static NSUserDefaults *preferences3;
     Button *back = [[Button alloc] init];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    UITableView *corps = [[UITableView alloc] init];
+    corps.frame = CGRectMake(panel.frame.size.width/2-100, 50, 200, 500);
+    corps.layer.borderWidth = 2.0;
+    corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    
+    UITableViewCell *cell = [corps dequeueReusableCellWithIdentifier:@"fdfdfd"];
+    
+    NSIndexPath *path = [corps indexPathForCell:cell];
+    [path indexAtPosition:1];
+    [self tableView:corps cellForRowAtIndexPath:path];
+    [corps cellForRowAtIndexPath:path];
+    
+    [panel addSubview:corps];
+    
 }
 -(void)map{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self performSegueWithIdentifier:@"map" sender:self];
  //   [self dismissViewControllerAnimated:true completion:nil];
 }
 -(void)terminal{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self performSegueWithIdentifier:@"terminal" sender:self];
     //   [self dismissViewControllerAnimated:true completion:nil];
 }
 -(void)social{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self performSegueWithIdentifier:@"social" sender:self];
     //   [self dismissViewControllerAnimated:true completion:nil];
 }
 -(void)market{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self performSegueWithIdentifier:@"market" sender:self];
     //   [self dismissViewControllerAnimated:true completion:nil];
 }
@@ -225,6 +245,19 @@ static NSUserDefaults *preferences3;
     else if([preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
     else corp.name = @"join_corp";
     [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-65, 180, 50.0)]];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
+    
+    UILabel *label;
+    
+    label = (UILabel *)[cell viewWithTag:1];
+    label.text = @"Hello";
+    label.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+    
+    
+    return cell;
 }
 - (void)addBannerViewToView:(UIView *)bannerView {
     bannerView.translatesAutoresizingMaskIntoConstraints = NO;

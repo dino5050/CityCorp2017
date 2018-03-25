@@ -33,6 +33,9 @@ static UIView *panel;
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
     
+    
+    
+    
  /*   Button* space = [[Button alloc] init];
     space.name = @"";
     [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
@@ -41,7 +44,20 @@ static UIView *panel;
     [panel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     panel.layer.borderWidth = 2.0f;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    [panel setClipsToBounds:TRUE];
     [self.view addSubview:panel];
+    
+    UIImage *rey5 = [UIImage imageNamed:@"Reykjavik5_3-1.png"];
+    UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
+    rey.frame = CGRectMake(0, 0, 900*0.63, 959*0.63);
+    [panel addSubview:rey];
+    
+    Hexagon *tech = [[Hexagon alloc] initWithFrame:CGRectMake(3, 150, 400, 400)];
+    [panel addSubview:tech];
+    tech.backgroundColor = [UIColor clearColor];
+  //  [rey setClipsToBounds:TRUE];
+    
+    
     
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];
