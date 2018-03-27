@@ -24,9 +24,9 @@
         x = 51/3;
         int j = 0;
         //while(x>130 - y && x<900/5  - y/2 && x<900/10 + y/2 && x > -900/7 + y/2){
-        while(j<5){
+        while(j<6){
             x = x + 100/3;
-            if((i != 0 || j != 0) && (i!=0 || j!=4) && (i!=3 || j!=4) && (i!=3 || j!=0)){
+            if((i!=0 || j!=0) && (i!=0 || j!=4) && (i!=3 || j!=4) && (i!=3 || j!=0) && (i!=0 || j!=5) && (i!=3 || j!=5)){
             CGContextRef context = UIGraphicsGetCurrentContext();
             //   CGContextRotateCTM(context, 30*M_PI/180);
             int sides = 6;
@@ -67,7 +67,7 @@
             
             center = CGPointMake(x+x1, y+y1);
             //  rotate slope equation 30 degrees
-            if((i!=2 || j!=2) && (i!=1 || j!=3) && (i!=1 || j!=0)){
+            if((i!=2 || j!=2) && (i!=1 || j!=3)){
             CGContextMoveToPoint(context, center.x, center.y-radius);
             for (NSUInteger k=1; k<sides; k++) {
                 float x = radius * sin(k * theta);
