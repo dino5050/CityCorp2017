@@ -18,6 +18,7 @@
 @property(nonatomic, strong) GADBannerView *bannerView;
 @end
 
+
 @implementation MainMenu
 
 static UIView *panel;
@@ -32,6 +33,7 @@ static UITextView *message;
 static Button* corp;
 static Button* back;
 static NSUserDefaults *preferences3;
+
 
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
     
@@ -144,16 +146,20 @@ static NSUserDefaults *preferences3;
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     UITableView *corps = [[UITableView alloc] init];
+    
     corps.frame = CGRectMake(panel.frame.size.width/2-100, 50, 200, 500);
     corps.layer.borderWidth = 2.0;
+    
     corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    
-    UITableViewCell *cell = [corps dequeueReusableCellWithIdentifier:@"fdfdfd"];
-    
-    NSIndexPath *path = [corps indexPathForCell:cell];
-    [path indexAtPosition:1];
-    [self tableView:corps cellForRowAtIndexPath:path];
-    [corps cellForRowAtIndexPath:path];
+    corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
+    [corps beginUpdates];
+   // NSArray *corpArray = [[NSArray alloc] init];
+    NSArray *corpArray = @[@"1",@"2",@"3",@"4"];
+    NSArray *arr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:corpArray.count-1 inSection:0]];
+    [corps insertRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationAutomatic];
+
+ //   [corps reloadData];
+    [corps endUpdates];
     
     [panel addSubview:corps];
     
@@ -246,19 +252,7 @@ static NSUserDefaults *preferences3;
     else corp.name = @"join_corp";
     [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-65, 180, 50.0)]];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
-    
-    UILabel *label;
-    
-    label = (UILabel *)[cell viewWithTag:1];
-    label.text = @"Hello";
-    label.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
-    
-    
-    return cell;
-}
+
 - (void)addBannerViewToView:(UIView *)bannerView {
     bannerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:bannerView];

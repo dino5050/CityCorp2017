@@ -49,7 +49,7 @@ static UIView *panel;
     
     UIImage *rey5 = [UIImage imageNamed:@"Reykjavik5_3-1.png"];
     UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
-    rey.frame = CGRectMake(0, -60, 900*0.63, 959*0.63);
+    rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
     [panel addSubview:rey];
     
     Hexagon *tech = [[Hexagon alloc] initWithFrame:CGRectMake(3, 90, 400, 400)];
