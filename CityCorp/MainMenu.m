@@ -13,7 +13,7 @@
 
 //#import <QuartzCore/QuartzCore.h>
 
-@interface MainMenu ()
+@interface MainMenu () <UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic, strong) GADBannerView *bannerView;
 @end
@@ -33,6 +33,7 @@ static UITextView *message;
 static Button* corp;
 static Button* back;
 static NSUserDefaults *preferences3;
+NSArray *array2;
 
 
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
@@ -145,7 +146,9 @@ static NSUserDefaults *preferences3;
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
-    UITableView *corps = [[UITableView alloc] init];
+    array2 = @[ @"Monday", @"Tuesday", @"Wednesday",@"Thursday",@"Friday",@"Saturday",@"Sunday"];
+    [self configureTableview];
+/*    UITableView *corps = [[UITableView alloc] init];
     
     corps.frame = CGRectMake(panel.frame.size.width/2-100, 50, 200, 500);
     corps.layer.borderWidth = 2.0;
@@ -154,15 +157,16 @@ static NSUserDefaults *preferences3;
     corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
     [corps beginUpdates];
    // NSArray *corpArray = [[NSArray alloc] init];
+    [self cofigureTableview];
     NSArray *corpArray = @[@"1",@"2",@"3",@"4"];
     NSArray *arr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:corpArray.count-1 inSection:0]];
     [corps insertRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationAutomatic];
-
+    
  //   [corps reloadData];
     [corps endUpdates];
     
     [panel addSubview:corps];
-    
+    */
 }
 -(void)map{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -273,6 +277,65 @@ static NSUserDefaults *preferences3;
                                                               constant:0]
                                 ]];
 }
+-(void)configureTableview
+{
+ //   UITableView *corps = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    UITableView *corps = [[UITableView alloc] init];
+    corps.frame = CGRectMake(panel.frame.size.width/2-100, 50, 200, 500);
+    corps.layer.borderWidth = 2.0;
+    
+    corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
+    corps.delegate = self;
+    corps.dataSource = self;
+    [panel addSubview:corps];
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return array2.count;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    NSLog(@"title of cell %@", [array2 objectAtIndex:indexPath.row]);
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"cellIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if(cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        
+    }
+    cell.textLabel.text =  [array2 objectAtIndex:indexPath.row];
+    cell.detailTextLabel.text = @"jhkjgkjhkjhkj";
+    
+  /*  NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
+    UIImage *theImage = [UIImage imageWithContentsOfFile:path];
+    cell.imageView.image = theImage; */
+    
+    return cell;
+}
+/* - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    NSDictionary *item = (NSDictionary *)[array2 objectAtIndex:indexPath.row];
+    cell.textLabel.text = [item objectForKey:@"mainTitleKey"];
+    cell.detailTextLabel.text = [item objectForKey:@"secondaryTitleKey"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
+    UIImage *theImage = [UIImage imageWithContentsOfFile:path];
+    cell.imageView.image = theImage;
+    return cell;
+} */
 /*
 #pragma mark - Navigation
 
