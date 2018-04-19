@@ -320,22 +320,6 @@ NSArray *array2;
     
     return cell;
 }
-/* - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    NSDictionary *item = (NSDictionary *)[array2 objectAtIndex:indexPath.row];
-    cell.textLabel.text = [item objectForKey:@"mainTitleKey"];
-    cell.detailTextLabel.text = [item objectForKey:@"secondaryTitleKey"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
-    UIImage *theImage = [UIImage imageWithContentsOfFile:path];
-    cell.imageView.image = theImage;
-    return cell;
-} */
 /*
 #pragma mark - Navigation
 

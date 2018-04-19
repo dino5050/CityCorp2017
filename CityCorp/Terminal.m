@@ -10,7 +10,8 @@
 #import "Button.h"
 @import GoogleMobileAds;
 
-@interface Terminal ()
+@interface Terminal () <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+
 @property(nonatomic, strong) GADBannerView *bannerView;
 
 @end
@@ -27,6 +28,14 @@ static UIView *panel;
     back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(40,40,320,500) collectionViewLayout:layout];
+    [collectionView setDataSource:self];
+    [collectionView setDelegate:self];
+    
+    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [collectionView setBackgroundColor:[UIColor blackColor]];
+    
     
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
@@ -38,7 +47,7 @@ static UIView *panel;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [self.view addSubview:panel];
     
-    [self.view addSubview:panel];
+    [panel addSubview: collectionView];
     
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];
@@ -49,7 +58,40 @@ static UIView *panel;
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
 }
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 15;
+}
 
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    
+    cell.backgroundColor=[UIColor blackColor];
+    
+    UIImage *player = [UIImage imageNamed:@"sign.png"];
+    UIImageView *icon = [[UIImageView alloc] initWithImage:player];
+    [icon setFrame:CGRectMake(0, 0, 50, 50)];
+    
+    UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 50, 20)];
+    name.textColor = [UIColor whiteColor];
+    
+    [name setFont: [UIFont fontWithName:@"Arial" size:10]];
+    [name setText:@"Zenthriii"];
+    name.textAlignment=NSTextAlignmentCenter;
+    name.backgroundColor = [UIColor clearColor];
+ //   [icon contentMode];
+    [cell.contentView addSubview:icon];
+    [cell.contentView addSubview:name];
+    
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(50, 50);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
