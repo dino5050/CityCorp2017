@@ -134,6 +134,6 @@ int number;
  //   NSString *str = [@(number) stringValue];
  //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    NSLog(@"ReyT_%d",(int)clicked.tag);
+    NSLog(@"ReyTD_%d",(int)clicked.tag);
 }
 @end

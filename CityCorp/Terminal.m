@@ -28,13 +28,7 @@ static UIView *panel;
     back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
-    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(40,40,320,500) collectionViewLayout:layout];
-    [collectionView setDataSource:self];
-    [collectionView setDelegate:self];
     
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-    [collectionView setBackgroundColor:[UIColor blackColor]];
     
     
     /*   Button* space = [[Button alloc] init];
@@ -46,6 +40,14 @@ static UIView *panel;
     panel.layer.borderWidth = 2.0f;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [self.view addSubview:panel];
+    
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-250/2,40,250,300) collectionViewLayout:layout];
+    [collectionView setDataSource:self];
+    [collectionView setDelegate:self];
+    
+    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [collectionView setBackgroundColor:[UIColor blackColor]];
     
     [panel addSubview: collectionView];
     
@@ -70,9 +72,9 @@ static UIView *panel;
     
     cell.backgroundColor=[UIColor blackColor];
     
-    UIImage *player = [UIImage imageNamed:@"sign.png"];
+    UIImage *player = [UIImage imageNamed:@"avatar.png"];
     UIImageView *icon = [[UIImageView alloc] initWithImage:player];
-    [icon setFrame:CGRectMake(0, 0, 50, 50)];
+    [icon setFrame:CGRectMake(5, 0, 40, 40)];
     
     UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 50, 20)];
     name.textColor = [UIColor whiteColor];
@@ -93,6 +95,9 @@ static UIView *panel;
     return CGSizeMake(50, 50);
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    NSLog(@"title of cell %@", @"player");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

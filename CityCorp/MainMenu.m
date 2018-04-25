@@ -33,7 +33,8 @@ static UITextView *message;
 static Button* corp;
 static Button* back;
 static NSUserDefaults *preferences3;
-NSArray *array2;
+static UITextView *message2;
+static NSArray *array2;
 
 
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
@@ -92,11 +93,22 @@ NSArray *array2;
     Button *help = [[Button alloc] init];
     help.name = @"help";
     [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
+    
+    Button *computer = [[Button alloc] init];
+    computer.name = @"computer";
+    [panel addSubview:[computer button2: CGRectMake(panel.frame.size.width-115-5, 5, 115, 50.0)]];
+    
+    Button *inventory = [[Button alloc] init];
+    inventory.name = @"inventory";
+    [panel addSubview:[inventory button2: CGRectMake(panel.frame.size.width-115-5, 5 + 55, 115, 50.0)]];
+    
+    
     
     info = [[UITextView alloc] init];
     info.font = [UIFont fontWithName:@"Arial" size:14];
-    info.frame = CGRectMake(5, 5, 200, 150);
+    info.frame = CGRectMake(5, 5, 170, 150);
     [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     //info.text = @"";
@@ -146,7 +158,7 @@ NSArray *array2;
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
-    array2 = @[ @"Monday", @"Tuesday", @"Wednesday",@"Thursday",@"Friday",@"Saturday",@"Sunday"];
+    array2 = @[ @"Monday", @"Tuesday", @"Wednesday",@"Thursday",@"Friday"];
     [self configureTableview];
 /*    UITableView *corps = [[UITableView alloc] init];
     
@@ -194,24 +206,29 @@ NSArray *array2;
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     UITextView *help = [[UITextView alloc] init];
-    help.frame = CGRectMake(panel.frame.size.width/2- 130, 50, 260, 60);
+    help.frame = CGRectMake(panel.frame.size.width/2- 130, 5, 260, 60);
     [help setText:@"Write us a question, error, or bug, and we'll get to you as soon as possible:"];
     help.textAlignment=NSTextAlignmentCenter;
     help.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
     help.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+    
     [panel addSubview:help];
-    UITextField *message = [[UITextField alloc] init];
-    message.backgroundColor=[UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+    message2 = [[UITextView alloc] init];
+    message2.backgroundColor=[UIColor colorWithRed:255 green:255 blue:255 alpha:255];
  //   message.font = [UIFont fontWithName:@"Arial" size:16];
-    message.frame = CGRectMake(panel.frame.size.width/2 - 140, 100, 280, 120);
+    message2.frame = CGRectMake(panel.frame.size.width/2 - 140, 55, 280, 120);
+    message2.editable = YES;
     Button *send = [[Button alloc] init];
     send.name = @"send";
-    [panel addSubview:[send button2: CGRectMake(panel.frame.size.width/2-30, 100+125, 60, 50.0)]];
+    [panel addSubview:[send button2: CGRectMake(panel.frame.size.width/2-30, 100+125 -45, 60, 50.0)]];
 
-    [panel addSubview:message];
+    [panel addSubview:message2];
     
 }
--(void)send{}
+-(void)send{
+    NSLog(@"%@", message.text);
+    //go back to main screen after sent
+}
 -(void)back{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -222,6 +239,14 @@ NSArray *array2;
     Button *help = [[Button alloc] init];
     help.name = @"help";
     [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    Button *computer = [[Button alloc] init];
+    computer.name = @"computer";
+    [panel addSubview:[computer button2: CGRectMake(panel.frame.size.width-115-5, 5, 115, 50.0)]];
+    
+    Button *inventory = [[Button alloc] init];
+    inventory.name = @"inventory";
+    [panel addSubview:[inventory button2: CGRectMake(panel.frame.size.width-115-5, 5 + 55, 115, 50.0)]];
     
     //    make join corp/create corp/go to corp button
     
@@ -281,7 +306,7 @@ NSArray *array2;
 {
  //   UITableView *corps = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     UITableView *corps = [[UITableView alloc] init];
-    corps.frame = CGRectMake(panel.frame.size.width/2-100, 50, 200, 500);
+    corps.frame = CGRectMake(panel.frame.size.width/2-125, 50, 250, 300);
     corps.layer.borderWidth = 2.0;
     
     corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
@@ -317,6 +342,9 @@ NSArray *array2;
   /*  NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     UIImage *theImage = [UIImage imageWithContentsOfFile:path];
     cell.imageView.image = theImage; */
+    UIImage *join = [UIImage imageNamed:@"sign.png"];
+    cell.imageView.image = join;
+    
     
     return cell;
 }
