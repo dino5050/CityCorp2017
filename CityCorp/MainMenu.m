@@ -35,6 +35,9 @@ static Button* back;
 static NSUserDefaults *preferences3;
 static UITextView *message2;
 static NSArray *array2;
+static NSArray *array3;
+static NSArray *tech;
+static NSString *whichTable;
 
 
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
@@ -107,6 +110,7 @@ static NSArray *array2;
     
     
     info = [[UITextView alloc] init];
+    info.editable = NO;
     info.font = [UIFont fontWithName:@"Arial" size:14];
     info.frame = CGRectMake(5, 5, 170, 150);
     [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
@@ -125,6 +129,7 @@ static NSArray *array2;
     message.font = [UIFont fontWithName:@"Arial" size:16];
     message.frame = CGRectMake(5, 5+150, 200, 100);
     message.text = @"Message of the day";
+        message.editable = NO;
     [message setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:message];
@@ -152,6 +157,18 @@ static NSArray *array2;
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
+-(void)computer{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    array2 = @[@"CC-1000", @"CCPU-100"];
+    array3 = @[@"Generic motherboard", @"Generic CPU"];
+    
+    whichTable = @"computer";
+    tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],nil];
+    [self configureTableview];
+}
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     Button *back = [[Button alloc] init];
@@ -159,26 +176,9 @@ static NSArray *array2;
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     array2 = @[ @"Monday", @"Tuesday", @"Wednesday",@"Thursday",@"Friday"];
+    whichTable = @"join_corp";
     [self configureTableview];
-/*    UITableView *corps = [[UITableView alloc] init];
-    
-    corps.frame = CGRectMake(panel.frame.size.width/2-100, 50, 200, 500);
-    corps.layer.borderWidth = 2.0;
-    
-    corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
-    [corps beginUpdates];
-   // NSArray *corpArray = [[NSArray alloc] init];
-    [self cofigureTableview];
-    NSArray *corpArray = @[@"1",@"2",@"3",@"4"];
-    NSArray *arr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:corpArray.count-1 inSection:0]];
-    [corps insertRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationAutomatic];
-    
- //   [corps reloadData];
-    [corps endUpdates];
-    
-    [panel addSubview:corps];
-    */
+
 }
 -(void)map{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -305,15 +305,29 @@ static NSArray *array2;
 -(void)configureTableview
 {
  //   UITableView *corps = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    UITableView *corps = [[UITableView alloc] init];
-    corps.frame = CGRectMake(panel.frame.size.width/2-125, 50, 250, 300);
-    corps.layer.borderWidth = 2.0;
-    
-    corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
-    corps.delegate = self;
-    corps.dataSource = self;
-    [panel addSubview:corps];
+    if([whichTable isEqualToString:@"join_corp"]){ UITableView *corps = [[UITableView alloc] init];
+        corps.frame = CGRectMake(panel.frame.size.width/2-125, 50, 250, array2.count*60);
+        corps.layer.borderWidth = 2.0;
+        corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+        corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
+        corps.delegate = self;
+        corps.dataSource = self;
+        [panel addSubview:corps];
+    }
+    else if([whichTable isEqualToString:@"computer"]){ UITableView *corps = [[UITableView alloc] init];
+        corps.frame = CGRectMake(panel.frame.size.width/2-155, 50, 225, array2.count*60);
+        corps.layer.borderWidth = 0.0;
+        corps.separatorColor = [UIColor clearColor];
+        corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+        corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
+        corps.delegate = self;
+        corps.dataSource = self;
+        [panel addSubview:corps];
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -332,18 +346,31 @@ static NSArray *array2;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
+        
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-        
+    }
+    
+    if([whichTable isEqualToString:@"join_corp"]){
+        UIImage *join = [UIImage imageNamed:@"sign.png"];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.imageView.image = join;
+        cell.detailTextLabel.text = @"jhkjgkjhkjhkj";
+    }
+    else if([whichTable isEqualToString:@"computer"]){
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        UIImage *join = [tech objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text = [array3 objectAtIndex:indexPath.row];
+        cell.imageView.image = join;
     }
     cell.textLabel.text =  [array2 objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = @"jhkjgkjhkjhkj";
     
   /*  NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     UIImage *theImage = [UIImage imageWithContentsOfFile:path];
     cell.imageView.image = theImage; */
-    UIImage *join = [UIImage imageNamed:@"sign.png"];
-    cell.imageView.image = join;
+    
     
     
     return cell;

@@ -78,7 +78,7 @@ static UIView *panel;
     
     UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 50, 20)];
     name.textColor = [UIColor whiteColor];
-    
+    name.editable = NO;
     [name setFont: [UIFont fontWithName:@"Arial" size:10]];
     [name setText:@"Zenthriii"];
     name.textAlignment=NSTextAlignmentCenter;

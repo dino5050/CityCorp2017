@@ -82,15 +82,17 @@ NSUserDefaults *preferences2;
     NSString *msg;
     if(username.length > 3 && username.length < 17 && password.length > 3 && password.length < 17 && [password isEqualToString:password2] && email.length > 3 && email.length < 32) {
         msg = [users httprequest:@"name,password,email,key" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, password, email, key] :@"users.php"];
-        preferences2 = [NSUserDefaults standardUserDefaults];
-        [preferences2 setObject:username forKey:@"username"];
     }
     if([msg isEqualToString:@"usernameTaken"]) _error.text = @"Username taken";
     else if([msg isEqualToString:@"emailTaken"]) _errorEmail.text = @"Email already exists";
     else if([msg isEqualToString:@"illegalUsername"]) _error.text = @"Illegal characters used";
     else if([msg isEqualToString:@"illegalPassword"]) _errorPassword.text = @"Illegal characters used";
     else if([msg isEqualToString:@"illegalEmail"]) _errorEmail.text = @"Illegal characters used";
-    else if([msg isEqualToString:@"accepted"])[self performSegueWithIdentifier:@"register" sender:self];
+    else if([msg isEqualToString:@"accepted"]){
+        [self performSegueWithIdentifier:@"register" sender:self];
+        preferences2 = [NSUserDefaults standardUserDefaults];
+        [preferences2 setObject:username forKey:@"username"];
+    }
     else _errorCharacters.text = @"Illegal characters used";
  //   printf("%s", [msg UTF8String]);
     

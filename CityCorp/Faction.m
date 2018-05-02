@@ -58,7 +58,7 @@ NSUserDefaults *preferences4;
     capitalists_info.frame = CGRectMake(130, 320, 195, 155);
     [capitalists_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [capitalists_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    capitalists_info.text = @"Capalists argue for anything that will make their wallets fatter. They are multiculturalists one day, and obtain a sense of nationalistic pride the next, whichever is most profitable during business hours. They benefit from extra bonuses given to them when hacking industrial districts."; //the main wealth injector of the city.";
+    capitalists_info.text = @"Capalists argue for anything that will make their wallets fatter. They are multiculturalists one day, and obtain a sense of nationalistic pride the next, whichever is most profitable during business hours. They benefit from a 5% discount or mark-up when buying or selling in the Black Market."; //the main wealth injector of the city.";
     [self.view addSubview:capitalists_info];
     
     UITextView *outlaws_info = [[UITextView alloc] init];
