@@ -14,6 +14,8 @@
 -(UIButton *)button2: (CGRect)rect;
 -(UIButton *)back: (CGRect)rect;
 -(UIButton *)space: (CGRect)rect;
+-(UIButton *) previous: (CGRect) rect;
+-(UIButton *) next: (CGRect) rect;
 -(void)clicked:(UIButton *) button;
 
 @end

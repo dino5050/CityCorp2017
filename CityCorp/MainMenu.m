@@ -162,11 +162,11 @@ static NSString *whichTable;
     Button *back = [[Button alloc] init];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-    array2 = @[@"CC-1000", @"CCPU-100"];
-    array3 = @[@"Generic motherboard", @"Generic CPU"];
+    array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
+    array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
     
     whichTable = @"computer";
-    tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],nil];
+    tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
     [self configureTableview];
 }
 -(void)join_corp{
@@ -175,7 +175,7 @@ static NSString *whichTable;
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
-    array2 = @[ @"Monday", @"Tuesday", @"Wednesday",@"Thursday",@"Friday"];
+    array2 = @[ @"Nezennin Corp.", @"Nez Enterprises"];
     whichTable = @"join_corp";
     [self configureTableview];
 
@@ -306,16 +306,16 @@ static NSString *whichTable;
 {
  //   UITableView *corps = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     if([whichTable isEqualToString:@"join_corp"]){ UITableView *corps = [[UITableView alloc] init];
-        corps.frame = CGRectMake(panel.frame.size.width/2-125, 50, 250, array2.count*60);
+        corps.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
         corps.layer.borderWidth = 2.0;
-        corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+        corps.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
         corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
         corps.delegate = self;
         corps.dataSource = self;
         [panel addSubview:corps];
     }
     else if([whichTable isEqualToString:@"computer"]){ UITableView *corps = [[UITableView alloc] init];
-        corps.frame = CGRectMake(panel.frame.size.width/2-155, 50, 225, array2.count*60);
+        corps.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
         corps.layer.borderWidth = 0.0;
         corps.separatorColor = [UIColor clearColor];
         corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
@@ -352,13 +352,17 @@ static NSString *whichTable;
     }
     
     if([whichTable isEqualToString:@"join_corp"]){
-        UIImage *join = [UIImage imageNamed:@"sign.png"];
+        UIImage *gotoCorp = [UIImage imageNamed:@"goto.png"];
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Abduction" size:12];
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
-        cell.imageView.image = join;
-        cell.detailTextLabel.text = @"jhkjgkjhkjhkj";
+        cell.imageView.image = gotoCorp;
+        cell.detailTextLabel.text = @"1 member";
     }
     else if([whichTable isEqualToString:@"computer"]){
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Abduction" size:12];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
         UIImage *join = [tech objectAtIndex:indexPath.row];
