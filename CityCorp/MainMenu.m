@@ -32,6 +32,7 @@ static NSArray *values;
 static UITextView *message;
 static Button* corp;
 static Button* back;
+static Button* back2;
 static NSUserDefaults *preferences3;
 static UITextView *message2;
 static NSArray *array2;
