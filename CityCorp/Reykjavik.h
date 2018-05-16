@@ -6,8 +6,8 @@
 //  Copyright © 2017 Nezennin Corp. All rights reserved.
 //
 
-@interface Hexagon : UIView
+@interface Reykjavik : UIView
 
 -(void)drawRect:(CGRect)rect;
-
+-(void)industrial;
 @end

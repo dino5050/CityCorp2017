@@ -21,7 +21,7 @@
 		4B9ECE9F1FE09FF000D55D5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECE9E1FE09FF000D55D5B /* main.m */; };
 		4B9ECEA91FE09FF000D55D5B /* CityCorpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEA81FE09FF000D55D5B /* CityCorpTests.m */; };
 		4B9ECEB41FE09FF000D55D5B /* CityCorpUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEB31FE09FF000D55D5B /* CityCorpUITests.m */; };
-		4B9ECEC61FE0A18200D55D5B /* Hexagon.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEC51FE0A18200D55D5B /* Hexagon.m */; };
+		4B9ECEC61FE0A18200D55D5B /* Reykjavik.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEC51FE0A18200D55D5B /* Reykjavik.m */; };
 		4B9ECEC91FE169BA00D55D5B /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEC81FE169BA00D55D5B /* MainMenu.m */; };
 		4B9ECECC1FE169E500D55D5B /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECECB1FE169E500D55D5B /* MapView.m */; };
 		4BB3686D1FE817CC00801ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB3686C1FE817CC00801ED8 /* Assets.xcassets */; };
@@ -77,8 +77,8 @@
 		4B9ECEAF1FE09FF000D55D5B /* CityCorpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityCorpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B9ECEB31FE09FF000D55D5B /* CityCorpUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCorpUITests.m; sourceTree = "<group>"; };
 		4B9ECEB51FE09FF000D55D5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B9ECEC41FE0A16B00D55D5B /* Hexagon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hexagon.h; sourceTree = "<group>"; };
-		4B9ECEC51FE0A18200D55D5B /* Hexagon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hexagon.m; sourceTree = "<group>"; };
+		4B9ECEC41FE0A16B00D55D5B /* Reykjavik.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reykjavik.h; sourceTree = "<group>"; };
+		4B9ECEC51FE0A18200D55D5B /* Reykjavik.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reykjavik.m; sourceTree = "<group>"; };
 		4B9ECEC71FE169BA00D55D5B /* MainMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		4B9ECEC81FE169BA00D55D5B /* MainMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		4B9ECECA1FE169E500D55D5B /* MapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
@@ -158,8 +158,8 @@
 				4B9ECE9A1FE09FF000D55D5B /* LaunchScreen.storyboard */,
 				4B9ECE9D1FE09FF000D55D5B /* Info.plist */,
 				4B9ECE9E1FE09FF000D55D5B /* main.m */,
-				4B9ECEC41FE0A16B00D55D5B /* Hexagon.h */,
-				4B9ECEC51FE0A18200D55D5B /* Hexagon.m */,
+				4B9ECEC41FE0A16B00D55D5B /* Reykjavik.h */,
+				4B9ECEC51FE0A18200D55D5B /* Reykjavik.m */,
 				4BB368721FEBEBCD00801ED8 /* Button.h */,
 				4BB368701FEBEBB600801ED8 /* Button.m */,
 				4BFF1DF91FF5751C007902A1 /* Functions.h */,
@@ -351,7 +351,7 @@
 				4B9ECE941FE09FEF00D55D5B /* Login.m in Sources */,
 				4B62F180202A738F00DD99BD /* Social.m in Sources */,
 				4B9ECE9F1FE09FF000D55D5B /* main.m in Sources */,
-				4B9ECEC61FE0A18200D55D5B /* Hexagon.m in Sources */,
+				4B9ECEC61FE0A18200D55D5B /* Reykjavik.m in Sources */,
 				4B9ECE911FE09FEF00D55D5B /* AppDelegate.m in Sources */,
 				4BFF1DF81FF57465007902A1 /* Functions.m in Sources */,
 				4B057A892041C6F600619752 /* Faction.m in Sources */,

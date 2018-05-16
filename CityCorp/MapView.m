@@ -7,7 +7,7 @@
 //
 
 #import "MapView.h"
-#import "Hexagon.h"
+#import "Reykjavik.h"
 #import "Button.h"
 @import GoogleMobileAds;
 
@@ -17,6 +17,8 @@
 @end
 
 @implementation MapView
+
+static int iD;
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
     
 }
@@ -32,14 +34,6 @@ static UIView *panel;
     back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
-    
-    
-    
-    
- /*   Button* space = [[Button alloc] init];
-    space.name = @"";
-    [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
-    */
     panel = [[UIView alloc] initWithFrame:CGRectMake(10, 55+40, screenSize.width-10-10, screenSize.height-55-40-50)];
     [panel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     panel.layer.borderWidth = 2.0f;
@@ -47,17 +41,28 @@ static UIView *panel;
     [panel setClipsToBounds:TRUE];
     [self.view addSubview:panel];
     
+    
+    
     UIImage *rey5 = [UIImage imageNamed:@"Reykjavik5_3-1.png"];
     UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
     rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
     [panel addSubview:rey];
-    
-    Hexagon *tech = [[Hexagon alloc] initWithFrame:CGRectMake(3, 90, 400, 400)];
+
+    Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
     [panel addSubview:tech];
+//    [tech industrial: CGRectMake(50, 50, 400, 400)];
     tech.backgroundColor = [UIColor clearColor];
-  //  [rey setClipsToBounds:TRUE];
     
-    
+    //  [rey setClipsToBounds:TRUE];
+
+ /*   Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+*/
+    iD = 0;
     
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];
@@ -68,6 +73,162 @@ static UIView *panel;
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
 
+}
+-(void)next{
+    
+    if(iD<5){
+        iD++;
+        if(iD == 0){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            UIImage *rey5 = [UIImage imageNamed:@"Reykjavik5_3-1.png"];
+            UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
+            rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
+            [panel addSubview:rey];
+            
+            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(15, 90, 400, 400)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+            //  [rey setClipsToBounds:TRUE];
+        }else if(iD == 1){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            UIImage *bergen1 = [UIImage imageNamed:@"Bergen.png"];
+            UIImageView *bergen = [[UIImageView alloc] initWithImage:bergen1];
+            bergen.frame = CGRectMake(-60, -20, 1159*0.43, 1128*0.43);
+            [panel addSubview:bergen];
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }else if(iD == 2){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }else if(iD == 3){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }else if(iD == 4){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }else if(iD == 5){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }
+    }
+}
+-(void)previous{
+    if(iD>0){
+        iD--;
+        if(iD == 0){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            UIImage *rey5 = [UIImage imageNamed:@"Reykjavik5_3-1.png"];
+            UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
+            rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
+            [panel addSubview:rey];
+            
+            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(3, 90, 400, 400)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+            //  [rey setClipsToBounds:TRUE];
+        }else if(iD == 1){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+            
+        }else if(iD == 2){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+            
+        }else if(iD == 3){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }else if(iD == 4){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }else if(iD == 5){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+        }
+    }
 }
 -(void)viewDidAppear:(BOOL)animated{
 /*    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
