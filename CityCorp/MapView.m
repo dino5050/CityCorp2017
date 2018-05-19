@@ -34,7 +34,9 @@ static UIView *panel;
     back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
-    panel = [[UIView alloc] initWithFrame:CGRectMake(10, 55+40, screenSize.width-10-10, screenSize.height-55-40-50)];
+    if(screenSize.height >= 667 && screenSize.height < 812)panel = [[UIView alloc] initWithFrame:CGRectMake(10+20, 55+40, screenSize.width-10-10-40, screenSize.height-55-40-125)];
+    else if (screenSize.height >= 812) panel = [[UIView alloc] initWithFrame:CGRectMake(10+20, 55+40, screenSize.width-10-10-40, screenSize.height-55-40-200)];
+    else panel = [[UIView alloc] initWithFrame:CGRectMake(10, 55+40, screenSize.width-10-10, screenSize.height-55-40-50)];
     [panel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     panel.layer.borderWidth = 2.0f;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
@@ -55,13 +57,13 @@ static UIView *panel;
     
     //  [rey setClipsToBounds:TRUE];
 
- /*   Button *previous = [[Button alloc] init];
+    Button *previous = [[Button alloc] init];
     previous.name = @"previous";
     [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
     Button *next = [[Button alloc] init];
     next.name = @"next";
     [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-*/
+
     iD = 0;
     
     self.bannerView = [[GADBannerView alloc]
@@ -86,7 +88,7 @@ static UIView *panel;
             rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
             [panel addSubview:rey];
             
-            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(15, 90, 400, 400)];
+            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech];
             tech.backgroundColor = [UIColor clearColor];
             
@@ -102,7 +104,7 @@ static UIView *panel;
             
             UIImage *bergen1 = [UIImage imageNamed:@"Bergen.png"];
             UIImageView *bergen = [[UIImageView alloc] initWithImage:bergen1];
-            bergen.frame = CGRectMake(-60, -20, 1159*0.43, 1128*0.43);
+            bergen.frame = CGRectMake(-200, -50, 1159*0.63, 1128*0.63);
             [panel addSubview:bergen];
             
             Button *previous = [[Button alloc] init];
@@ -114,6 +116,11 @@ static UIView *panel;
         }else if(iD == 2){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             
+            UIImage *oostende = [UIImage imageNamed:@"Oostende.png"];
+            UIImageView *oostende1 = [[UIImageView alloc] initWithImage:oostende];
+            oostende1.frame = CGRectMake(-90, -80, 1100*0.58, 1057*0.58);
+            [panel addSubview:oostende1];
+            
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
             [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
@@ -123,7 +130,11 @@ static UIView *panel;
         }else if(iD == 3){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             
-            
+            UIImage *penzance = [UIImage imageNamed:@"Penzance.png"];
+            UIImageView *penzance1 = [[UIImageView alloc] initWithImage:penzance];
+            penzance1.frame = CGRectMake(-210, -40, 902*0.63, 1050*0.63);
+            [panel addSubview:penzance1];
+        
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
             [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
@@ -133,6 +144,10 @@ static UIView *panel;
         }else if(iD == 4){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             
+            UIImage *lisbon = [UIImage imageNamed:@"Lisbon.png"];
+            UIImageView *lisbon1 = [[UIImageView alloc] initWithImage:lisbon];
+            lisbon1.frame = CGRectMake(-150, -150, 1064*0.63, 1101*0.63);
+            [panel addSubview:lisbon1];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -143,6 +158,10 @@ static UIView *panel;
         }else if(iD == 5){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             
+            UIImage *torindor = [UIImage imageNamed:@"Torindor.png"];
+            UIImageView *torindor1 = [[UIImageView alloc] initWithImage:torindor];
+            torindor1.frame = CGRectMake(-170, -200, 1032*0.63, 1335*0.63);
+            [panel addSubview:torindor1];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -164,7 +183,7 @@ static UIView *panel;
             rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
             [panel addSubview:rey];
             
-            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(3, 90, 400, 400)];
+            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech];
             tech.backgroundColor = [UIColor clearColor];
             
@@ -178,6 +197,10 @@ static UIView *panel;
         }else if(iD == 1){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             
+            UIImage *bergen1 = [UIImage imageNamed:@"Bergen.png"];
+            UIImageView *bergen = [[UIImageView alloc] initWithImage:bergen1];
+            bergen.frame = CGRectMake(-230, -50, 1159*0.53, 1128*0.53);
+            [panel addSubview:bergen];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";

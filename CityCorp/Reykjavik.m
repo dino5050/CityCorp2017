@@ -79,7 +79,7 @@ int number;
             number = number+1;
             center = CGPointMake(x+x1, y+y1);
             //  rotate slope equation 30 degrees
-            if((i!=2 || j!=2) && (i!=1 || j!=3) && (i!=3 || j!=5)){
+            if((i!=2 || j!=2) && (i!=1 || j!=3) && (i!=3 || j!=5) && (i!=3 || j!=2) && (i!=3 || j!=7)){
                 CGContextMoveToPoint(context, center.x, center.y-radius);
                 for (NSUInteger k=1; k<sides; k++) {
                     float x = radius * sin(k * theta);

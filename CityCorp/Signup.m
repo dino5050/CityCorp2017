@@ -80,7 +80,7 @@ NSUserDefaults *preferences2;
  //   [self performSegueWithIdentifier:@"register" sender:self];
     Functions *users = [[Functions alloc] init];
     NSString *msg;
-    if(username.length > 3 && username.length < 17 && password.length > 3 && password.length < 17 && [password isEqualToString:password2] && email.length > 3 && email.length < 32) {
+    if(username.length > 3 && username.length < 17 && password.length > 3 && password.length < 17 && [password isEqualToString:password2] && email.length > 3 && email.length < 32 && [username rangeOfString:@"#"].location == NSNotFound) {
         msg = [users httprequest:@"name,password,email,key" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, password, email, key] :@"users.php"];
     }
     if([msg isEqualToString:@"usernameTaken"]) _error.text = @"Username taken";
@@ -93,8 +93,9 @@ NSUserDefaults *preferences2;
         preferences2 = [NSUserDefaults standardUserDefaults];
         [preferences2 setObject:username forKey:@"username"];
     }
-    else _errorCharacters.text = @"Illegal characters used";
- //   printf("%s", [msg UTF8String]);
+    else _errorCharacters.text = @"Illegal characters used"; //Check all illegal characters!
+    
+    //   printf("%s", [msg UTF8String]);
     
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

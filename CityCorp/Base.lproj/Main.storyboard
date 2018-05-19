@@ -303,7 +303,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="email"/>
                                 <connections>
                                     <action selector="email:" destination="bgZ-my-JfV" eventType="editingChanged" id="mEv-YR-XBY"/>
                                 </connections>
@@ -313,7 +313,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="username"/>
                                 <connections>
                                     <action selector="username:" destination="bgZ-my-JfV" eventType="editingChanged" id="2dL-mi-0lo"/>
                                 </connections>
@@ -351,7 +351,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qVx-mZ-kkY">
-                                <rect key="frame" x="107" y="221" width="87" height="36"/>
+                                <rect key="frame" x="107" y="221" width="87" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="1" green="0.42488052209999999" blue="0.3950256835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -373,7 +373,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ikW-Dp-BOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-234.375" y="710.91549295774644"/>
+            <point key="canvasLocation" x="-234.40000000000001" y="710.19490254872574"/>
         </scene>
         <!--Map View-->
         <scene sceneID="P2C-oL-8ZN">
@@ -518,7 +518,7 @@
         <image name="sign" width="128" height="125"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SZS-ry-5bz"/>
+        <segue reference="mc1-H7-FYh"/>
         <segue reference="KLL-zW-PRw"/>
         <segue reference="Dxm-wE-VVb"/>
     </inferredMetricsTieBreakers>
