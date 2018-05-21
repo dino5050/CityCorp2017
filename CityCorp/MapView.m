@@ -8,6 +8,7 @@
 
 #import "MapView.h"
 #import "Reykjavik.h"
+#import "Bergen.h"
 #import "Button.h"
 @import GoogleMobileAds;
 
@@ -94,10 +95,10 @@ static UIView *panel;
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 40, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 40, 55, 50.0)]];
             //  [rey setClipsToBounds:TRUE];
         }else if(iD == 1){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -107,12 +108,17 @@ static UIView *panel;
             bergen.frame = CGRectMake(-200, -50, 1159*0.63, 1128*0.63);
             [panel addSubview:bergen];
             
+            Bergen *tech = [[Bergen alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
+            
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
             [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
             [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+     
         }else if(iD == 2){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             

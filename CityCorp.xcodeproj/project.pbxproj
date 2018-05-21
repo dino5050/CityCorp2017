@@ -24,6 +24,7 @@
 		4B9ECEC61FE0A18200D55D5B /* Reykjavik.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEC51FE0A18200D55D5B /* Reykjavik.m */; };
 		4B9ECEC91FE169BA00D55D5B /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEC81FE169BA00D55D5B /* MainMenu.m */; };
 		4B9ECECC1FE169E500D55D5B /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECECB1FE169E500D55D5B /* MapView.m */; };
+		4BA6203F20B306F700AD77F8 /* Bergen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6203E20B306F700AD77F8 /* Bergen.m */; };
 		4BB3686D1FE817CC00801ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB3686C1FE817CC00801ED8 /* Assets.xcassets */; };
 		4BB368711FEBEBB600801ED8 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BB368701FEBEBB600801ED8 /* Button.m */; };
 		4BBC61AB2009191300AE9979 /* Forgot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBC61AA2009191300AE9979 /* Forgot.m */; };
@@ -83,6 +84,8 @@
 		4B9ECEC81FE169BA00D55D5B /* MainMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		4B9ECECA1FE169E500D55D5B /* MapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
 		4B9ECECB1FE169E500D55D5B /* MapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
+		4BA6203D20B306F700AD77F8 /* Bergen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bergen.h; sourceTree = "<group>"; };
+		4BA6203E20B306F700AD77F8 /* Bergen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bergen.m; sourceTree = "<group>"; };
 		4BB3686C1FE817CC00801ED8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BB368701FEBEBB600801ED8 /* Button.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Button.m; sourceTree = "<group>"; };
 		4BB368721FEBEBCD00801ED8 /* Button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				4B62F17F202A738F00DD99BD /* Social.m */,
 				4B057A872041C6F600619752 /* Faction.h */,
 				4B057A882041C6F600619752 /* Faction.m */,
+				4BA6203D20B306F700AD77F8 /* Bergen.h */,
+				4BA6203E20B306F700AD77F8 /* Bergen.m */,
 			);
 			path = CityCorp;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				4B9ECEC91FE169BA00D55D5B /* MainMenu.m in Sources */,
 				4BB368711FEBEBB600801ED8 /* Button.m in Sources */,
 				4B1CAA411FF83DFE00E48B78 /* Register.m in Sources */,
+				4BA6203F20B306F700AD77F8 /* Bergen.m in Sources */,
 				4B9ECECC1FE169E500D55D5B /* MapView.m in Sources */,
 				4B9ECE941FE09FEF00D55D5B /* Login.m in Sources */,
 				4B62F180202A738F00DD99BD /* Social.m in Sources */,
