@@ -183,6 +183,60 @@ static int iD;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     NSLog(@"title of cell %@", [items objectAtIndex:indexPath.row]);
+    NSString *items2 = [items objectAtIndex:indexPath.row];
+    NSArray *items3 = [items2 componentsSeparatedByString: @","];
+    
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@""
+                                  message:@""
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Buy"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                     //        NSString *updateLink = [NSString stringWithFormat:@"http://itunes.apple.com/app/%@",appID];
+                     //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:updateLink]];
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+ /*   UIView *subview = alert.view.subviews.firstObject;
+    UIView *alertContentView =  subview.subviews.firstObject;
+    alertContentView.backgroundColor = [UIColor blackColor];
+  */
+    UIColor *color = [UIColor whiteColor]; // select needed color
+    NSString *string = [NSString stringWithFormat:@"Buy the %@ for ¢¢%@",items3[0],items3[7]];
+    NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+    [alert setValue:attrStr forKey:@"attributedMessage"];
+    
+    NSString *string1 = @"Market Order";
+    NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color };
+    NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString:string1 attributes:attrs1];
+    [alert setValue:attrStr1 forKey:@"attributedTitle"];
+    
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    
+ //   UIVisualEffectView.appearance(whenContainedInInstancesOf: [alert.classForCoder() as! UIAppearanceContainer.Type]).effect = UIBlurEffect(style: .dark)
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert class]]] setEffect:blurEffect];
+    
+//    let attributedString = NSAttributedString(string: "Invalid Name", attributes: [       NSParagraphStyleAttributeName: paragraphStyle,NSFontAttributeName : UIFont.systemFontOfSize(15),NSForegroundColorAttributeName : UIColor.redColor()])
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -205,7 +259,7 @@ static int iD;
         NSString *items2 = [items objectAtIndex:indexPath.row];
         NSArray *items3 = [items2 componentsSeparatedByString: @","];
         cell.textLabel.text = items3[0];
-        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"$%@",items3[7]];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"¢¢%@",items3[7]];
         if([items3[3] isEqualToString:@"computer"]){
             if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
             if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
