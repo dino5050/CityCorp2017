@@ -31,23 +31,23 @@ static UIView *panel;
     
     Button* general = [[Button alloc] init];
     general.name = @"general";
-    [self.view addSubview:[general button2: CGRectMake(10+52, 40, 75, 50.0)]];
+ //   [self.view addSubview:[general button2: CGRectMake(10+52, 40, 75, 50.0)]];
     
     Button* corp = [[Button alloc] init];
     corp.name = @"corp";
-    [self.view addSubview:[corp button2: CGRectMake(10+52+77, 40, 50, 50.0)]];
+    [self.view addSubview:[corp button2: CGRectMake(10+52, 40, 70, 50.0)]];
     
     Button* faction = [[Button alloc] init];
     faction.name = @"faction";
-    [self.view addSubview:[faction button2: CGRectMake(10+52+77+52, 40, 80, 50.0)]];
+    [self.view addSubview:[faction button2: CGRectMake(10+52+72, 40, 80, 50.0)]];
     
     Button* mail = [[Button alloc] init];
     mail.name = @"mail";
-    [self.view addSubview:[mail button2: CGRectMake(10+52+77+52+82, 40, 47, 50.0)]];
+    [self.view addSubview:[mail button2: CGRectMake(10+52+72+82, 40, 64, 50.0)]];
     
     Button* space = [[Button alloc] init];
     space.name = @"";
-    if(screenSize.width > 10+52+77+52+82+49+12)[self.view addSubview:[space button2: CGRectMake(10+52+77+52+82+49, 40, screenSize.width-(10+52+77+52+82+49+10), 50.0)]];
+    [self.view addSubview:[space button2: CGRectMake(10+52+72+82+66, 40, screenSize.width-(10+52+72+82+66+10), 50.0)]];
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
      [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];

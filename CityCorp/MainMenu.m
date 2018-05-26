@@ -122,13 +122,13 @@ static NSString *whichTable;
     get_char_info = [[Functions alloc] init];
     @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]];
+        info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]];
     
     [panel addSubview:info];
     
     message = [[UITextView alloc] init];
     message.font = [UIFont fontWithName:@"Arial" size:16];
-    message.frame = CGRectMake(5, 5+150, 200, 100);
+    message.frame = CGRectMake(5, 5+155, 200, 100);
     message.text = @"Message of the day";
         message.editable = NO;
     [message setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
@@ -259,7 +259,7 @@ static NSString *whichTable;
     username3 = [preferences3 stringForKey:@"username"];
     @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6]];
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ▵%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]];
  //   [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
   //  [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:info];
@@ -355,7 +355,7 @@ static NSString *whichTable;
     if([whichTable isEqualToString:@"join_corp"]){
         UIImage *gotoCorp = [UIImage imageNamed:@"goto.png"];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
-        cell.textLabel.font = [UIFont fontWithName:@"Abduction" size:12];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
         cell.imageView.image = gotoCorp;
@@ -363,7 +363,7 @@ static NSString *whichTable;
     }
     else if([whichTable isEqualToString:@"computer"]){
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
-        cell.textLabel.font = [UIFont fontWithName:@"Abduction" size:12];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
         UIImage *join = [tech objectAtIndex:indexPath.row];

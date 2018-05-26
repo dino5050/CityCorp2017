@@ -25,7 +25,7 @@ static NSString *username3;
 static NSUserDefaults *preferences3;
 static NSString *get_items;
 static int counts;
-static Functions *ccmarket;
+static Functions *ccmarket1;
 static int iD;
 
 
@@ -39,21 +39,17 @@ static int iD;
     back2.name = @"back2";
     [self.view addSubview:[back2 back: CGRectMake(10, 40, 50, 50.0)]];
     
-    Button* ccmarket = [[Button alloc] init];
-    ccmarket.name = @"ccmarket";
-    [self.view addSubview:[ccmarket button2: CGRectMake(10+52, 40, 87, 50.0)]];
-    
     Button* blackmarket = [[Button alloc] init];
     blackmarket.name = @"blackmarket";
-    [self.view addSubview:[blackmarket button2: CGRectMake(10+52+89+52, 40, 115, 50.0)]];
+    [self.view addSubview:[blackmarket button2: CGRectMake(10+52, 40, 117, 50.0)]];
     
     Button* jobs = [[Button alloc] init];
-    jobs.name = @"jobs";
-    [self.view addSubview:[jobs button2: CGRectMake(10+52+89, 40, 50, 50.0)]];
+    jobs.name = @"jobs_market";
+    [self.view addSubview:[jobs button2: CGRectMake(10+52+119, 40, 115, 50.0)]];
     
     Button* space = [[Button alloc] init];
     space.name = @"";
-    if(screenSize.width > 10+52+89+52+117)[self.view addSubview:[space button2: CGRectMake(10+52+89+52+117, 40, screenSize.width-(10+52+89+52+117+10), 50.0)]];
+    [self.view addSubview:[space button2: CGRectMake(10+52+119+117, 40, screenSize.width-(10+52+119+117+10), 50.0)]];
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
      [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
@@ -67,6 +63,68 @@ static int iD;
     
     [self.view addSubview:panel];
     
+    
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"ccmarket";
+    username3 = [preferences3 stringForKey:@"username"];
+    ccmarket1 = [[Functions alloc] init];
+    iD = 0;
+    @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
+        items = [get_items componentsSeparatedByString: @"|"];
+        counts = [items[5] intValue];
+    }@catch(NSException *error){}
+    [self configureTableview];
+    
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    credits.text = @"Credits: ";
+    credits.backgroundColor = [UIColor blackColor];
+    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    credits.editable = NO;
+    [panel addSubview:credits];
+    
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
+    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
+    NSInteger value = 60000;
+    NSString *result = [fmt stringFromNumber:@(value)];
+    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
+    amount.backgroundColor = [UIColor blackColor];
+    amount.font = [UIFont fontWithName:@"Arial" size:12];
+    amount.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    amount.editable = NO;
+    [panel addSubview:amount];
+    
+    UITextView *ccmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    ccmarket3.text = @"CityCorp  Market";
+    ccmarket3.backgroundColor = [UIColor blackColor];
+    ccmarket3.font = [UIFont fontWithName:@"Abduction" size:14];
+    ccmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    ccmarket3.editable = NO;
+    [panel addSubview:ccmarket3];
+    
+    Button *sell = [[Button alloc] init];
+    sell.name = @"sell_on_ccmarket";
+    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-175-5, 60*6, 175, 50.0)]];
+ //   sell to ccmarket button
+//    Button *sell = [[Button alloc] init];
+//    sell.name = @"sell";
+//    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-50-9, 29, 55, 45.0)]];
+    
+    Button *jobOrders = [[Button alloc] init];
+    jobOrders.name = @"job_listing";
+//    [panel addSubview:[jobOrders button2: CGRectMake(panel.frame.size.width-115-5, 60+55, 115, 50.0)]];
+    
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];
     
@@ -76,7 +134,6 @@ static int iD;
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -88,33 +145,10 @@ static int iD;
 -(void)back{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
--(void)ccmarket{
-    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    Button *back = [[Button alloc] init];
-    back.name = @"back";
-    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-    preferences3 = [NSUserDefaults standardUserDefaults];
-  //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
-    whichTable = @"ccmarket";
-    username3 = [preferences3 stringForKey:@"username"];
-    ccmarket = [[Functions alloc] init];
-    iD = 0;
-    @try{get_items = [ccmarket httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
-    items = [get_items componentsSeparatedByString: @"|"];
-    counts = [items[5] intValue];
-    }@catch(NSException *error){}
-    [self configureTableview];
-}
 -(void)next{
     if(iD<counts-5){
         iD = iD + 5;
-        @try{get_items = [ccmarket httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
+        @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
             items = [get_items componentsSeparatedByString: @"|"];
             counts = [items[5] intValue];
         }@catch(NSException *error){}
@@ -126,7 +160,7 @@ static int iD;
 -(void)previous{
     if(iD >= 5){
         iD = iD - 5;
-        @try{get_items = [ccmarket httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
+        @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
             items = [get_items componentsSeparatedByString: @"|"];
             counts = [items[5] intValue];
         }@catch(NSException *error){}
@@ -159,9 +193,11 @@ static int iD;
 {
     
     if([whichTable isEqualToString:@"ccmarket"]){ UITableView *market = [[UITableView alloc] init];
-        market.frame = CGRectMake(0, 50, panel.frame.size.width-10, (items.count-1)*60);
-        market.layer.borderWidth = 2.0;
-        market.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
+        market.frame = CGRectMake(5, 50, 235, (items.count-1)*60);
+   //     market.setMasksToBounds:YES];
+   //     [layer setCornerRadius: 4.0];
+        market.layer.borderWidth = 2.0f;
+        market.layer.borderColor = [UIColor blueColor].CGColor;
         market.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
         market.delegate = self;
         market.dataSource = self;
@@ -214,13 +250,14 @@ static int iD;
     alertContentView.backgroundColor = [UIColor blackColor];
   */
     UIColor *color = [UIColor whiteColor]; // select needed color
-    NSString *string = [NSString stringWithFormat:@"Buy the %@ for ¢¢%@",items3[0],items3[7]];
+    NSString *string = [NSString stringWithFormat:@"Buy the %@ for ₡%@",items3[0],items3[7]];
     NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
     [alert setValue:attrStr forKey:@"attributedMessage"];
     
-    NSString *string1 = @"Market Order";
-    NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color };
+    color = [UIColor orangeColor];
+    NSString *string1 = @"Market Order\n";
+    NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color, NSFontAttributeName : [UIFont fontWithName:@"Abduction" size:16]};
     NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString:string1 attributes:attrs1];
     [alert setValue:attrStr1 forKey:@"attributedTitle"];
     
@@ -252,27 +289,32 @@ static int iD;
     if([whichTable isEqualToString:@"ccmarket"]){
         UIImage *gotoCorp = [UIImage imageNamed:@"goto.png"];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
-        cell.textLabel.font = [UIFont fontWithName:@"Abduction" size:12];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
-        cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
         cell.imageView.image = gotoCorp;
         NSString *items2 = [items objectAtIndex:indexPath.row];
         NSArray *items3 = [items2 componentsSeparatedByString: @","];
-        cell.textLabel.text = items3[0];
-        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"¢¢%@",items3[7]];
+        
+        NSString *type = [[NSString alloc] init];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
         if([items3[3] isEqualToString:@"computer"]){
+            type = @"- Motherboard";
             if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
             if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
             if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
         }if([items3[3] isEqualToString:@"cpu"]){
+            type = @"- CPU";
             if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
             if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
             if([items3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
         }if([items3[3] isEqualToString:@"mod"]){
+            type = @"- Generic Mod";
             if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
         }
+        cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
         
     }
  //   cell.textLabel.text =  [items objectAtIndex:indexPath.row];
