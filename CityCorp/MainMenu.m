@@ -228,6 +228,8 @@ static NSString *whichTable;
 }
 -(void)send{
     NSLog(@"%@", message.text);
+    [self.view endEditing:YES];
+    message2.text=@"";
     //go back to main screen after sent
 }
 -(void)back{

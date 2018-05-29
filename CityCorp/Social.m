@@ -29,10 +29,6 @@ static UIView *panel;
     back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 50, 50.0)]];
     
-    Button* general = [[Button alloc] init];
-    general.name = @"general";
- //   [self.view addSubview:[general button2: CGRectMake(10+52, 40, 75, 50.0)]];
-    
     Button* corp = [[Button alloc] init];
     corp.name = @"corp";
     [self.view addSubview:[corp button2: CGRectMake(10+52, 40, 70, 50.0)]];
@@ -60,6 +56,42 @@ static UIView *panel;
     [self.view addSubview:panel];
     
     [self.view addSubview:panel];
+    
+    UITextView *general = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, 215, 25)];
+    general.text = @"General Chat";
+    general.editable = NO;
+    general.backgroundColor = [UIColor blackColor];
+    general.font = [UIFont fontWithName:@"Abduction" size:14];
+    general.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    [panel addSubview:general];
+    
+    UITextView *chat = [[UITextView alloc] initWithFrame:CGRectMake(3, 85, 210, 333)];
+    chat.backgroundColor = [UIColor blackColor];
+    chat.layer.borderColor = [UIColor blueColor].CGColor;
+    chat.layer.borderWidth = 2.0f;
+    chat.editable = NO;
+    [panel addSubview:chat];
+    
+    UITextView *new = [[UITextView alloc ] initWithFrame:CGRectMake(panel.frame.size.width-83-3, 85-6, 100, 20)];
+    new.backgroundColor = [UIColor blackColor];
+    new.textColor = [UIColor whiteColor];
+    new.text = @"2 new messages";
+    new.font = [UIFont fontWithName:@"Arial" size:10];
+    [panel addSubview:new];
+    
+    Button *inbox = [[Button alloc] init];
+    inbox.name = @"inbox";
+    [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100, 83, 50.0)]];
+    
+    UITextField *message = [[UITextField alloc] initWithFrame:CGRectMake(3, 85-32, 210, 30)];
+    message.layer.borderWidth = 2.0f;
+    message.layer.borderColor = [UIColor blueColor].CGColor;
+    message.textColor = [UIColor whiteColor];
+    [panel addSubview:message];
+    
+    Button *send = [[Button alloc] init];
+    send.name = @"send";
+    [panel addSubview:[send button2: CGRectMake(3+212, 85-32, 60, 30.0)]];
     
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];

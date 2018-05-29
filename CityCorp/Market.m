@@ -26,6 +26,7 @@ static NSUserDefaults *preferences3;
 static NSString *get_items;
 static int counts;
 static Functions *ccmarket1;
+static Functions *blackmarket1;
 static int iD;
 
 
@@ -138,6 +139,68 @@ static int iD;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)blackmarket{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(2, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(1+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"blackmarket";
+    username3 = [preferences3 stringForKey:@"username"];
+    blackmarket1 = [[Functions alloc] init];
+    iD = 0;
+    @try{get_items = [blackmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
+        items = [get_items componentsSeparatedByString: @"|"];
+        counts = [items[5] intValue];
+    }@catch(NSException *error){}
+    [self configureTableview];
+    
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    credits.text = @"Credits: ";
+    credits.backgroundColor = [UIColor blackColor];
+    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    credits.editable = NO;
+    [panel addSubview:credits];
+    
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
+    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
+    NSInteger value = 60000;
+    NSString *result = [fmt stringFromNumber:@(value)];
+    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
+    amount.backgroundColor = [UIColor blackColor];
+    amount.font = [UIFont fontWithName:@"Arial" size:12];
+    amount.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    amount.editable = NO;
+    [panel addSubview:amount];
+    
+    UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    blackmarket3.text = @"Black Market";
+    blackmarket3.backgroundColor = [UIColor blackColor];
+    blackmarket3.font = [UIFont fontWithName:@"Abduction" size:14];
+    blackmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    blackmarket3.editable = NO;
+    [panel addSubview:blackmarket3];
+    
+    Button *sell = [[Button alloc] init];
+    sell.name = @"sell_on_blackmarket";
+    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-175-13, 60*6, 186, 50.0)]];
+    //   sell to ccmarket button
+    //    Button *sell = [[Button alloc] init];
+    //    sell.name = @"sell";
+    //    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-50-9, 29, 55, 45.0)]];
+    
+    Button *jobOrders = [[Button alloc] init];
+    jobOrders.name = @"job_listing";
+    //    [panel addSubview:[jobOrders button2: CGRectMake(panel.frame.size.width-115-5, 60+55, 115, 50.0)]];
 }
 -(void)back2{
     [self dismissViewControllerAnimated:false completion:nil];
