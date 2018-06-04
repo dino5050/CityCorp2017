@@ -170,6 +170,20 @@ static NSString *whichTable;
     tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
     [self configureTableview];
 }
+-(void)inventory{
+    
+        [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        Button *back = [[Button alloc] init];
+        back.name = @"back";
+        [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+        array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
+        array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
+        
+        whichTable = @"inventory";
+        tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
+        [self configureTableview];
+
+}
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     Button *back = [[Button alloc] init];
@@ -312,20 +326,32 @@ static NSString *whichTable;
         corps.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
         corps.layer.borderWidth = 2.0;
         corps.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
-        corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
+        corps.layer.backgroundColor = [UIColor blackColor].CGColor;
         corps.delegate = self;
         corps.dataSource = self;
         [panel addSubview:corps];
     }
-    else if([whichTable isEqualToString:@"computer"]){ UITableView *corps = [[UITableView alloc] init];
-        corps.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
-        corps.layer.borderWidth = 0.0;
-        corps.separatorColor = [UIColor clearColor];
-        corps.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-        corps.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
-        corps.delegate = self;
-        corps.dataSource = self;
-        [panel addSubview:corps];
+    else if([whichTable isEqualToString:@"computer"]){ UITableView *computer = [[UITableView alloc] init];
+        computer.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
+        computer.layer.borderWidth = 0.0;
+        computer.separatorColor = [UIColor clearColor];
+        computer.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+        computer.layer.backgroundColor = [UIColor blackColor].CGColor;
+        computer.delegate = self;
+        computer.dataSource = self;
+        [panel addSubview:computer];
+    }
+    else if([whichTable isEqualToString:@"inventory"]){
+        UITableView *inventory = [[UITableView alloc] init];
+        inventory.frame = CGRectMake(5, 50, 235, 5*60);
+        //     market.setMasksToBounds:YES];
+        //     [layer setCornerRadius: 4.0];
+        inventory.layer.borderWidth = 2.0f;
+        inventory.layer.borderColor = [UIColor blueColor].CGColor;
+        inventory.layer.backgroundColor = [UIColor blackColor].CGColor;
+        inventory.delegate = self;
+        inventory.dataSource = self;
+        [panel addSubview:inventory];
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -368,9 +394,18 @@ static NSString *whichTable;
         cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
-        UIImage *join = [tech objectAtIndex:indexPath.row];
+        UIImage *assets = [tech objectAtIndex:indexPath.row];
         cell.detailTextLabel.text = [array3 objectAtIndex:indexPath.row];
-        cell.imageView.image = join;
+        cell.imageView.image = assets;
+    }
+    else if([whichTable isEqualToString:@"inventory"]){
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        UIImage *assets = [tech objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text = [array3 objectAtIndex:indexPath.row];
+        cell.imageView.image = assets;
     }
     cell.textLabel.text =  [array2 objectAtIndex:indexPath.row];
     

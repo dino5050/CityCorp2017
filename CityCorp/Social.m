@@ -72,7 +72,8 @@ static UIView *panel;
     chat.editable = NO;
     [panel addSubview:chat];
     
-    UITextView *new = [[UITextView alloc ] initWithFrame:CGRectMake(panel.frame.size.width-83-3, 85-6, 100, 20)];
+    UITextView *new = [[UITextView alloc ] initWithFrame:CGRectMake(panel.frame.size.width-83-3, 85-6
+                                                                    , 100, 20)];
     new.backgroundColor = [UIColor blackColor];
     new.textColor = [UIColor whiteColor];
     new.text = @"2 new messages";

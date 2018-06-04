@@ -18,7 +18,9 @@
 
 @implementation Market
 
+static UITableView *market;
 static NSArray *items;
+static NSArray *items3;
 static NSString *whichTable;
 static UIView *panel;
 static NSString *username3;
@@ -215,7 +217,8 @@ static int iD;
             items = [get_items componentsSeparatedByString: @"|"];
             counts = [items[5] intValue];
         }@catch(NSException *error){}
-        
+        [market removeFromSuperview];
+        [market reloadData];
         [self configureTableview];
     }
 
@@ -227,7 +230,8 @@ static int iD;
             items = [get_items componentsSeparatedByString: @"|"];
             counts = [items[5] intValue];
         }@catch(NSException *error){}
-        
+        [market removeFromSuperview];
+        [market reloadData];
         [self configureTableview];
     }
     
@@ -255,15 +259,17 @@ static int iD;
 -(void)configureTableview
 {
     
-    if([whichTable isEqualToString:@"ccmarket"]){ UITableView *market = [[UITableView alloc] init];
+    if([whichTable isEqualToString:@"ccmarket"]){ market = [[UITableView alloc] init];
         market.frame = CGRectMake(5, 50, 235, (items.count-1)*60);
-   //     market.setMasksToBounds:YES];
+     //   market.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    //    [market.layer setMasksToBounds:YES];
    //     [layer setCornerRadius: 4.0];
         market.layer.borderWidth = 2.0f;
         market.layer.borderColor = [UIColor blueColor].CGColor;
-        market.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor colorWithRed:0 green:0 blue:0 alpha:255]);
+        market.layer.backgroundColor = [UIColor blackColor].CGColor;
         market.delegate = self;
         market.dataSource = self;
+        
         [panel addSubview:market];
     }
     
@@ -281,9 +287,10 @@ static int iD;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
+    NSLog(@"Number: %@", [NSString stringWithFormat: @"%ld",indexPath.row]);
     NSLog(@"title of cell %@", [items objectAtIndex:indexPath.row]);
     NSString *items2 = [items objectAtIndex:indexPath.row];
-    NSArray *items3 = [items2 componentsSeparatedByString: @","];
+    items3 = [items2 componentsSeparatedByString: @","];
     
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:@""
@@ -350,12 +357,12 @@ static int iD;
     }
     
     if([whichTable isEqualToString:@"ccmarket"]){
-        UIImage *gotoCorp = [UIImage imageNamed:@"goto.png"];
+     //   UIImage *gotoCorp = [UIImage imageNamed:@"goto.png"];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
         cell.detailTextLabel.textColor = [UIColor lightGrayColor];
-        cell.imageView.image = gotoCorp;
+   //     cell.imageView.image = gotoCorp;
         NSString *items2 = [items objectAtIndex:indexPath.row];
         NSArray *items3 = [items2 componentsSeparatedByString: @","];
         

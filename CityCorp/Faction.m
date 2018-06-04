@@ -42,6 +42,7 @@ NSUserDefaults *preferences4;
     statists_info.frame = CGRectMake(130, 70, 195, 120);
     [statists_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [statists_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    statists_info.editable=NO;
     statists_info.text = @"Statists argue for an indepentent socialist state. With nationalist tendencies, they are wary of outsiders, and push for limited immigration. They benefit within CityCorp's market where they enjoy a 15% discount on all CCMarket purchases.";
     [self.view addSubview:statists_info];
     
@@ -50,6 +51,7 @@ NSUserDefaults *preferences4;
     globalists_info.frame = CGRectMake(130, 190, 195, 140);
     [globalists_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [globalists_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    globalists_info.editable=NO;
     globalists_info.text = @"Globalists argue for the city's sovereignty to be dissolved into the New World Order. They are for open borders and welcomes all outsiders, including their votes of course. They benefit within CityCorp's market where they enjoy a 15% subsidy when selling to the CCMarket.";
     [self.view addSubview:globalists_info];
     
@@ -58,6 +60,7 @@ NSUserDefaults *preferences4;
     capitalists_info.frame = CGRectMake(130, 320, 195, 155);
     [capitalists_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [capitalists_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    capitalists_info.editable=NO;
     capitalists_info.text = @"Capalists argue for anything that will make their wallets fatter. They are multiculturalists one day, and obtain a sense of nationalistic pride the next, whichever is most profitable during business hours. They benefit from a 5% discount or mark-up when buying or selling in the Black Market."; //the main wealth injector of the city.";
     [self.view addSubview:capitalists_info];
     
@@ -66,6 +69,7 @@ NSUserDefaults *preferences4;
     outlaws_info.frame = CGRectMake(130, 450, 195, 125);
     [outlaws_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [outlaws_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    outlaws_info.editable=NO;
     outlaws_info.text = @"Outlaws lie, cheat, and steal... and steal and steal and steal. They are looked down upon by all the other factions. They are in it to win it and they win by cheating people out of their hard work. They benefit from extra bonuses given to them when hacking their own fellow citizens.";
     [self.view addSubview:outlaws_info];
     // Do any additional setup after loading the view.

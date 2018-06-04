@@ -42,6 +42,7 @@ NSUserDefaults *preferences1;
     hacker_info.frame = CGRectMake(130, 90, 195, 120);
     [hacker_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [hacker_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    hacker_info.editable=NO;
     hacker_info.text = @"A hacker's specialty is in creating exploits for use in hacking which can be used or be sold to other players, and have bonuses when using exploits for hacking. They can also give their CEO bonuses for hacking tech districts.";
     [self.view addSubview:hacker_info];
     
@@ -50,6 +51,7 @@ NSUserDefaults *preferences1;
     corporate_info.frame = CGRectMake(130, 210, 195, 120);
     [corporate_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [corporate_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    corporate_info.editable=NO;
     corporate_info.text = @"Corporate CEOs are the only ones that can hack tech districts as only they can create a corporation. Capturing these districts gives bonuses to their corporation as well as their entire faction. (Note: You can only be in a corporation that you created)";
     [self.view addSubview:corporate_info];
     
@@ -58,6 +60,7 @@ NSUserDefaults *preferences1;
     researcher_info.frame = CGRectMake(130, 330, 195, 120);
     [researcher_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [researcher_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    researcher_info.editable=NO;
     researcher_info.text = @"Researchers can use tools capable of identifying blueprints that are obtained from hacking industrial districts. They can also increase the quality of blueprints which can make them more valuable.";
     [self.view addSubview:researcher_info];
     
@@ -65,6 +68,7 @@ NSUserDefaults *preferences1;
     constructor_info.font = [UIFont fontWithName:@"Arial" size:12];
     constructor_info.frame = CGRectMake(130, 445, 195, 120);
     [constructor_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
+    constructor_info.editable=NO;
     [constructor_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     constructor_info.text = @"Constructors are the richest of all the classes. They can use tools to create tech equipment from blueprints that are vital to all citizens. Using high quality blueprints, they can also add modification slots that make what they create more valuable.";
     [self.view addSubview:constructor_info];
