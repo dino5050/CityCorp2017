@@ -302,10 +302,21 @@ static int iD;
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction * action)
                          {
-                     //        NSString *updateLink = [NSString stringWithFormat:@"http://itunes.apple.com/app/%@",appID];
-                     //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:updateLink]];
+                             preferences3 = [NSUserDefaults standardUserDefaults];
+                             NSString *username = [preferences3 stringForKey:@"username"];
+                             Functions *buy = [[Functions alloc] init];
+                             NSString *transaction = [buy httprequest:@"name,item,cost,market" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, items3[0], items3[7],whichTable] :@"buy.php"];
                              [alert dismissViewControllerAnimated:YES completion:nil];
-                             
+                             if([transaction isEqualToString:@"insufficient"]){
+                             UIAlertView *alert2 = [[UIAlertView alloc] initWithTitle:@"Insufficient Funds"
+                                                                             message:@"This is a sample"
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil];
+                             [alert2 show];
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             }else
+                             [alert dismissViewControllerAnimated:YES completion:nil];
                          }];
     UIAlertAction* cancel = [UIAlertAction
                              actionWithTitle:@"Cancel"
