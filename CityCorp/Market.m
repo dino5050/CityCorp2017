@@ -29,6 +29,8 @@ static NSString *get_items;
 static int counts;
 static Functions *ccmarket1;
 static Functions *blackmarket1;
+static UIAlertController * alert2;
+static UIAlertAction* dismiss;
 static int iD;
 
 
@@ -63,11 +65,6 @@ static int iD;
     panel.layer.borderWidth = 2.0f;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [self.view addSubview:panel];
-    
-    [self.view addSubview:panel];
-    
-    
-    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
@@ -161,6 +158,7 @@ static int iD;
         items = [get_items componentsSeparatedByString: @"|"];
         counts = [items[5] intValue];
     }@catch(NSException *error){}
+    [market reloadData];
     [self configureTableview];
     
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
@@ -308,16 +306,26 @@ static int iD;
                              NSString *transaction = [buy httprequest:@"name,item,cost,market" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, items3[0], items3[7],whichTable] :@"buy.php"];
                              [alert dismissViewControllerAnimated:YES completion:nil];
                              if([transaction isEqualToString:@"insufficient"]){
-                             UIAlertView *alert2 = [[UIAlertView alloc] initWithTitle:@"Insufficient Funds"
-                                                                             message:@"This is a sample"
-                                                                            delegate:nil
-                                                                   cancelButtonTitle:@"OK"
-                                                                   otherButtonTitles:nil];
-                             [alert2 show];
+                             alert2=   [UIAlertController
+                                                               alertControllerWithTitle:@""
+                                                               message:@""
+                                                               preferredStyle:UIAlertControllerStyleAlert];
+                                 dismiss = [UIAlertAction
+                                                      actionWithTitle:@"Dismiss"
+                                                      style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action){
+                                                          [alert2 dismissViewControllerAnimated:YES completion:nil];
+                                                      }];
+                                 UIColor *color = [UIColor whiteColor]; // select needed color
+                                 NSString *string = @"Insufficient Funds";
+                                 NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+                                 NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+                                 [alert2 setValue:attrStr forKey:@"attributedMessage"];
+                                 [alert2 addAction:dismiss];
+                                 [self presentViewController:alert2 animated:YES completion:nil];
                              [alert dismissViewControllerAnimated:YES completion:nil];
-                             }else
-                             [alert dismissViewControllerAnimated:YES completion:nil];
-                         }];
+                         }else [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
     UIAlertAction* cancel = [UIAlertAction
                              actionWithTitle:@"Cancel"
                              style:UIAlertActionStyleDefault
@@ -345,6 +353,7 @@ static int iD;
     
     [alert addAction:ok];
     [alert addAction:cancel];
+    
     
  //   UIVisualEffectView.appearance(whenContainedInInstancesOf: [alert.classForCoder() as! UIAppearanceContainer.Type]).effect = UIBlurEffect(style: .dark)
     UIVisualEffect *blurEffect;

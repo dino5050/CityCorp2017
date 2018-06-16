@@ -31,13 +31,13 @@ NSUserDefaults *preferences2;
 - (IBAction)username:(UITextField *)sender {
     username = sender.text;
     if(username.length < 4) _error.text = @"Too few characters";
-    else if(username.length > 16) _error.text = @"Too many characters";
+    else if(username.length > 17) _error.text = @"Too many characters";
     else _error.text = @"";
 }
 - (IBAction)password:(UITextField *)sender {
     password = sender.text;
     if(password.length < 4) _errorPassword.text = @"Too few characters";
-    else if(password.length > 16) _errorPassword.text = @"Too many characters";
+    else if(password.length > 17) _errorPassword.text = @"Too many characters";
     else _errorPassword.text = @"";
 }
 - (IBAction)password2:(UITextField *)sender {

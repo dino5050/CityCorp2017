@@ -40,6 +40,15 @@ static NSArray *array3;
 static NSArray *tech;
 static NSString *whichTable;
 
+static NSArray *items;
+static NSArray *items3;
+static NSString *get_items;
+static int counts;
+static Functions *inventory;
+//static UIAlertController * alert2;
+//static UIAlertAction* dismiss;
+static int iD;
+
 
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
     
@@ -172,18 +181,63 @@ static NSString *whichTable;
 }
 -(void)inventory{
     
-        [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"ccmarket";
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory = [[Functions alloc] init];
+    iD = 0;
+    @try{get_items = [inventory httprequest:@"name" :[NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%d",iD]] :@"inventory.php"];
+        items = [get_items componentsSeparatedByString: @"|"];
+        counts = [items[5] intValue];
+    }@catch(NSException *error){}
+    
         Button *back = [[Button alloc] init];
         back.name = @"back";
         [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-        array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
-        array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
+        array2 = @[@"CC-1000", @"CCPU-100"];
+        array3 = @[@"Generic motherboard", @"Generic CPU"];
         
         whichTable = @"inventory";
         tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
+  //      [corps reloadData];
         [self configureTableview];
 
 }
+/*-(void)next{
+    if(iD<counts-5){
+        iD = iD + 5;
+        @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
+            items = [get_items componentsSeparatedByString: @"|"];
+            counts = [items[5] intValue];
+        }@catch(NSException *error){}
+        [market removeFromSuperview];
+        [market reloadData];
+        [self configureTableview];
+    }
+    
+}
+-(void)previous{
+    if(iD >= 5){
+        iD = iD - 5;
+        @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
+            items = [get_items componentsSeparatedByString: @"|"];
+            counts = [items[5] intValue];
+        }@catch(NSException *error){}
+        [market removeFromSuperview];
+        [market reloadData];
+        [self configureTableview];
+    }
+ 
+} */
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     Button *back = [[Button alloc] init];
@@ -322,7 +376,7 @@ static NSString *whichTable;
 -(void)configureTableview
 {
  //   UITableView *corps = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    if([whichTable isEqualToString:@"join_corp"]){ UITableView *corps = [[UITableView alloc] init];
+    if([whichTable isEqualToString:@"join_corp"]){UITableView *corps = [[UITableView alloc] init];
         corps.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
         corps.layer.borderWidth = 2.0;
         corps.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
@@ -343,7 +397,7 @@ static NSString *whichTable;
     }
     else if([whichTable isEqualToString:@"inventory"]){
         UITableView *inventory = [[UITableView alloc] init];
-        inventory.frame = CGRectMake(5, 50, 235, 5*60);
+        inventory.frame = CGRectMake(5, 50, 235, array2.count*60);
         //     market.setMasksToBounds:YES];
         //     [layer setCornerRadius: 4.0];
         inventory.layer.borderWidth = 2.0f;
