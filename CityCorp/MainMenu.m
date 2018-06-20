@@ -39,12 +39,13 @@ static NSArray *array2;
 static NSArray *array3;
 static NSArray *tech;
 static NSString *whichTable;
-
+//static UITableView *inventory;
+static Functions *inventory1;
+static UITableView *mainmenu;
 static NSArray *items;
 static NSArray *items3;
 static NSString *get_items;
 static int counts;
-static Functions *inventory;
 //static UIAlertController * alert2;
 //static UIAlertAction* dismiss;
 static int iD;
@@ -191,36 +192,36 @@ static int iD;
     [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
-    whichTable = @"ccmarket";
+    whichTable = @"inventory";
     username3 = [preferences3 stringForKey:@"username"];
-    inventory = [[Functions alloc] init];
+    inventory1 = [[Functions alloc] init];
     iD = 0;
-    @try{get_items = [inventory httprequest:@"name" :[NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%d",iD]] :@"inventory.php"];
-        items = [get_items componentsSeparatedByString: @"|"];
-        counts = [items[5] intValue];
+    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        counts = [array2[5] intValue];
     }@catch(NSException *error){}
     
         Button *back = [[Button alloc] init];
         back.name = @"back";
         [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-        array2 = @[@"CC-1000", @"CCPU-100"];
-        array3 = @[@"Generic motherboard", @"Generic CPU"];
+  //      array2 = @[@"CC-1000", @"CCPU-100"];
+   //     array3 = @[@"Generic motherboard", @"Generic CPU"];
         
         whichTable = @"inventory";
         tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
-  //      [corps reloadData];
+       // [corps reloadData];
         [self configureTableview];
 
 }
-/*-(void)next{
+-(void)next{
     if(iD<counts-5){
         iD = iD + 5;
-        @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
-            items = [get_items componentsSeparatedByString: @"|"];
-            counts = [items[5] intValue];
+        @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+            array2 = [get_items componentsSeparatedByString: @"|"];
+            counts = [array2[5] intValue];
         }@catch(NSException *error){}
-        [market removeFromSuperview];
-        [market reloadData];
+        [mainmenu removeFromSuperview];
+        [mainmenu reloadData];
         [self configureTableview];
     }
     
@@ -228,16 +229,16 @@ static int iD;
 -(void)previous{
     if(iD >= 5){
         iD = iD - 5;
-        @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
-            items = [get_items componentsSeparatedByString: @"|"];
-            counts = [items[5] intValue];
+        @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+            array2 = [get_items componentsSeparatedByString: @"|"];
+            counts = [array2[5] intValue];
         }@catch(NSException *error){}
-        [market removeFromSuperview];
-        [market reloadData];
+        [mainmenu removeFromSuperview];
+        [mainmenu reloadData];
         [self configureTableview];
     }
  
-} */
+}
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     Button *back = [[Button alloc] init];
@@ -376,36 +377,36 @@ static int iD;
 -(void)configureTableview
 {
  //   UITableView *corps = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    if([whichTable isEqualToString:@"join_corp"]){UITableView *corps = [[UITableView alloc] init];
-        corps.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
-        corps.layer.borderWidth = 2.0;
-        corps.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
-        corps.layer.backgroundColor = [UIColor blackColor].CGColor;
-        corps.delegate = self;
-        corps.dataSource = self;
-        [panel addSubview:corps];
+    if([whichTable isEqualToString:@"join_corp"]){mainmenu = [[UITableView alloc] init];
+        mainmenu.frame = CGRectMake(0, 50, panel.frame.size.width-10, (array2.count-1)*60);
+        mainmenu.layer.borderWidth = 2.0;
+        mainmenu.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
+        mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
+        mainmenu.delegate = self;
+        mainmenu.dataSource = self;
+        [panel addSubview:mainmenu];
     }
-    else if([whichTable isEqualToString:@"computer"]){ UITableView *computer = [[UITableView alloc] init];
-        computer.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
-        computer.layer.borderWidth = 0.0;
-        computer.separatorColor = [UIColor clearColor];
-        computer.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-        computer.layer.backgroundColor = [UIColor blackColor].CGColor;
-        computer.delegate = self;
-        computer.dataSource = self;
-        [panel addSubview:computer];
+    else if([whichTable isEqualToString:@"computer"]){ mainmenu = [[UITableView alloc] init];
+        mainmenu.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
+        mainmenu.layer.borderWidth = 0.0;
+        mainmenu.separatorColor = [UIColor clearColor];
+        mainmenu.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+        mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
+        mainmenu.delegate = self;
+        mainmenu.dataSource = self;
+        [panel addSubview:mainmenu];
     }
     else if([whichTable isEqualToString:@"inventory"]){
-        UITableView *inventory = [[UITableView alloc] init];
-        inventory.frame = CGRectMake(5, 50, 235, array2.count*60);
+        mainmenu = [[UITableView alloc] init];
+        mainmenu.frame = CGRectMake(5, 50, 235, (array2.count-1)*60);
         //     market.setMasksToBounds:YES];
         //     [layer setCornerRadius: 4.0];
-        inventory.layer.borderWidth = 2.0f;
-        inventory.layer.borderColor = [UIColor blueColor].CGColor;
-        inventory.layer.backgroundColor = [UIColor blackColor].CGColor;
-        inventory.delegate = self;
-        inventory.dataSource = self;
-        [panel addSubview:inventory];
+        mainmenu.layer.borderWidth = 2.0f;
+        mainmenu.layer.borderColor = [UIColor blueColor].CGColor;
+        mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
+        mainmenu.delegate = self;
+        mainmenu.dataSource = self;
+        [panel addSubview:mainmenu];
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -417,7 +418,8 @@ static int iD;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return array2.count;
+    if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"]) return array2.count-1;
+    else return array2.count;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -457,11 +459,31 @@ static int iD;
         cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
-        UIImage *assets = [tech objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [array3 objectAtIndex:indexPath.row];
-        cell.imageView.image = assets;
+  //      UIImage *assets = [tech objectAtIndex:indexPath.row];
+        NSString *items = [array2 objectAtIndex:indexPath.row];
+   //     NSLog(@"%@", items);
+        array3 = [items componentsSeparatedByString: @","];
+        cell.detailTextLabel.text = array3[3];
+        NSString *type = array3[1];
+        if([array3[3] isEqualToString:@"computer"]){
+            type = @"- Motherboard";
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+            if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+        }if([array3[3] isEqualToString:@"cpu"]){
+            type = @"- CPU";
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+            if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+        }if([array3[3] isEqualToString:@"mod"]){
+            type = @"- Generic Mod";
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+        }
+     //   cell.imageView.image = assets;
     }
-    cell.textLabel.text =  [array2 objectAtIndex:indexPath.row];
+    cell.textLabel.text =  array3[0];
     
   /*  NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     UIImage *theImage = [UIImage imageWithContentsOfFile:path];
