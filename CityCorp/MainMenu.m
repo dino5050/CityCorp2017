@@ -46,6 +46,7 @@ static NSArray *items;
 static NSArray *items3;
 static NSString *get_items;
 static int counts;
+static int slots;
 //static UIAlertController * alert2;
 //static UIAlertAction* dismiss;
 static int iD;
@@ -173,11 +174,20 @@ static int iD;
     Button *back = [[Button alloc] init];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-    array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
-    array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
+ //   array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
+  //  array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
     
-    whichTable = @"computer";
-    tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    whichTable = @"equipment";
+    @try{get_items = [inventory1 httprequest:@"name,menu" :[NSString stringWithFormat:@"%@,%@",username3, whichTable] :@"mainmenu.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        slots = [array2[2] intValue];
+    }@catch(NSException *error){}
+ //   tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
     [self configureTableview];
 }
 -(void)inventory{
@@ -208,7 +218,7 @@ static int iD;
    //     array3 = @[@"Generic motherboard", @"Generic CPU"];
         
         whichTable = @"inventory";
-        tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
+ //       tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
        // [corps reloadData];
         [self configureTableview];
 
@@ -386,8 +396,8 @@ static int iD;
         mainmenu.dataSource = self;
         [panel addSubview:mainmenu];
     }
-    else if([whichTable isEqualToString:@"computer"]){ mainmenu = [[UITableView alloc] init];
-        mainmenu.frame = CGRectMake(0, 50, panel.frame.size.width-10, array2.count*60);
+    else if([whichTable isEqualToString:@"equipment"]){ mainmenu = [[UITableView alloc] init];
+        mainmenu.frame = CGRectMake(0, 50, panel.frame.size.width-10, (array2.count-1+slots)*60);
         mainmenu.layer.borderWidth = 0.0;
         mainmenu.separatorColor = [UIColor clearColor];
         mainmenu.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
@@ -419,7 +429,7 @@ static int iD;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"]) return array2.count-1;
-    else return array2.count;
+    else return array2.count-1+slots;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -443,16 +453,44 @@ static int iD;
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
         cell.imageView.image = gotoCorp;
+        cell.textLabel.text =  array3[0];
         cell.detailTextLabel.text = @"1 member";
     }
-    else if([whichTable isEqualToString:@"computer"]){
+    else if([whichTable isEqualToString:@"equipment"]){
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
         cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
-        UIImage *assets = [tech objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [array3 objectAtIndex:indexPath.row];
-        cell.imageView.image = assets;
+  //      UIImage *assets = [tech objectAtIndex:indexPath.row];
+        NSLog(@"%@", items);
+        if(array2.count-1>indexPath.row){
+            NSString *items = [array2 objectAtIndex:indexPath.row];
+            array3 = [items componentsSeparatedByString: @","];
+            cell.textLabel.text =  array3[0];
+            cell.detailTextLabel.text = array3[3];
+            NSString *type;// = array3[1];
+            if([array3[3] isEqualToString:@"computer"]){
+                type = @"- Motherboard";
+                if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+            }if([array3[3] isEqualToString:@"cpu"]){
+                type = @"- CPU";
+                if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+                if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+            }if([array3[3] isEqualToString:@"mod"]){
+                type = @"- Generic Mod";
+                if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            }
+        }else{
+            cell.textLabel.text = @"Mod Slot";
+            cell.detailTextLabel.text = @"Empty slot";
+            cell.imageView.image = [UIImage imageNamed:@"slot.png"];
+        }
+      //  cell.imageView.image = assets;
     }
     else if([whichTable isEqualToString:@"inventory"]){
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
@@ -463,8 +501,9 @@ static int iD;
         NSString *items = [array2 objectAtIndex:indexPath.row];
    //     NSLog(@"%@", items);
         array3 = [items componentsSeparatedByString: @","];
+        cell.textLabel.text =  array3[0];
         cell.detailTextLabel.text = array3[3];
-        NSString *type = array3[1];
+        NSString *type;// = array3[1];
         if([array3[3] isEqualToString:@"computer"]){
             type = @"- Motherboard";
             if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
@@ -481,10 +520,11 @@ static int iD;
             if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
         }
-     //   cell.imageView.image = assets;
+             //   cell.imageView.image = assets;
     }
-    cell.textLabel.text =  array3[0];
     
+    
+
   /*  NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     UIImage *theImage = [UIImage imageWithContentsOfFile:path];
     cell.imageView.image = theImage; */
