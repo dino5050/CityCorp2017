@@ -136,7 +136,7 @@ static int iD;
         info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]];
     
     [panel addSubview:info];
-    
+    [preferences3 setObject:values[7] forKey:@"faction"];
     message = [[UITextView alloc] init];
     message.font = [UIFont fontWithName:@"Arial" size:16];
     message.frame = CGRectMake(5, 5+155, 200, 100);
@@ -214,12 +214,7 @@ static int iD;
         Button *back = [[Button alloc] init];
         back.name = @"back";
         [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-  //      array2 = @[@"CC-1000", @"CCPU-100"];
-   //     array3 = @[@"Generic motherboard", @"Generic CPU"];
-        
-        whichTable = @"inventory";
- //       tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
-       // [corps reloadData];
+    
         [self configureTableview];
 
 }
@@ -251,13 +246,33 @@ static int iD;
 }
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"join_corp";
+    username3 = [preferences3 stringForKey:@"faction"];
+//    [username3 lowercaseString];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        counts = [array2[4] intValue];
+    }@catch(NSException *error){}
+    NSLog(@"%@ |||||||||||||||||||",username3);
     Button *back = [[Button alloc] init];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
-    array2 = @[ @"Nezennin Corp.", @"Nez Enterprises"];
-    whichTable = @"join_corp";
     [self configureTableview];
+    
+//    array2 = @[ @"Nezennin Corp.", @"Nez Enterprises"];
+//    whichTable = @"join_corp";
 
 }
 -(void)map{
@@ -329,13 +344,6 @@ static int iD;
     Button *inventory = [[Button alloc] init];
     inventory.name = @"inventory";
     [panel addSubview:[inventory button2: CGRectMake(panel.frame.size.width-115-5, 5 + 55, 115, 50.0)]];
-    
-    //    make join corp/create corp/go to corp button
-    
-    //    try to make prefences variable global
-    
-    
-    
     
     username3 = [preferences3 stringForKey:@"username"];
     @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
@@ -453,8 +461,13 @@ static int iD;
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
         cell.imageView.image = gotoCorp;
+        NSString *items = [array2 objectAtIndex:indexPath.row];
+        //     NSLog(@"%@", items);
+        array3 = [items componentsSeparatedByString: @","];
         cell.textLabel.text =  array3[0];
-        cell.detailTextLabel.text = @"1 member";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ members", array3[2]];
+        
+     //   cell.detailTextLabel.text = @"1 member";
     }
     else if([whichTable isEqualToString:@"equipment"]){
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
