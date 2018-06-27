@@ -17,5 +17,7 @@
 -(UIButton *) previous: (CGRect) rect;
 -(UIButton *) next: (CGRect) rect;
 -(void)clicked:(UIButton *) button;
+-(UIButton *) add: (CGRect) rect;
+-(UIButton *) subtract: (CGRect) rect;
 
 @end

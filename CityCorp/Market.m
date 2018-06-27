@@ -32,7 +32,7 @@ static Functions *blackmarket1;
 static UIAlertController * alert2;
 static UIAlertAction* dismiss;
 static int iD;
-
+static UITextView *quantity1; static UITextView *quantity2; static UITextView *quantity3; static UITextView *quantity4; static UITextView *quantity5;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,6 +84,50 @@ static int iD;
     }@catch(NSException *error){}
     [self configureTableview];
     
+    if(items.count>1){
+        Button *add1 = [[Button alloc] init];
+        add1.name = @"add1";
+        [panel addSubview:[add1 add: CGRectMake(panel.frame.size.width-25-5, 50+5, 25, 25)]];
+        
+        Button *subtract1 = [[Button alloc] init];
+        subtract1.name = @"subtract1";
+        [panel addSubview:[subtract1 subtract: CGRectMake(panel.frame.size.width-25-5, 50+25+1+5, 25, 25)]];
+        
+        quantity1 = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-25-5-30, 50+10, 30, 30)];
+        quantity1.text = @" 1";
+        quantity1.backgroundColor = [UIColor blackColor];
+        quantity1.font = [UIFont fontWithName:@"Arial" size:17]; //rgb(30,144,255)
+        quantity1.textColor = [UIColor whiteColor];
+        quantity1.editable = NO;
+        [panel addSubview:quantity1];
+        NSLog(@"|||%d|||", [quantity1.text intValue]);
+    }
+    if(items.count>2){
+        Button *add2 = [[Button alloc] init];
+        add2.name = @"add2";
+        [panel addSubview:[add2 add: CGRectMake(panel.frame.size.width-25-5, 50+5+60, 25, 25)]];
+        
+        Button *subtract2 = [[Button alloc] init];
+        subtract2.name = @"subtract2";
+        [panel addSubview:[subtract2 subtract: CGRectMake(panel.frame.size.width-25-5, 50+25+1+5+60, 25, 25)]];
+        
+        quantity2 = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-25-5-30, 50+10+60, 30, 30)];
+        quantity2.text = @" 1";
+        quantity2.backgroundColor = [UIColor blackColor];
+        quantity2.font = [UIFont fontWithName:@"Arial" size:17]; //rgb(30,144,255)
+        quantity2.textColor = [UIColor whiteColor];
+        quantity2.editable = NO;
+        [panel addSubview:quantity2];
+    }
+    
+    UITextView *quantity_text = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-25-5-35, 50-25, 75, 23)];
+    quantity_text.text = @"Quantity";
+    quantity_text.backgroundColor = [UIColor blackColor];
+    quantity_text.font = [UIFont fontWithName:@"Arial" size:12]; //rgb(30,144,255)
+    quantity_text.textColor = [UIColor whiteColor];
+    quantity_text.editable = NO;
+    [panel addSubview:quantity_text];
+    
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
@@ -91,11 +135,14 @@ static int iD;
     credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     credits.editable = NO;
     [panel addSubview:credits];
+    Functions *get_credits = [[Functions alloc] init];
+    @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
+    }@catch(NSException *error){}
     
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
     [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
-    NSInteger value = 60000;
+    NSInteger value = [get_items intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
     UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
     amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
@@ -207,6 +254,18 @@ static int iD;
 }
 -(void)back{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+-(void)add1{
+    if([quantity1.text intValue]<99){
+        if([quantity1.text intValue]<9) quantity1.text = [NSString stringWithFormat:@" %d",[quantity1.text intValue]+1];
+        else quantity1.text = [NSString stringWithFormat:@"%d",[quantity1.text intValue]+1];
+    }
+}
+-(void)subtract1{
+    if([quantity1.text intValue]>1){
+        if([quantity1.text intValue]<=10) quantity1.text = [NSString stringWithFormat:@" %d",[quantity1.text intValue]-1];
+        else quantity1.text = [NSString stringWithFormat:@"%d",[quantity1.text intValue]-1];
+    }
 }
 -(void)next{
     if(iD<counts-5){
@@ -371,7 +430,6 @@ static int iD;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
@@ -418,6 +476,7 @@ static int iD;
     
     return cell;
 }
+
 /*
 #pragma mark - Navigation
 
