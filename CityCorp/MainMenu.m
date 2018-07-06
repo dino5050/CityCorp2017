@@ -39,6 +39,7 @@ static NSArray *array2;
 static NSArray *array3;
 static NSArray *tech;
 static NSString *whichTable;
+static NSString *action;
 //static UITableView *inventory;
 static Functions *inventory1;
 static UITableView *mainmenu;
@@ -47,6 +48,7 @@ static NSArray *items3;
 static NSString *get_items;
 static int counts;
 static int slots;
+static NSString *type;
 //static UIAlertController * alert2;
 //static UIAlertAction* dismiss;
 static int iD;
@@ -135,7 +137,12 @@ static int iD;
     get_char_info = [[Functions alloc] init];
     @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
-        info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]];
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
+    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
+    NSInteger value = [values[8] intValue];
+    NSString *result = [fmt stringFromNumber:@(value)];
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], result];
     
     [panel addSubview:info];
     [preferences3 setObject:values[7] forKey:@"faction"];
@@ -197,10 +204,31 @@ static int iD;
         slots = [array2[2] intValue];
     }@catch(NSException *error){}
  //   tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
+    Button *modify1 = [[Button alloc] init];
+    modify1.name = @"modify_1";
+    [panel addSubview:[modify1 button2: CGRectMake(210, 50, 80, 50)]];
+    
+    Button *modify2 = [[Button alloc] init];
+    modify2.name = @"modify_2";
+    [panel addSubview:[modify2 button2: CGRectMake(210, 50+60, 80, 50)]];
+    if(slots>0){
+        Button *modify3 = [[Button alloc] init];
+        modify3.name = @"modify_3";
+        [panel addSubview:[modify3 button2: CGRectMake(210, 50+120, 80, 50)]];
+    }
+    if(slots>1){
+        Button *modify4 = [[Button alloc] init];
+        modify4.name = @"modify_4";
+        [panel addSubview:[modify4 button2: CGRectMake(210, 50+180, 80, 50)]];
+    }
+    if(slots>2){
+        Button *modify5 = [[Button alloc] init];
+        modify5.name = @"modify_5";
+        [panel addSubview:[modify5 button2: CGRectMake(210, 50+240, 80, 50)]];
+    }
     [self configureTableview];
 }
 -(void)inventory{
-    
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     inventory.text = @"Inventory";
@@ -223,18 +251,19 @@ static int iD;
     iD = 0;
     @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
         array2 = [get_items componentsSeparatedByString: @"|"];
-        counts = [array2[5] intValue];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
     }@catch(NSException *error){}
-    NSLog(@"%@ |||||||||||||||", array2[0]);
-    if ([array2[0] intValue] == 0){
-        UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 100, 80, 25)];
-        empty.text = @"Empty";
-        empty.backgroundColor = [UIColor blackColor];
-        empty.font = [UIFont fontWithName:@"Abduction" size:14];
-        empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
-        empty.editable = NO;
-        [panel addSubview:empty];
-    }
+ //   NSLog(@"%@ |||||||||||||||", array2[0]);
+    
+    UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
+    empty.text = @"Empty";
+    empty.backgroundColor = [UIColor blackColor];
+    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    empty.editable = NO;
+    [panel addSubview:empty];
+    
         Button *back = [[Button alloc] init];
         back.name = @"back";
         [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -242,29 +271,275 @@ static int iD;
         [self configureTableview];
 
 }
+-(void)modify_1{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    motherboards.text = @"Motherboards";
+    motherboards.backgroundColor = [UIColor blackColor];
+    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    motherboards.editable = NO;
+    [panel addSubview:motherboards];
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"modify";
+    action = @"inventory";
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    type = @"computer";
+    @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],action,@"computer"] :@"equipment.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
+    }@catch(NSException *error){}
+    //   NSLog(@"%@ |||||||||||||||", array2[0]);
+    
+    UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
+    empty.text = @"Empty";
+    empty.backgroundColor = [UIColor blackColor];
+    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    empty.editable = NO;
+    [panel addSubview:empty];
+    
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    [self configureTableview];
+}
+-(void)modify_2{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    motherboards.text = @"CPUs";
+    motherboards.backgroundColor = [UIColor blackColor];
+    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    motherboards.editable = NO;
+    [panel addSubview:motherboards];
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"modify";
+    action = @"inventory";
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    type = @"cpu";
+    @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],action,@"cpu"] :@"equipment.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
+    }@catch(NSException *error){}
+    //   NSLog(@"%@ |||||||||||||||", array2[0]);
+    
+    UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
+    empty.text = @"Empty";
+    empty.backgroundColor = [UIColor blackColor];
+    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    empty.editable = NO;
+    [panel addSubview:empty];
+    
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    [self configureTableview];
+}
+-(void)modify_3{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    motherboards.text = @"Mods";
+    motherboards.backgroundColor = [UIColor blackColor];
+    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    motherboards.editable = NO;
+    [panel addSubview:motherboards];
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"modify";
+    action = @"inventory";
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    type = @"mod";
+    @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],action,@"mod"] :@"equipment.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
+    }@catch(NSException *error){}
+    //   NSLog(@"%@ |||||||||||||||", array2[0]);
+    
+    UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
+    empty.text = @"Empty";
+    empty.backgroundColor = [UIColor blackColor];
+    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    empty.editable = NO;
+    [panel addSubview:empty];
+    
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    [self configureTableview];
+}
+-(void)modify_4{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    motherboards.text = @"Mods";
+    motherboards.backgroundColor = [UIColor blackColor];
+    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    motherboards.editable = NO;
+    [panel addSubview:motherboards];
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"modify";
+    action = @"inventory";
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    type = @"mod";
+    @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],action,@"mod"] :@"equipment.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
+    }@catch(NSException *error){}
+    //   NSLog(@"%@ |||||||||||||||", array2[0]);
+    
+    UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
+    empty.text = @"Empty";
+    empty.backgroundColor = [UIColor blackColor];
+    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    empty.editable = NO;
+    [panel addSubview:empty];
+    
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    [self configureTableview];
+}
+-(void)modify_5{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    motherboards.text = @"Mods";
+    motherboards.backgroundColor = [UIColor blackColor];
+    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    motherboards.editable = NO;
+    [panel addSubview:motherboards];
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"modify";
+    action = @"inventory";
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    type = @"mod";
+    @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],action,@"mod"] :@"equipment.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
+    }@catch(NSException *error){}
+    //   NSLog(@"%@ |||||||||||||||", array2[0]);
+    
+    UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
+    empty.text = @"Empty";
+    empty.backgroundColor = [UIColor blackColor];
+    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    empty.editable = NO;
+    [panel addSubview:empty];
+    
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    [self configureTableview];
+}
 -(void)next{
     if(iD<counts-5){
         iD = iD + 5;
-        @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+        if(![whichTable isEqualToString:@"modify"]){
+            @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
             array2 = [get_items componentsSeparatedByString: @"|"];
-            counts = [array2[5] intValue];
-        }@catch(NSException *error){}
-        [mainmenu removeFromSuperview];
-        [mainmenu reloadData];
-        [self configureTableview];
+            if([array2 count] > 5) counts = [array2[5] intValue];
+            else counts = 0;
+            }@catch(NSException *error){}
+            [mainmenu removeFromSuperview];
+            [mainmenu reloadData];
+            [self configureTableview];
+        }else{
+            @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],action,type] :@"equipment.php"];
+                array2 = [get_items componentsSeparatedByString: @"|"];
+                if([array2 count] > 5) counts = [array2[5] intValue];
+                else counts = 0;
+            }@catch(NSException *error){}
+            [mainmenu removeFromSuperview];
+            [mainmenu reloadData];
+            [self configureTableview];
+        
+        }
     }
     
 }
 -(void)previous{
     if(iD >= 5){
         iD = iD - 5;
-        @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
-            array2 = [get_items componentsSeparatedByString: @"|"];
-            counts = [array2[5] intValue];
-        }@catch(NSException *error){}
-        [mainmenu removeFromSuperview];
-        [mainmenu reloadData];
-        [self configureTableview];
+        if(![whichTable isEqualToString:@"modify"]){
+            @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+                array2 = [get_items componentsSeparatedByString: @"|"];
+                if([array2 count] > 5) counts = [array2[5] intValue];
+                else counts = 0;
+            }@catch(NSException *error){}
+            [mainmenu removeFromSuperview];
+            [mainmenu reloadData];
+            [self configureTableview];
+        }else{
+            @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],action,type] :@"equipment.php"];
+                array2 = [get_items componentsSeparatedByString: @"|"];
+                if([array2 count] > 5) counts = [array2[5] intValue];
+                else counts = 0;
+            }@catch(NSException *error){}
+            [mainmenu removeFromSuperview];
+            [mainmenu reloadData];
+            [self configureTableview];
+            
+        }
     }
  
 }
@@ -292,7 +567,8 @@ static int iD;
     iD = 0;
     @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
         array2 = [get_items componentsSeparatedByString: @"|"];
-        counts = [array2[4] intValue];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
     }@catch(NSException *error){}
  //   NSLog(@"%@ |||||||||||||||||||",username3);
     Button *back = [[Button alloc] init];
@@ -356,7 +632,7 @@ static int iD;
     message2.text=@"";
     //go back to main screen after sent
 }
--(void)back{
+-(void)back{ //MAKE ANOTHER BACK BUTTON FOR EQUIPMENT "back_"
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     Button *changeProfession = [[Button alloc] init];
@@ -378,7 +654,7 @@ static int iD;
     username3 = [preferences3 stringForKey:@"username"];
     @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ▵%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]];
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]];
  //   [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
   //  [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:info];
@@ -435,7 +711,7 @@ static int iD;
         [panel addSubview:mainmenu];
     }
     else if([whichTable isEqualToString:@"equipment"]){ mainmenu = [[UITableView alloc] init];
-        mainmenu.frame = CGRectMake(0, 50, panel.frame.size.width-10, (array2.count-1+slots)*60);
+        mainmenu.frame = CGRectMake(0, 50, 205, (array2.count-1+slots)*60);
         mainmenu.layer.borderWidth = 0.0;
         mainmenu.separatorColor = [UIColor clearColor];
         mainmenu.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
@@ -445,6 +721,17 @@ static int iD;
         [panel addSubview:mainmenu];
     }
     else if([whichTable isEqualToString:@"inventory"]){
+        mainmenu = [[UITableView alloc] init];
+        mainmenu.frame = CGRectMake(5, 50, 235, (array2.count-1)*60);
+        //     market.setMasksToBounds:YES];
+        //     [layer setCornerRadius: 4.0];
+        mainmenu.layer.borderWidth = 2.0f;
+        mainmenu.layer.borderColor = [UIColor blueColor].CGColor;
+        mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
+        mainmenu.delegate = self;
+        mainmenu.dataSource = self;
+        [panel addSubview:mainmenu];
+    }else if([whichTable isEqualToString:@"modify"]){
         mainmenu = [[UITableView alloc] init];
         mainmenu.frame = CGRectMake(5, 50, 235, (array2.count-1)*60);
         //     market.setMasksToBounds:YES];
@@ -466,7 +753,7 @@ static int iD;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"]) return array2.count-1;
+    if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"] || [whichTable isEqualToString:@"modify"]) return array2.count-1;
     else return array2.count-1+slots;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -544,7 +831,10 @@ static int iD;
         NSString *items = [array2 objectAtIndex:indexPath.row];
    //     NSLog(@"%@", items);
         array3 = [items componentsSeparatedByString: @","];
-        cell.textLabel.text =  array3[0];
+        NSString *equipped;
+        if([array3[8] isEqualToString:@"1"]) equipped = @" - Equipped";
+        else equipped = @"";
+        cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@%@", array3[0], equipped];
         cell.detailTextLabel.text = array3[3];
         NSString *type;// = array3[1];
         if([array3[3] isEqualToString:@"computer"]){
@@ -564,7 +854,40 @@ static int iD;
             if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
         }
              //   cell.imageView.image = assets;
+    }else if([whichTable isEqualToString:@"modify"]){
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        //      UIImage *assets = [tech objectAtIndex:indexPath.row];
+        NSString *items = [array2 objectAtIndex:indexPath.row];
+        //     NSLog(@"%@", items);
+        array3 = [items componentsSeparatedByString: @","];
+        NSString *equipped;
+        if([array3[8] isEqualToString:@"1"]) equipped = @" - Equipped";
+        else equipped = @"";
+        cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@%@", array3[0], equipped];
+        cell.detailTextLabel.text = array3[3];
+        NSString *type;// = array3[1];
+        if([array3[3] isEqualToString:@"computer"]){
+            type = @"- Motherboard";
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+            if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+        }if([array3[3] isEqualToString:@"cpu"]){
+            type = @"- CPU";
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+            if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+        }if([array3[3] isEqualToString:@"mod"]){
+            type = @"- Generic Mod";
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+        }
+        //   cell.imageView.image = assets;
     }
+
     
     
 
