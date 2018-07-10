@@ -310,7 +310,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -354,7 +354,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -398,7 +398,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -442,7 +442,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -486,7 +486,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -632,8 +632,13 @@ static int iD;
     message2.text=@"";
     //go back to main screen after sent
 }
--(void)back{ //MAKE ANOTHER BACK BUTTON FOR EQUIPMENT "back_"
+-(void)back{ //
+    //MAKE ANOTHER BACK BUTTON FOR EQUIPMENT "back_"
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    Button *tutorial = [[Button alloc] init];
+    tutorial.name = @"tutorial";
+    [panel addSubview:[tutorial button2: CGRectMake(panel.frame.size.width-85-5, panel.frame.size.height-50-5-50-5, 85, 50.0)]];
     
     Button *changeProfession = [[Button alloc] init];
     changeProfession.name = @"change_profession";
@@ -676,6 +681,65 @@ static int iD;
     else if([preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
     else corp.name = @"join_corp";
     [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-65, 180, 50.0)]];
+    
+    message = [[UITextView alloc] init];
+    message.font = [UIFont fontWithName:@"Arial" size:16];
+    message.frame = CGRectMake(5, 5+155, 200, 100);
+    message.text = @"Message of the day";
+    message.editable = NO;
+    [message setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
+    [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    [panel addSubview:message];
+}
+-(void)back_{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *equipment = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    equipment.text = @"Computer   Setup";
+    equipment.backgroundColor = [UIColor blackColor];
+    equipment.font = [UIFont fontWithName:@"Abduction" size:14];
+    equipment.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    equipment.editable = NO;
+    [panel addSubview:equipment];
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    //   array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
+    //  array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
+    
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    whichTable = @"equipment";
+    @try{get_items = [inventory1 httprequest:@"name,menu" :[NSString stringWithFormat:@"%@,%@",username3, whichTable] :@"mainmenu.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        slots = [array2[2] intValue];
+    }@catch(NSException *error){}
+    //   tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
+    Button *modify1 = [[Button alloc] init];
+    modify1.name = @"modify_1";
+    [panel addSubview:[modify1 button2: CGRectMake(210, 50, 80, 50)]];
+    
+    Button *modify2 = [[Button alloc] init];
+    modify2.name = @"modify_2";
+    [panel addSubview:[modify2 button2: CGRectMake(210, 50+60, 80, 50)]];
+    if(slots>0){
+        Button *modify3 = [[Button alloc] init];
+        modify3.name = @"modify_3";
+        [panel addSubview:[modify3 button2: CGRectMake(210, 50+120, 80, 50)]];
+    }
+    if(slots>1){
+        Button *modify4 = [[Button alloc] init];
+        modify4.name = @"modify_4";
+        [panel addSubview:[modify4 button2: CGRectMake(210, 50+180, 80, 50)]];
+    }
+    if(slots>2){
+        Button *modify5 = [[Button alloc] init];
+        modify5.name = @"modify_5";
+        [panel addSubview:[modify5 button2: CGRectMake(210, 50+240, 80, 50)]];
+    }
+    [self configureTableview];
 }
 
 - (void)addBannerViewToView:(UIView *)bannerView {
@@ -759,6 +823,34 @@ static int iD;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     NSLog(@"title of cell %@", [array2 objectAtIndex:indexPath.row]);
+    NSString *items = [array2 objectAtIndex:indexPath.row];
+    array3 = [items componentsSeparatedByString: @","];
+    if([whichTable isEqualToString:@"modify"]){
+        if([array3[8] isEqualToString:@"1"]){
+            UIAlertController *alert =   [UIAlertController
+                       alertControllerWithTitle:@""
+                       message:@""
+                       preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *dismiss = [UIAlertAction
+                       actionWithTitle:@"Dismiss"
+                       style:UIAlertActionStyleDefault
+                       handler:^(UIAlertAction * action){
+                           [alert dismissViewControllerAnimated:YES completion:nil];
+                       }];
+            UIColor *color = [UIColor whiteColor]; // select needed color
+            NSString *string = @"Already Equipped";
+            NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+            NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+            [alert setValue:attrStr forKey:@"attributedMessage"];
+            UIVisualEffect *blurEffect;
+            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+            [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert class]]] setEffect:blurEffect];
+            [alert addAction:dismiss];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        }else {}
+    }
+  
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
