@@ -53,13 +53,6 @@ NSUserDefaults *preferences2;
     else _errorEmail.text = @"";
 }
 
-
-
-
-
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

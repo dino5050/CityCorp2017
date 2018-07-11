@@ -40,6 +40,7 @@ static NSArray *array3;
 static NSArray *tech;
 static NSString *whichTable;
 static NSString *action;
+static NSString *mod_id;
 //static UITableView *inventory;
 static Functions *inventory1;
 static UITableView *mainmenu;
@@ -201,7 +202,10 @@ static int iD;
     whichTable = @"equipment";
     @try{get_items = [inventory1 httprequest:@"name,menu" :[NSString stringWithFormat:@"%@,%@",username3, whichTable] :@"mainmenu.php"];
         array2 = [get_items componentsSeparatedByString: @"|"];
-        slots = [array2[2] intValue];
+        if([array2 count]==3) slots = [array2[2] intValue];
+        if([array2 count]==4) slots = [array2[3] intValue];
+        if([array2 count]==5) slots = [array2[4] intValue];
+        if([array2 count]==6) slots = [array2[5] intValue];
     }@catch(NSException *error){}
  //   tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
     Button *modify1 = [[Button alloc] init];
@@ -367,6 +371,10 @@ static int iD;
     motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
+    if(array2.count>3){
+        NSArray *array4 = [array2[2] componentsSeparatedByString:@","];
+        mod_id = array4[9];
+    }
     [panel addSubview:motherboards];
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
@@ -411,6 +419,10 @@ static int iD;
     motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
+    if(array2.count>4){
+        NSArray *array4 = [array2[3] componentsSeparatedByString:@","];
+        mod_id = array4[9];
+    }
     [panel addSubview:motherboards];
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
@@ -455,6 +467,10 @@ static int iD;
     motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
+    if(array2.count>5){
+        NSArray *array4 = [array2[4] componentsSeparatedByString:@","];
+        mod_id = array4[9];
+    }
     [panel addSubview:motherboards];
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
@@ -714,7 +730,10 @@ static int iD;
     whichTable = @"equipment";
     @try{get_items = [inventory1 httprequest:@"name,menu" :[NSString stringWithFormat:@"%@,%@",username3, whichTable] :@"mainmenu.php"];
         array2 = [get_items componentsSeparatedByString: @"|"];
-        slots = [array2[2] intValue];
+        if([array2 count]==3) slots = [array2[2] intValue];
+        if([array2 count]==4) slots = [array2[3] intValue];
+        if([array2 count]==5) slots = [array2[4] intValue];
+        if([array2 count]==6) slots = [array2[5] intValue];
     }@catch(NSException *error){}
     //   tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
     Button *modify1 = [[Button alloc] init];
@@ -848,7 +867,20 @@ static int iD;
             [alert addAction:dismiss];
             [self presentViewController:alert animated:YES completion:nil];
             
-        }else {}
+        }else {
+            
+            NSString *items = [array2 objectAtIndex:indexPath.row];
+            array3 = [items componentsSeparatedByString: @","];
+            if([array3[3] isEqualToString:@"mod"]){
+                @try{get_items = [inventory1 httprequest:@"name,id,action,type,mod_id" :[NSString stringWithFormat:@"%@,%@,%@,%@,%@",username3, array3[9],@"modify",array3[3],mod_id] :@"equipment.php"];
+                }@catch(NSException *error){}
+                [self back_];
+            }else {
+                @try{get_items = [inventory1 httprequest:@"name,id,action,type" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, array3[9],@"modify",array3[3]] :@"equipment.php"];
+                }@catch(NSException *error){}
+                [self back_];
+            }
+        }
     }
   
 }
@@ -907,7 +939,15 @@ static int iD;
                 if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
                 if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             }
-        }else{
+        }else if(indexPath.row == 2 && (slots == 1 || slots == 2 || slots == 3)){
+            cell.textLabel.text = @"Mod Slot";
+            cell.detailTextLabel.text = @"Empty slot";
+            cell.imageView.image = [UIImage imageNamed:@"slot.png"];
+        }else if(indexPath.row == 3 && (slots == 2 || slots == 3)){
+            cell.textLabel.text = @"Mod Slot";
+            cell.detailTextLabel.text = @"Empty slot";
+            cell.imageView.image = [UIImage imageNamed:@"slot.png"];
+        }else if(indexPath.row == 4 && slots == 3){
             cell.textLabel.text = @"Mod Slot";
             cell.detailTextLabel.text = @"Empty slot";
             cell.imageView.image = [UIImage imageNamed:@"slot.png"];
