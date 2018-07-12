@@ -467,17 +467,17 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
         if([items3[3] isEqualToString:@"computer"]){
             type = @"- Motherboard";
-            if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
             if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
             if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
         }if([items3[3] isEqualToString:@"cpu"]){
             type = @"- CPU";
-            if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
             if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
             if([items3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
         }if([items3[3] isEqualToString:@"mod"]){
             type = @"- Generic Mod";
-            if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
         }

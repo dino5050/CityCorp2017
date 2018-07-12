@@ -46,6 +46,7 @@ static Functions *inventory1;
 static UITableView *mainmenu;
 static NSArray *items;
 static NSArray *items3;
+static NSString *warning;
 static NSString *get_items;
 static int counts;
 static int slots;
@@ -144,7 +145,8 @@ static int iD;
     NSInteger value = [values[8] intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
     info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], result];
-    
+    [preferences3 setObject:values[1] forKey:@"level"];
+ //   NSLog(@"%@ |||||||||||||||", [preferences3 stringForKey:@"level"]);
     [panel addSubview:info];
     [preferences3 setObject:values[7] forKey:@"faction"];
     message = [[UITextView alloc] init];
@@ -528,10 +530,8 @@ static int iD;
             [mainmenu removeFromSuperview];
             [mainmenu reloadData];
             [self configureTableview];
-        
         }
     }
-    
 }
 -(void)previous{
     if(iD >= 5){
@@ -554,10 +554,8 @@ static int iD;
             [mainmenu removeFromSuperview];
             [mainmenu reloadData];
             [self configureTableview];
-            
         }
     }
- 
 }
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -845,7 +843,11 @@ static int iD;
     NSString *items = [array2 objectAtIndex:indexPath.row];
     array3 = [items componentsSeparatedByString: @","];
     if([whichTable isEqualToString:@"modify"]){
-        if([array3[8] isEqualToString:@"1"]){
+        if([array3[8] isEqualToString:@"1"]) {warning = @"Already Equipped";}
+        else if([array3[1] intValue] > [[preferences3 stringForKey:@"level"] intValue]){
+            warning = @"Player Level too Low to Equip Item";
+        }
+        if([array3[8] isEqualToString:@"1"] || [array3[1] intValue] > [[preferences3 stringForKey:@"level"] intValue]){
             UIAlertController *alert =   [UIAlertController
                        alertControllerWithTitle:@""
                        message:@""
@@ -857,7 +859,7 @@ static int iD;
                            [alert dismissViewControllerAnimated:YES completion:nil];
                        }];
             UIColor *color = [UIColor whiteColor]; // select needed color
-            NSString *string = @"Already Equipped";
+            NSString *string = warning;
             NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
             NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
             [alert setValue:attrStr forKey:@"attributedMessage"];
@@ -925,17 +927,17 @@ static int iD;
             NSString *type;// = array3[1];
             if([array3[3] isEqualToString:@"computer"]){
                 type = @"- Motherboard";
-                if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
                 if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
                 if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
             }if([array3[3] isEqualToString:@"cpu"]){
                 type = @"- CPU";
-                if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
                 if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
                 if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
             }if([array3[3] isEqualToString:@"mod"]){
                 type = @"- Generic Mod";
-                if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
                 if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
                 if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             }
@@ -971,17 +973,17 @@ static int iD;
         NSString *type;// = array3[1];
         if([array3[3] isEqualToString:@"computer"]){
             type = @"- Motherboard";
-            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
             if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
             if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
         }if([array3[3] isEqualToString:@"cpu"]){
             type = @"- CPU";
-            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
             if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
             if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
         }if([array3[3] isEqualToString:@"mod"]){
             type = @"- Generic Mod";
-            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
         }
@@ -1003,17 +1005,17 @@ static int iD;
         NSString *type;// = array3[1];
         if([array3[3] isEqualToString:@"computer"]){
             type = @"- Motherboard";
-            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
             if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
             if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
         }if([array3[3] isEqualToString:@"cpu"]){
             type = @"- CPU";
-            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
             if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
             if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
         }if([array3[3] isEqualToString:@"mod"]){
             type = @"- Generic Mod";
-            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
         }
