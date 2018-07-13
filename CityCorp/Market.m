@@ -394,8 +394,9 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                                                       handler:^(UIAlertAction * action){
                                                           [alert2 dismissViewControllerAnimated:YES completion:nil];
                                                       }];
-                                 UIColor *color = [UIColor whiteColor]; // select needed color
+                                 UIColor *color = [UIColor orangeColor]; // select needed color
                                  NSString *string = @"Insufficient Funds";
+                                 
                                  NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
                                  NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
                                  [alert2 setValue:attrStr forKey:@"attributedMessage"];

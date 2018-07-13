@@ -641,7 +641,7 @@ static int iD;
     
 }
 -(void)send{
-    NSLog(@"%@", message.text);
+ //   NSLog(@"%@", message.text);
     [self.view endEditing:YES];
     message2.text=@"";
     //go back to main screen after sent
@@ -839,15 +839,24 @@ static int iD;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    NSLog(@"title of cell %@", [array2 objectAtIndex:indexPath.row]);
+ //   NSLog(@"title of cell %@", [array2 objectAtIndex:indexPath.row]);
     NSString *items = [array2 objectAtIndex:indexPath.row];
     array3 = [items componentsSeparatedByString: @","];
+    NSString *motherboard;
+    Functions *get_motherboard = [[Functions alloc] init];
+    @try{motherboard = [get_motherboard httprequest:@"name" :username3 :@"motherboard.php"];
+    }@catch(NSException *error){}
+//    NSArray *motherboard_level = [motherboard componentsSeparatedByString: @","];
+//    NSLog(@"?????%d|||||||", [motherboard intValue]);
     if([whichTable isEqualToString:@"modify"]){
         if([array3[8] isEqualToString:@"1"]) {warning = @"Already Equipped";}
         else if([array3[1] intValue] > [[preferences3 stringForKey:@"level"] intValue]){
-            warning = @"Player Level too Low to Equip Item";
+            warning = @"Player Level Too Low to Equip Item";
         }
-        if([array3[8] isEqualToString:@"1"] || [array3[1] intValue] > [[preferences3 stringForKey:@"level"] intValue]){
+        else if([array3[1] intValue] > [motherboard intValue]){
+            warning = @"Motherboard Level Too Low to Equip Item";
+        }
+        if([array3[8] isEqualToString:@"1"] || [array3[1] intValue] > [[preferences3 stringForKey:@"level"] intValue] ||  [array3[1] intValue] > [motherboard intValue]+9 ){
             UIAlertController *alert =   [UIAlertController
                        alertControllerWithTitle:@""
                        message:@""
@@ -858,7 +867,7 @@ static int iD;
                        handler:^(UIAlertAction * action){
                            [alert dismissViewControllerAnimated:YES completion:nil];
                        }];
-            UIColor *color = [UIColor whiteColor]; // select needed color
+            UIColor *color = [UIColor orangeColor]; // select needed color
             NSString *string = warning;
             NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
             NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
@@ -918,7 +927,7 @@ static int iD;
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.detailTextLabel.textColor = [UIColor grayColor];
   //      UIImage *assets = [tech objectAtIndex:indexPath.row];
-        NSLog(@"%@", items);
+ //       NSLog(@"%@", items);
         if(array2.count-1>indexPath.row){
             NSString *items = [array2 objectAtIndex:indexPath.row];
             array3 = [items componentsSeparatedByString: @","];
