@@ -853,8 +853,8 @@ static int iD;
         else if([array3[1] intValue] > [[preferences3 stringForKey:@"level"] intValue]){
             warning = @"Player Level Too Low to Equip Item";
         }
-        else if([array3[1] intValue] > [motherboard intValue]){
-            warning = @"Motherboard Level Too Low to Equip Item";
+        else if([array3[1] intValue] > [motherboard intValue] + 9){
+            warning = [NSString stringWithFormat: @"Motherboard Level (Lvl %d) Too Low to Equip Item (Lvl %d)", [motherboard intValue]+9-1, [array3[1] intValue]];
         }
         if([array3[8] isEqualToString:@"1"] || [array3[1] intValue] > [[preferences3 stringForKey:@"level"] intValue] ||  [array3[1] intValue] > [motherboard intValue]+9 ){
             UIAlertController *alert =   [UIAlertController

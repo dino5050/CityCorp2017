@@ -9,6 +9,7 @@
 #import "Terminal.h"
 #import "Button.h"
 @import GoogleMobileAds;
+#import "Functions.h"
 
 @interface Terminal () <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -17,7 +18,12 @@
 @end
 
 @implementation Terminal
+
 static UIView *panel;
+static NSArray *array2;
+static NSArray *array3;
+static int iD;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -49,6 +55,12 @@ static UIView *panel;
     
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [collectionView setBackgroundColor:[UIColor blackColor]];
+    Functions *terminal = [[Functions alloc] init];
+    NSString *players;
+    iD = 0;
+    @try{players = [terminal httprequest:@"id" :[NSString stringWithFormat:@"%d",iD] :@"terminal.php"];
+    }@catch(NSException *error){}
+    array2 = [players componentsSeparatedByString:@"|"];
     
     [panel addSubview: collectionView];
     
@@ -63,7 +75,7 @@ static UIView *panel;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 15;
+    return array2.count-1;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -76,12 +88,15 @@ static UIView *panel;
     UIImage *player = [UIImage imageNamed:@"avatar.png"];
     UIImageView *icon = [[UIImageView alloc] initWithImage:player];
     [icon setFrame:CGRectMake(5, 0, 40, 40)];
+    NSLog(@"|||||||||%lu", array2.count);
+    NSString *chars = array2[indexPath.item];
+    array3 = [chars componentsSeparatedByString:@","];
     
     UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 50, 20)];
     name.textColor = [UIColor whiteColor];
     name.editable = NO;
     [name setFont: [UIFont fontWithName:@"Arial" size:10]];
-    [name setText:@"Zenthriii"];
+    [name setText:array3[0]];
     name.textAlignment=NSTextAlignmentCenter;
     name.backgroundColor = [UIColor clearColor];
  //   [icon contentMode];
