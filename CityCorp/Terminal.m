@@ -23,6 +23,9 @@ static UIView *panel;
 static NSArray *array2;
 static NSArray *array3;
 static int iD;
+static NSUserDefaults *preferences3;
+static NSString *username3;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +37,8 @@ static int iD;
     back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
-    
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    username3 = [preferences3 stringForKey:@"username"];
     
     
     /*   Button* space = [[Button alloc] init];
@@ -57,8 +61,8 @@ static int iD;
     [collectionView setBackgroundColor:[UIColor blackColor]];
     Functions *terminal = [[Functions alloc] init];
     NSString *players;
-    iD = 0;
-    @try{players = [terminal httprequest:@"id" :[NSString stringWithFormat:@"%d",iD] :@"terminal.php"];
+    iD = 0;  //ADD NEXT/PREVIOUS AND MAKE CELLS WIDER
+    @try{players = [terminal httprequest:@"id,name" :[NSString stringWithFormat:@"%d,%@",iD,username3] :@"terminal.php"];
     }@catch(NSException *error){}
     array2 = [players componentsSeparatedByString:@"|"];
     
@@ -88,11 +92,11 @@ static int iD;
     UIImage *player = [UIImage imageNamed:@"avatar.png"];
     UIImageView *icon = [[UIImageView alloc] initWithImage:player];
     [icon setFrame:CGRectMake(5, 0, 40, 40)];
-    NSLog(@"|||||||||%lu", array2.count);
+ //   NSLog(@"|||||||||%lu", array2.count);
     NSString *chars = array2[indexPath.item];
     array3 = [chars componentsSeparatedByString:@","];
     
-    UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 50, 20)];
+    UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(-10, 30, 70, 20)];
     name.textColor = [UIColor whiteColor];
     name.editable = NO;
     [name setFont: [UIFont fontWithName:@"Arial" size:10]];
@@ -102,7 +106,7 @@ static int iD;
  //   [icon contentMode];
     [cell.contentView addSubview:icon];
     [cell.contentView addSubview:name];
-    
+
     return cell;
 }
 
@@ -112,7 +116,91 @@ static int iD;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    NSLog(@"title of cell %@", @"player");
+    
+    NSString *chars = [array2 objectAtIndex:indexPath.row];
+    array3 = [chars componentsSeparatedByString: @","];
+    
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@""
+                                  message:@""
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* message = [UIAlertAction
+                         actionWithTitle:@"Message"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             preferences3 = [NSUserDefaults standardUserDefaults];
+                             NSString *username = [preferences3 stringForKey:@"username"];
+                             Functions *buy = [[Functions alloc] init];
+                     //        NSString *transaction = [buy httprequest:@"name,item,cost,market" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, items3[0], items3[7],whichTable] :@"buy.php"];
+                             
+                    //         @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
+                      //       }@catch(NSException *error){}
+                             
+                             
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    UIAlertAction* befriend = [UIAlertAction
+                         actionWithTitle:@"Befriend"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             preferences3 = [NSUserDefaults standardUserDefaults];
+                             NSString *username = [preferences3 stringForKey:@"username"];
+                            
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    UIAlertAction* hack = [UIAlertAction
+                               actionWithTitle:@"Hack"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action)
+                               {
+                                   preferences3 = [NSUserDefaults standardUserDefaults];
+                                   NSString *username = [preferences3 stringForKey:@"username"];
+                                   
+                                   [alert dismissViewControllerAnimated:YES completion:nil];
+                               }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    /*   UIView *subview = alert.view.subviews.firstObject;
+     UIView *alertContentView =  subview.subviews.firstObject;
+     alertContentView.backgroundColor = [UIColor blackColor];
+     */
+    UIColor *color = [UIColor whiteColor]; // select needed color
+    NSString *string = @"Choose Action";
+    NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+    [alert setValue:attrStr forKey:@"attributedMessage"];
+    
+    color = [UIColor orangeColor];
+    NSString *string1 = [NSString stringWithFormat:@"Accessing %@...",array3[0]];
+    NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color/*, NSFontAttributeName : [UIFont fontWithName:@"Abduction" size:16] */};
+    NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString:string1 attributes:attrs1];
+    [alert setValue:attrStr1 forKey:@"attributedTitle"];
+    
+    
+    [alert addAction:message];
+    [alert addAction:befriend];
+    [alert addAction:hack];
+    [alert addAction:cancel];
+    
+    
+    //   UIVisualEffectView.appearance(whenContainedInInstancesOf: [alert.classForCoder() as! UIAppearanceContainer.Type]).effect = UIBlurEffect(style: .dark)
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert class]]] setEffect:blurEffect];
+    
+    //    let attributedString = NSAttributedString(string: "Invalid Name", attributes: [       NSParagraphStyleAttributeName: paragraphStyle,NSFontAttributeName : UIFont.systemFontOfSize(15),NSForegroundColorAttributeName : UIColor.redColor()])
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
