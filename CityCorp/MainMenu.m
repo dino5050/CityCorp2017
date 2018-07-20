@@ -766,7 +766,7 @@ static int iD;
                                 [NSLayoutConstraint constraintWithItem:bannerView
                                                              attribute:NSLayoutAttributeBottom
                                                              relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.bottomLayoutGuide
+                                                               toItem:self.bottomLayoutGuide
                                                              attribute:NSLayoutAttributeTop
                                                             multiplier:1
                                                               constant:0],

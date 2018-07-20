@@ -132,11 +132,10 @@ static NSString *username3;
                          {
                              preferences3 = [NSUserDefaults standardUserDefaults];
                              NSString *username = [preferences3 stringForKey:@"username"];
-                             Functions *buy = [[Functions alloc] init];
-                     //        NSString *transaction = [buy httprequest:@"name,item,cost,market" :[NSString stringWithFormat:@"%@,%@,%@,%@", username, items3[0], items3[7],whichTable] :@"buy.php"];
+                             Functions *scan = [[Functions alloc] init];
+                             NSString *chance = [scan httprequest:@"hacker,player,exploit" :[NSString stringWithFormat:@"%@,%@,%@", username, array3[0], @"1"] :@"playerscan.php"];
                              
-                    //         @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
-                      //       }@catch(NSException *error){}
+                    
                              
                              
                              [alert dismissViewControllerAnimated:YES completion:nil];
@@ -156,10 +155,54 @@ static NSString *username3;
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action)
                                {
+                                   UIAlertController *alert =   [UIAlertController
+                                                                 alertControllerWithTitle:@""
+                                                                 message:@""
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                                   UIAlertAction *dismiss = [UIAlertAction
+                                                             actionWithTitle:@"Cancel"
+                                                             style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action){
+                                                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                                             }];
                                    preferences3 = [NSUserDefaults standardUserDefaults];
                                    NSString *username = [preferences3 stringForKey:@"username"];
-                                   
+                                    Functions *scan = [[Functions alloc] init];
+                                    NSString *chance = [scan httprequest:@"hacker,player,exploit" :[NSString stringWithFormat:@"%@,%@,%@", username, array3[0], @"1"] :@"playerscan.php"];
+                                   NSArray *array4 = [chance componentsSeparatedByString:@"|"];
+                                   NSString *chance2;
+                             //      NSLog(@"?????%@|||||||", chance);
+                                   if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
+                                   }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This Citizen's Computer is Temporarily Locked";
+                                   }else if([array4[0] isEqualToString:@"samecorp"]){ chance2 = @"Can't Hack Citizen In Same Corporation As You";
+                                   }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on This Citizen's Computer";
+                                   }else{
+                                           double percentage = [array4[0] doubleValue]*100;
+                                           int percentage2 = percentage;
+                                           chance2 = [NSString stringWithFormat:@"Estimated Chance to Hack %@ is %d%%. Do You Want to Proceed?",array3[0],percentage2];
+                                           UIAlertAction* hack2 = [UIAlertAction
+                                                                      actionWithTitle:@"Hack"
+                                                                      style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * action)
+                                                                      {
+                                                                          
+                                                                    [alert dismissViewControllerAnimated:YES completion:nil];
+                                                                      }];
+                                           [alert addAction:hack2];
+                                       }
                                    [alert dismissViewControllerAnimated:YES completion:nil];
+                                   
+                                   
+                                   UIColor *color = [UIColor orangeColor]; // select needed color
+                                   NSString *string = chance2;
+                                   NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+                                   NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+                                   [alert setValue:attrStr forKey:@"attributedMessage"];
+                                   UIVisualEffect *blurEffect;
+                                   blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+                                   [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert class]]] setEffect:blurEffect];
+                                   [alert addAction:dismiss];
+                                   [self presentViewController:alert animated:YES completion:nil];
                                }];
     UIAlertAction* cancel = [UIAlertAction
                              actionWithTitle:@"Cancel"

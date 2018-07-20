@@ -43,7 +43,7 @@ NSUserDefaults *preferences1;
     [hacker_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [hacker_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     hacker_info.editable=NO;
-    hacker_info.text = @"A hacker's specialty is in creating exploits for use in hacking which can be used or be sold to other players, and have bonuses when using exploits for hacking. They can also give their CEO bonuses for hacking tech districts.";
+    hacker_info.text = @"A hacker's specialty is in creating exploits for use in hacking which can be used or be sold to other players, and have bonuses when using exploits for hacking.";
     [self.view addSubview:hacker_info];
     
     UITextView *corporate_info = [[UITextView alloc] init];
