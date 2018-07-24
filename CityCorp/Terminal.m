@@ -25,6 +25,9 @@ static NSArray *array3;
 static int iD;
 static NSUserDefaults *preferences3;
 static NSString *username3;
+static UITextView *commandline;
+static int secondsLeft;
+static NSTimer *timer;
 
 
 - (void)viewDidLoad {
@@ -40,6 +43,18 @@ static NSString *username3;
     preferences3 = [NSUserDefaults standardUserDefaults];
     username3 = [preferences3 stringForKey:@"username"];
     
+    commandline = [[UITextView alloc] initWithFrame:CGRectMake(67, 40, 200, 50)];
+    [commandline setBackgroundColor:[UIColor blackColor]];
+    commandline.layer.borderWidth = 2.0f;
+    commandline.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    [self.view addSubview:commandline];
+    commandline.editable = NO;
+    commandline.textColor = [UIColor greenColor];
+    commandline.text = @"connecting to CityCorp...\nconnected";
+    commandline.font = [UIFont fontWithName:@"Courier" size:12];
+//    [self scrollTextViewToBottom:commandline];
+    secondsLeft = 3600;
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
     
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
@@ -76,6 +91,24 @@ static NSString *username3;
     self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
+}
+-(void)scrollTextViewToBottom:(UITextView *)textView {
+    if(textView.text.length > 0 ) {
+        NSRange bottom = NSMakeRange(textView.text.length -1, 1);
+        [textView scrollRangeToVisible:bottom];
+    }
+}
+- (void)runScheduledTask: (NSTimer *) runningTimer {
+    int hours, minutes, seconds;
+    secondsLeft--;
+    hours = secondsLeft / 3600;
+    minutes = (secondsLeft % 3600) / 60;
+    seconds = (secondsLeft %3600) % 60;
+    commandline.text =[NSString stringWithFormat:@"Time Remaining %02d:%02d:%02d", hours, minutes, seconds];
+    if (secondsLeft==0) {
+        [timer invalidate];
+        commandline.text = @"Time up!!";
+    }
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
