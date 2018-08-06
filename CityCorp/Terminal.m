@@ -28,6 +28,7 @@ static NSString *username3;
 static UITextView *commandline;
 static int secondsLeft;
 static NSTimer *timer;
+static NSString *timestamp;
 
 
 - (void)viewDidLoad {
@@ -43,7 +44,11 @@ static NSTimer *timer;
     preferences3 = [NSUserDefaults standardUserDefaults];
     username3 = [preferences3 stringForKey:@"username"];
     
-    commandline = [[UITextView alloc] initWithFrame:CGRectMake(67, 40, 200, 50)];
+    Button *cancel = [[Button alloc] init];
+    cancel.name = @"cancel";
+    [self.view addSubview:[cancel button2: CGRectMake(67+167, 40, 75, 50.0)]];
+    
+    commandline = [[UITextView alloc] initWithFrame:CGRectMake(67, 40, 165, 50)];
     [commandline setBackgroundColor:[UIColor blackColor]];
     commandline.layer.borderWidth = 2.0f;
     commandline.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
@@ -53,8 +58,16 @@ static NSTimer *timer;
     commandline.text = @"connecting to CityCorp...\nconnected";
     commandline.font = [UIFont fontWithName:@"Courier" size:12];
 //    [self scrollTextViewToBottom:commandline];
-    secondsLeft = 3600;
-    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *hackingtime = [[Functions alloc] init];
+    @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"hackingtime.php"];
+    }@catch(NSException *error){}
+    NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+    if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+        secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+    }
     
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
@@ -201,7 +214,7 @@ static NSTimer *timer;
                                    preferences3 = [NSUserDefaults standardUserDefaults];
                                    NSString *username = [preferences3 stringForKey:@"username"];
                                     Functions *scan = [[Functions alloc] init];
-                                    NSString *chance = [scan httprequest:@"hacker,player,exploit" :[NSString stringWithFormat:@"%@,%@,%@", username, array3[0], @"1"] :@"playerscan.php"];
+                                    NSString *chance = [scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playerscan.php"];
                                    NSArray *array4 = [chance componentsSeparatedByString:@"|"];
                                    NSString *chance2;
                              //      NSLog(@"?????%@|||||||", chance);
@@ -218,7 +231,8 @@ static NSTimer *timer;
                                                                       style:UIAlertActionStyleDefault
                                                                       handler:^(UIAlertAction * action)
                                                                       {
-                                                                          
+                                                                         
+                                                                          @try{[scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playercontests.php"];}@catch(NSException *error){}
                                                                     [alert dismissViewControllerAnimated:YES completion:nil];
                                                                       }];
                                            [alert addAction:hack2];
@@ -283,6 +297,8 @@ static NSTimer *timer;
     // Dispose of any resources that can be recreated.
 }
 -(void)back{
+    [timer invalidate];
+    timer = nil;
     [self dismissViewControllerAnimated:false completion:nil];
     
 }
