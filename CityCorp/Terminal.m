@@ -67,8 +67,9 @@ static NSString *timestamp;
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
         secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
-    }
-    
+    }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+    else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
+    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
      [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
@@ -117,10 +118,21 @@ static NSString *timestamp;
     hours = secondsLeft / 3600;
     minutes = (secondsLeft % 3600) / 60;
     seconds = (secondsLeft %3600) % 60;
-    commandline.text =[NSString stringWithFormat:@"Time Remaining %02d:%02d:%02d", hours, minutes, seconds];
-    if (secondsLeft==0) {
+    commandline.text =[NSString stringWithFormat:@"hacking completes in: %02d:%02d:%02d", hours, minutes, seconds];
+    if (secondsLeft<0) {
+        commandline.text = @"hacking complete: awaiting result...";
+        
+    }if(secondsLeft<-6){
         [timer invalidate];
-        commandline.text = @"Time up!!";
+        preferences3 = [NSUserDefaults standardUserDefaults];
+        NSString *username = [preferences3 stringForKey:@"username"];
+        Functions *hackingtime = [[Functions alloc] init];
+        @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"hackingtime.php"];
+        }@catch(NSException *error){}
+        NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+        if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+        else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
+        else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
     }
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -233,8 +245,19 @@ static NSString *timestamp;
                                                                       {
                                                                          
                                                                           @try{[scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playercontests.php"];}@catch(NSException *error){}
+                                                                          preferences3 = [NSUserDefaults standardUserDefaults];
+                                                                          NSString *username = [preferences3 stringForKey:@"username"];
+                                                                          Functions *hackingtime = [[Functions alloc] init];
+                                                                          @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"hackingtime.php"];
+                                                                          }@catch(NSException *error){}
+                                                                          NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+                                                                          if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+                                                                              secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
+                                                                              timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+                                                                          }
                                                                     [alert dismissViewControllerAnimated:YES completion:nil];
                                                                       }];
+                                       
                                            [alert addAction:hack2];
                                        }
                                    [alert dismissViewControllerAnimated:YES completion:nil];
