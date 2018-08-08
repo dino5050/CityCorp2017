@@ -44,10 +44,6 @@ static NSString *timestamp;
     preferences3 = [NSUserDefaults standardUserDefaults];
     username3 = [preferences3 stringForKey:@"username"];
     
-    Button *cancel = [[Button alloc] init];
-    cancel.name = @"cancel";
-    [self.view addSubview:[cancel button2: CGRectMake(67+167, 40, 75, 50.0)]];
-    
     commandline = [[UITextView alloc] initWithFrame:CGRectMake(67, 40, 165, 50)];
     [commandline setBackgroundColor:[UIColor blackColor]];
     commandline.layer.borderWidth = 2.0f;
@@ -70,6 +66,13 @@ static NSString *timestamp;
     }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
     else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
     else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
+        Button *cancel = [[Button alloc] init];
+        cancel.name = @"dismiss";
+        [self.view addSubview:[cancel button2: CGRectMake(67+167, 40, 75, 50.0)]];
+        cancel = nil; ???????
+    }
+    
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
      [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
@@ -243,7 +246,9 @@ static NSString *timestamp;
                                                                       style:UIAlertActionStyleDefault
                                                                       handler:^(UIAlertAction * action)
                                                                       {
-                                                                         
+                                                                          Button *cancel = [[Button alloc] init];
+                                                                          cancel.name = @"cancel";
+                                                                          [self.view addSubview:[cancel button2: CGRectMake(67+167, 40, 75, 50.0)]];
                                                                           @try{[scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playercontests.php"];}@catch(NSException *error){}
                                                                           preferences3 = [NSUserDefaults standardUserDefaults];
                                                                           NSString *username = [preferences3 stringForKey:@"username"];
