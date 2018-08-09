@@ -29,6 +29,8 @@ static UITextView *commandline;
 static int secondsLeft;
 static NSTimer *timer;
 static NSString *timestamp;
+static UIView *cancel2;
+static UIView *dismiss2;
 
 
 - (void)viewDidLoad {
@@ -67,10 +69,12 @@ static NSString *timestamp;
     else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
     else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
-        Button *cancel = [[Button alloc] init];
-        cancel.name = @"dismiss";
-        [self.view addSubview:[cancel button2: CGRectMake(67+167, 40, 75, 50.0)]];
-        cancel = nil; ???????
+        [cancel2 removeFromSuperview];
+        Button *dismiss = [[Button alloc] init];
+        dismiss.name = @"dismiss";
+        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [self.view addSubview:dismiss2];
+        
     }
     
     /*   Button* space = [[Button alloc] init];
@@ -115,6 +119,25 @@ static NSString *timestamp;
         [textView scrollRangeToVisible:bottom];
     }
 }
+-(void)dismiss{
+    [dismiss2 removeFromSuperview];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *playerdelete = [[Functions alloc] init];
+    @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"contestdelete.php"];
+    }@catch(NSException *error){}
+    commandline.text = @"connecting to CityCorp...\nconnected";
+}
+-(void)cancel{
+    [cancel2 removeFromSuperview];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *playerdelete = [[Functions alloc] init];
+    @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"contestdelete.php"];
+    }@catch(NSException *error){}
+    [timer invalidate];
+    commandline.text = @"...hacking canceled";
+}
 - (void)runScheduledTask: (NSTimer *) runningTimer {
     int hours, minutes, seconds;
     secondsLeft--;
@@ -136,6 +159,12 @@ static NSString *timestamp;
         if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
         else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
         else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+        [cancel2 removeFromSuperview];
+        Button *dismiss = [[Button alloc] init];
+        dismiss.name = @"dismiss";
+        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [self.view addSubview:dismiss2];
+        
     }
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -246,12 +275,18 @@ static NSString *timestamp;
                                                                       style:UIAlertActionStyleDefault
                                                                       handler:^(UIAlertAction * action)
                                                                       {
-                                                                          Button *cancel = [[Button alloc] init];
-                                                                          cancel.name = @"cancel";
-                                                                          [self.view addSubview:[cancel button2: CGRectMake(67+167, 40, 75, 50.0)]];
-                                                                          @try{[scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playercontests.php"];}@catch(NSException *error){}
                                                                           preferences3 = [NSUserDefaults standardUserDefaults];
                                                                           NSString *username = [preferences3 stringForKey:@"username"];
+                                                                          Functions *playerdelete = [[Functions alloc] init];
+                                                                          @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"contestdelete.php"];
+                                                                          }@catch(NSException *error){}
+                                                                          Button *cancel = [[Button alloc] init];
+                                                                          cancel.name = @"cancel";
+                                                                          cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
+                                                                          [self.view addSubview:cancel2];
+                                                                          @try{[scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playercontests.php"];}@catch(NSException *error){}
+                                                                          preferences3 = [NSUserDefaults standardUserDefaults];
+                                                                          username = [preferences3 stringForKey:@"username"];
                                                                           Functions *hackingtime = [[Functions alloc] init];
                                                                           @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"hackingtime.php"];
                                                                           }@catch(NSException *error){}
