@@ -9,6 +9,8 @@
 #import "MapView.h"
 #import "Reykjavik.h"
 #import "Bergen.h"
+#import "Oostende.h"
+#import "Penzance.h"
 #import "Button.h"
 @import GoogleMobileAds;
 
@@ -127,6 +129,10 @@ static UIView *panel;
             oostende1.frame = CGRectMake(-90, -80, 1100*0.58, 1057*0.58);
             [panel addSubview:oostende1];
             
+            Oostende *tech = [[Oostende alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
+            
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
             [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
@@ -140,6 +146,10 @@ static UIView *panel;
             UIImageView *penzance1 = [[UIImageView alloc] initWithImage:penzance];
             penzance1.frame = CGRectMake(-210, -40, 902*0.63, 1050*0.63);
             [panel addSubview:penzance1];
+            
+            Penzance *tech = [[Penzance alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
         
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";

@@ -24,6 +24,8 @@
 		4B9ECEC61FE0A18200D55D5B /* Reykjavik.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEC51FE0A18200D55D5B /* Reykjavik.m */; };
 		4B9ECEC91FE169BA00D55D5B /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECEC81FE169BA00D55D5B /* MainMenu.m */; };
 		4B9ECECC1FE169E500D55D5B /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ECECB1FE169E500D55D5B /* MapView.m */; };
+		4BA5427621231C0C00F99925 /* Oostende.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA5427521231C0C00F99925 /* Oostende.m */; };
+		4BA542792125FB1100F99925 /* Penzance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA542782125FB1100F99925 /* Penzance.m */; };
 		4BA6203F20B306F700AD77F8 /* Bergen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6203E20B306F700AD77F8 /* Bergen.m */; };
 		4BB3686D1FE817CC00801ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB3686C1FE817CC00801ED8 /* Assets.xcassets */; };
 		4BB368711FEBEBB600801ED8 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BB368701FEBEBB600801ED8 /* Button.m */; };
@@ -84,6 +86,10 @@
 		4B9ECEC81FE169BA00D55D5B /* MainMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		4B9ECECA1FE169E500D55D5B /* MapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
 		4B9ECECB1FE169E500D55D5B /* MapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
+		4BA5427421231C0C00F99925 /* Oostende.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Oostende.h; sourceTree = "<group>"; };
+		4BA5427521231C0C00F99925 /* Oostende.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Oostende.m; sourceTree = "<group>"; };
+		4BA542772125FB1000F99925 /* Penzance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Penzance.h; sourceTree = "<group>"; };
+		4BA542782125FB1100F99925 /* Penzance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Penzance.m; sourceTree = "<group>"; };
 		4BA6203D20B306F700AD77F8 /* Bergen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bergen.h; sourceTree = "<group>"; };
 		4BA6203E20B306F700AD77F8 /* Bergen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bergen.m; sourceTree = "<group>"; };
 		4BB3686C1FE817CC00801ED8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -183,6 +189,10 @@
 				4B057A882041C6F600619752 /* Faction.m */,
 				4BA6203D20B306F700AD77F8 /* Bergen.h */,
 				4BA6203E20B306F700AD77F8 /* Bergen.m */,
+				4BA5427421231C0C00F99925 /* Oostende.h */,
+				4BA5427521231C0C00F99925 /* Oostende.m */,
+				4BA542772125FB1000F99925 /* Penzance.h */,
+				4BA542782125FB1100F99925 /* Penzance.m */,
 			);
 			path = CityCorp;
 			sourceTree = "<group>";
@@ -348,6 +358,7 @@
 			files = (
 				4BBC61AB2009191300AE9979 /* Forgot.m in Sources */,
 				4B62F17A202A72DD00DD99BD /* Terminal.m in Sources */,
+				4BA5427621231C0C00F99925 /* Oostende.m in Sources */,
 				4B62F17D202A733100DD99BD /* Market.m in Sources */,
 				4B9ECEC91FE169BA00D55D5B /* MainMenu.m in Sources */,
 				4BB368711FEBEBB600801ED8 /* Button.m in Sources */,
@@ -362,6 +373,7 @@
 				4BFF1DF81FF57465007902A1 /* Functions.m in Sources */,
 				4B057A892041C6F600619752 /* Faction.m in Sources */,
 				4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */,
+				4BA542792125FB1100F99925 /* Penzance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
