@@ -71,9 +71,10 @@ int number4;
                 else if((number4 >= 22 && number4 <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
                 else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
                 CGContextFillPath(context);
-                
+      //          here
                 [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
                 number4 = number4+1;
+                
                 center = CGPointMake(x+x1, y+y1);
                 //  rotate slope equation 30 degrees
                 if((i!=2 || j!=2) && (i!=2 || j!=5) && (i!=1 || j!=3) && (i!=3 || j!=5) && (i!=3 || j!=2) && (i!=3 || j!=7) && (i!=4 || j!=2) && (i!=4 || j!=6) && (i!=4 || j!=7)){
@@ -96,8 +97,9 @@ int number4;
                     
                     context = UIGraphicsGetCurrentContext();
                     //   CGContextRotateCTM(context, 30*M_PI/180);
+          //          and here
                     [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
-                    number4 = number4+1;
+                    
                     center = CGPointMake(x+x1, y+y1);
                     
                     CGContextMoveToPoint(context, center.x, center.y-radius);
@@ -109,9 +111,11 @@ int number4;
                     CGContextClosePath(context);
                     if((number4 >= 0 && number4 <= 10)) CGContextSetRGBFillColor(context, 1.0, 215/255.0, 0.0, 0.4);
                     else if((number4 >= 11 && number4 <= 21)) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
-                    else if((number4 >= 22 && number4 <= 28)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
+                    else if((number4 >= 22 && number4 <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
                     else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
                     CGContextFillPath(context);
+                    
+                    number4 = number4+1;
                 }
             }
             j++;

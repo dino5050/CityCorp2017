@@ -10,6 +10,8 @@
 		4B057A892041C6F600619752 /* Faction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B057A882041C6F600619752 /* Faction.m */; };
 		4B1CAA411FF83DFE00E48B78 /* Register.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CAA401FF83DFE00E48B78 /* Register.m */; };
 		4B2C46111FE5AD39006F645F /* ABDUCTION.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */; };
+		4B2EDF452128A25C004F97D0 /* Lisbon.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2EDF442128A25C004F97D0 /* Lisbon.m */; };
+		4B2EDF482128B747004F97D0 /* Torindor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2EDF472128B747004F97D0 /* Torindor.m */; };
 		4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B49D7A11FFBD1EF00F33B24 /* Signup.m */; };
 		4B62F17A202A72DD00DD99BD /* Terminal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B62F179202A72DC00DD99BD /* Terminal.m */; };
 		4B62F17D202A733100DD99BD /* Market.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B62F17C202A733100DD99BD /* Market.m */; };
@@ -57,6 +59,10 @@
 		4B1CAA3F1FF83DFE00E48B78 /* Register.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
 		4B1CAA401FF83DFE00E48B78 /* Register.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Register.m; sourceTree = "<group>"; };
 		4B2C46101FE5AD24006F645F /* ABDUCTION.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = ABDUCTION.TTF; path = CityCorp/ABDUCTION.TTF; sourceTree = "<group>"; };
+		4B2EDF432128A25C004F97D0 /* Lisbon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lisbon.h; sourceTree = "<group>"; };
+		4B2EDF442128A25C004F97D0 /* Lisbon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Lisbon.m; sourceTree = "<group>"; };
+		4B2EDF462128B747004F97D0 /* Torindor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Torindor.h; sourceTree = "<group>"; };
+		4B2EDF472128B747004F97D0 /* Torindor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Torindor.m; sourceTree = "<group>"; };
 		4B49D7A01FFBD1EF00F33B24 /* Signup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Signup.h; sourceTree = "<group>"; };
 		4B49D7A11FFBD1EF00F33B24 /* Signup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Signup.m; sourceTree = "<group>"; };
 		4B62F178202A72DC00DD99BD /* Terminal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
@@ -193,6 +199,10 @@
 				4BA5427521231C0C00F99925 /* Oostende.m */,
 				4BA542772125FB1000F99925 /* Penzance.h */,
 				4BA542782125FB1100F99925 /* Penzance.m */,
+				4B2EDF432128A25C004F97D0 /* Lisbon.h */,
+				4B2EDF442128A25C004F97D0 /* Lisbon.m */,
+				4B2EDF462128B747004F97D0 /* Torindor.h */,
+				4B2EDF472128B747004F97D0 /* Torindor.m */,
 			);
 			path = CityCorp;
 			sourceTree = "<group>";
@@ -358,6 +368,7 @@
 			files = (
 				4BBC61AB2009191300AE9979 /* Forgot.m in Sources */,
 				4B62F17A202A72DD00DD99BD /* Terminal.m in Sources */,
+				4B2EDF452128A25C004F97D0 /* Lisbon.m in Sources */,
 				4BA5427621231C0C00F99925 /* Oostende.m in Sources */,
 				4B62F17D202A733100DD99BD /* Market.m in Sources */,
 				4B9ECEC91FE169BA00D55D5B /* MainMenu.m in Sources */,
@@ -373,6 +384,7 @@
 				4BFF1DF81FF57465007902A1 /* Functions.m in Sources */,
 				4B057A892041C6F600619752 /* Faction.m in Sources */,
 				4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */,
+				4B2EDF482128B747004F97D0 /* Torindor.m in Sources */,
 				4BA542792125FB1100F99925 /* Penzance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

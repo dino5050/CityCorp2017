@@ -11,6 +11,8 @@
 #import "Bergen.h"
 #import "Oostende.h"
 #import "Penzance.h"
+#import "Lisbon.h"
+#import "Torindor.h"
 #import "Button.h"
 @import GoogleMobileAds;
 
@@ -165,6 +167,10 @@ static UIView *panel;
             lisbon1.frame = CGRectMake(-150, -150, 1064*0.63, 1101*0.63);
             [panel addSubview:lisbon1];
             
+            Lisbon *tech = [[Lisbon alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
+            
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
             [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
@@ -178,6 +184,10 @@ static UIView *panel;
             UIImageView *torindor1 = [[UIImageView alloc] initWithImage:torindor];
             torindor1.frame = CGRectMake(-170, -200, 1032*0.63, 1335*0.63);
             [panel addSubview:torindor1];
+            
+            Torindor *tech = [[Torindor alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
