@@ -51,12 +51,21 @@ int number;
             CGContextClosePath(context);
             //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
             //    CGContextFillPath(context);
-           if((number >= 0 && number <= 10)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
-           else if((number >= 11 && number <= 21)) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
-           else if((number >= 22 && number <= 27)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
-           else CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+            if((number >= 8 && number <= 13) || (number >= 23 && number <= 28)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
+            else if((number >= 0 && number <= 7) || (number >= 12 && number <= 16) || number == 17) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
+            else if((number >= 29 && number <= 31) || (number >= 38 && number <= 46)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
+            else CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
             CGContextSetLineWidth(context, 2);
             CGContextStrokePath(context);
+                
+                if((number >= 0 && number <= 7) || (number >= 12 && number <= 16)){}//north statists
+                else if((number >= 8 && number <= 13) || (number >= 23 && number <= 27)){}//west capitalists
+                else if((number >= 28 && number <= 31) || (number >= 38 && number <= 45)){}//south outlaws
+                else {}//east globalists
+                
+                context = UIGraphicsGetCurrentContext();
+                //   CGContextRotateCTM(context, 30*M_PI/180);
+                center = CGPointMake(x, y);
     
             context = UIGraphicsGetCurrentContext();
             //   CGContextRotateCTM(context, 30*M_PI/180);
@@ -69,10 +78,10 @@ int number;
                 CGContextAddLineToPoint(context, center.x+x, center.y-y);
             }
             CGContextClosePath(context);
-            if((number >= 0 &&number <= 10)) CGContextSetRGBFillColor(context, 1.0, 215/255.0, 0.0, 0.4);
-            else if((number >= 11 && number <= 21)) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
-            else if((number >= 22 && number <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
-            else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+                if((number >= 8 && number <= 13) || (number >= 23 && number <= 28)) CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                else if((number >= 0 && number <= 7) || (number >= 12 && number <= 16) || number == 17) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
+                else if((number >= 29 && number <= 31) || (number >= 38 && number <= 46)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
+                else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
             CGContextFillPath(context);
             
             [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
@@ -90,9 +99,9 @@ int number;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number >= 0 && number <= 10)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
-                else if((number >= 11 && number <= 21)) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
-                else if((number >= 22 && number <= 27)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
+                if((number >= 8 && number <= 13) || (number >= 23 && number <= 28)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
+                else if((number >= 0 && number <= 7) || (number >= 12 && number <= 16) || number == 17) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
+                else if((number >= 29 && number <= 31) || (number >= 38 && number <= 46)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
                 else CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
@@ -110,9 +119,9 @@ int number;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number >= 0 && number <= 10)) CGContextSetRGBFillColor(context, 1.0, 215/255.0, 0.0, 0.4);
-                else if((number >= 11 && number <= 21)) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
-                else if((number >= 22 && number <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
+                if((number >= 8 && number <= 13) || (number >= 23 && number <= 28)) CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                else if((number >= 0 && number <= 7) || (number >= 12 && number <= 16) || number == 17) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
+                else if((number >= 29 && number <= 31) || (number >= 38 && number <= 46)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
                 else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
                 CGContextFillPath(context);
                 
