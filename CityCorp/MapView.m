@@ -64,10 +64,10 @@ static UIView *panel;
 
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
- //   [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+    [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
     Button *next = [[Button alloc] init];
     next.name = @"next";
- //   [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
+    [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
 
     iD = 0;
     
