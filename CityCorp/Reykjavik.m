@@ -13,7 +13,6 @@
 
 @implementation Reykjavik
 
-static NSUserDefaults *preferences3;
 NSString *corporation;
 NSString *faction;
 NSArray *districts1;

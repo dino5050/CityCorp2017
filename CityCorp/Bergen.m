@@ -10,6 +10,9 @@
 
 @implementation Bergen
 
+NSString *corporation2;
+NSString *faction2;
+NSArray *districts12;
 int number2;
 
 -(void)drawRect:(CGRect)rect {
@@ -47,10 +50,30 @@ int number2;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number2 >= 0 && number2 <= 10)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
-                else if((number2 >= 11 && number2 <= 21)) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
-                else if((number2 >= 22 && number2 <= 27)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
-                else CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+        /*        if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
+                else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
+                else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
+                else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
+                */               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
+                 {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
+                 corporation2 = @"CityCorp+West";
+                 faction2 = @"capitalists";
+                 }
+                 else if((number2 >= 0 && number2 <= 11)){
+                 CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
+                 corporation2 = @"CityCorp+North";
+                 faction2 = @"statists";
+                 }
+                 else if((number2 >= 39 && number2 <= 50) || (number2 == 30) || number2 == 32){
+                 CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
+                 corporation2 = @"CityCorp+South";
+                 faction2 = @"outlaws";
+                 }
+                 else {
+                 CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+                 corporation2 = @"CityCorp+East";
+                 faction2 = @"globalists";
+                 }
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
                 
@@ -65,10 +88,26 @@ int number2;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number2 >= 0 &&number2 <= 10)) CGContextSetRGBFillColor(context, 1.0, 215/255.0, 0.0, 0.4);
-                else if((number2 >= 11 && number2 <= 21)) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
-                else if((number2 >= 22 && number2 <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
-                else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+     /*           if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
+                else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
+                else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
+                else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
+                */              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                 corporation2 = @"CityCorp+West";
+                 faction2 = @"capitalists";
+                 }
+                 else if((number2 >= 0 && number2 <= 11) || (number2 >= 12 && number2 <= 16) || number2 == 17) {CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
+                 corporation2 = @"CityCorp+North";
+                 faction2 = @"statists";
+                 }
+                 else if((number2 >= 39 && number2 <= 50) || (number2 == 30) || number2 == 32){ CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
+                 corporation2 = @"CityCorp+South";
+                 faction2 = @"outlaws";
+                 }
+                 else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+                 corporation2 = @"CityCorp+East";
+                 faction2 = @"globalists";
+                 }
                 CGContextFillPath(context);
                 
                 [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
@@ -86,10 +125,30 @@ int number2;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number2 >= 0 && number2 <= 10)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
-                    else if((number2 >= 11 && number2 <= 21)) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
-                    else if((number2 >= 22 && number2 <= 27)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
-                    else CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+      /*              if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
+                    else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
+                    else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
+                    else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
+       */               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
+       {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
+           corporation2 = @"CityCorp+West";
+           faction2 = @"capitalists";
+       }
+       else if((number2 >= 0 && number2 <= 11)){
+           CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
+           corporation2 = @"CityCorp+North";
+           faction2 = @"statists";
+       }
+       else if((number2 >= 39 && number2 <= 50) || (number2 == 30) || number2 == 32){
+           CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
+           corporation2 = @"CityCorp+South";
+           faction2 = @"outlaws";
+       }
+       else {
+           CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+           corporation2 = @"CityCorp+East";
+           faction2 = @"globalists";
+       }
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
                     
@@ -106,10 +165,26 @@ int number2;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number2 >= 0 && number2 <= 10)) CGContextSetRGBFillColor(context, 1.0, 215/255.0, 0.0, 0.4);
-                    else if((number2 >= 11 && number2 <= 21)) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
-                    else if((number2 >= 22 && number2 <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
-                    else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+    /*                if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
+                    else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
+                    else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
+                    else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
+                 */              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                     corporation2 = @"CityCorp+West";
+                     faction2 = @"capitalists";
+                 }
+                 else if((number2 >= 0 && number2 <= 11) || (number2 >= 12 && number2 <= 16) || number2 == 17) {CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
+                     corporation2 = @"CityCorp+North";
+                     faction2 = @"statists";
+                 }
+                 else if((number2 >= 39 && number2 <= 50) || (number2 == 30) || number2 == 32){ CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
+                     corporation2 = @"CityCorp+South";
+                     faction2 = @"outlaws";
+                 }
+                 else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+                     corporation2 = @"CityCorp+East";
+                     faction2 = @"globalists";
+                 }
                     CGContextFillPath(context);
                     
                     number2 = number2+1;
@@ -205,7 +280,7 @@ int number2;
                     context = UIGraphicsGetCurrentContext();
                     //   CGContextRotateCTM(context, 30*M_PI/180);
                     [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
-                    //           number = number+1;
+                    //           number2 = number2+1;
                     center = CGPointMake(x+x1, y+y1);
                     
                     CGContextMoveToPoint(context, center.x, center.y-radius);
@@ -232,8 +307,8 @@ int number2;
 }
 -(UIButton *) button: (CGRect) rect {
     //  SEL selector1 = NSSelectorFromString(name);
-    //  NSString *number1 = [[NSString alloc] initWithFormat:@"%@", [@(number) stringValue]];
-    //  [self performSelector:@selector(district:) withObject:number1];
+    //  NSString *number21 = [[NSString alloc] initWithFormat:@"%@", [@(number2) stringValue]];
+    //  [self performSelector:@selector(district:) withObject:number21];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.tag = number2;
     
@@ -248,7 +323,7 @@ int number2;
     return button;
 }
 -(void)district: (id)sender{
-    //   NSString *str = [@(number) stringValue];
+    //   NSString *str = [@(number2) stringValue];
     //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
     NSLog(@"ReyTD_%d",(int)clicked.tag);
