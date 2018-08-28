@@ -10,6 +10,9 @@
 
 @implementation Torindor
 
+NSString *corporation6;
+NSString *faction6;
+NSArray *districts16;
 int number6;
 
 -(void)drawRect:(CGRect)rect {
@@ -47,10 +50,30 @@ int number6;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number6 >= 0 && number6 <= 10)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
-                else if((number6 >= 11 && number6 <= 21)) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
-                else if((number6 >= 22 && number6 <= 27)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
-                else CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+                /*        if([districts16[number6] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
+                 else if([districts16[number6] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
+                 else if([districts16[number6] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
+                 else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
+                 */               if((number6 >= 21 && number6 <= 28) || (number6 >= 34 && number6 <= 40))
+                 {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
+                     corporation6 = @"CityCorp+West";
+                     faction6 = @"capitalists";
+                 }
+                 else if((number6 >= 0 && number6 <= 14)){
+                     CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
+                     corporation6 = @"CityCorp+North";
+                     faction6 = @"statists";
+                 }
+                 else if((number6 >= 48 && number6 <= 59) || (number6 >= 41 && number6 <= 43)){
+                     CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
+                     corporation6 = @"CityCorp+South";
+                     faction6 = @"outlaws";
+                 }
+                 else {
+                     CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+                     corporation6 = @"CityCorp+East";
+                     faction6 = @"globalists";
+                 }
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
                 
@@ -65,10 +88,27 @@ int number6;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number6 >= 0 &&number6 <= 10)) CGContextSetRGBFillColor(context, 1.0, 215/255.0, 0.0, 0.4);
-                else if((number6 >= 11 && number6 <= 21)) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
-                else if((number6 >= 22 && number6 <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
-                else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+                /*           if([districts16[number6] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
+                 else if([districts16[number6] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
+                 else if([districts16[number6] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
+                 else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
+                 */              if((number6 >= 21 && number6 <= 28) || (number6 >= 34 && number6 <= 40)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                     corporation6 = @"CityCorp+West";
+                     faction6 = @"capitalists";
+                 }
+                 else if((number6 >= 0 && number6 <= 14)) {CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
+                     corporation6 = @"CityCorp+North";
+                     faction6 = @"statists";
+                 }
+                 else if((number6 >= 48 && number6 <= 59) || (number6 >= 41 && number6 <= 43)){ CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
+                     corporation6 = @"CityCorp+South";
+                     faction6 = @"outlaws";
+                 }
+                 else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+                     corporation6 = @"CityCorp+East";
+                     faction6 = @"globalists";
+                 }
+
                 CGContextFillPath(context);
                 
                 [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
@@ -86,10 +126,30 @@ int number6;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number6 >= 0 && number6 <= 10)) CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
-                    else if((number6 >= 11 && number6 <= 21)) CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
-                    else if((number6 >= 22 && number6 <= 27)) CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
-                    else CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+                    /*        if([districts16[number6] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
+                     else if([districts16[number6] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
+                     else if([districts16[number6] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
+                     else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
+                     */               if((number6 >= 21 && number6 <= 28) || (number6 >= 34 && number6 <= 40))
+                     {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
+                         corporation6 = @"CityCorp+West";
+                         faction6 = @"capitalists";
+                     }
+                     else if((number6 >= 0 && number6 <= 14)){
+                         CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);
+                         corporation6 = @"CityCorp+North";
+                         faction6 = @"statists";
+                     }
+                     else if((number6 >= 48 && number6 <= 59) || (number6 >= 41 && number6 <= 43)){
+                         CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);
+                         corporation6 = @"CityCorp+South";
+                         faction6 = @"outlaws";
+                     }
+                     else {
+                         CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
+                         corporation6 = @"CityCorp+East";
+                         faction6 = @"globalists";
+                     }
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
                     
@@ -106,10 +166,27 @@ int number6;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number6 >= 0 && number6 <= 10)) CGContextSetRGBFillColor(context, 1.0, 215/255.0, 0.0, 0.4);
-                    else if((number6 >= 11 && number6 <= 21)) CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
-                    else if((number6 >= 22 && number6 <= 27)) CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
-                    else CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+                    /*           if([districts16[number6] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
+                     else if([districts16[number6] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
+                     else if([districts16[number6] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
+                     else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
+                     */              if((number6 >= 21 && number6 <= 28) || (number6 >= 34 && number6 <= 40)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                         corporation6 = @"CityCorp+West";
+                         faction6 = @"capitalists";
+                     }
+                     else if((number6 >= 0 && number6 <= 14)) {CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);
+                         corporation6 = @"CityCorp+North";
+                         faction6 = @"statists";
+                     }
+                     else if((number6 >= 48 && number6 <= 59) || (number6 >= 41 && number6 <= 43)){ CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);
+                         corporation6 = @"CityCorp+South";
+                         faction6 = @"outlaws";
+                     }
+                     else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
+                         corporation6 = @"CityCorp+East";
+                         faction6 = @"globalists";
+                     }
+
                     CGContextFillPath(context);
                     
                     number6 = number6+1;
