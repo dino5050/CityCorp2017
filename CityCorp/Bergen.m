@@ -7,6 +7,7 @@
 //
 
 #import "Bergen.h"
+#import "Functions.h"
 
 @implementation Bergen
 
@@ -22,6 +23,12 @@ int number2;
     int y1 = 29;
     int i = 0;
     number2 = 0;
+    
+    Functions *disricts = [[Functions alloc] init];
+    @try{faction2 = [disricts httprequest:@"city" :[NSString stringWithFormat:@"%@",@"Bergen"] :@"techfaction.php"];
+        districts12 = [faction2 componentsSeparatedByString: @"|"];
+    }@catch(NSException *error){}
+    
     while(i<5){
         y = y + 175/3;
         x = 51/3-17;
@@ -50,11 +57,11 @@ int number2;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-        /*        if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
+                if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
                 else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
                 else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
                 else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
-                */               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
+                /*               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
                  {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
                  corporation2 = @"CityCorp+West";
                  faction2 = @"capitalists";
@@ -73,9 +80,15 @@ int number2;
                  CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
                  corporation2 = @"CityCorp+East";
                  faction2 = @"globalists";
-                 }
+                 } */
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
+                
+  /*                        NSString *name = [NSString stringWithFormat:@"BerTD_%d",number2];
+                 Functions *tech = [[Functions alloc] init];
+                 @try{[tech httprequest:@"name,district,coorx,coory,corporation,faction,city" :[NSString stringWithFormat:@"%@,%d,%f,%f,%@,%@,%@", name,number2,center.x,center.y,corporation2,faction2,@"Bergen"] :@"techdistricts.php"];
+                 }@catch(NSException *error){}
+     */
                 
                 context = UIGraphicsGetCurrentContext();
                 //   CGContextRotateCTM(context, 30*M_PI/180);
@@ -88,11 +101,11 @@ int number2;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-     /*           if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
+                if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
                 else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
                 else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
                 else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
-                */              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                /*              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
                  corporation2 = @"CityCorp+West";
                  faction2 = @"capitalists";
                  }
@@ -108,6 +121,7 @@ int number2;
                  corporation2 = @"CityCorp+East";
                  faction2 = @"globalists";
                  }
+                 */
                 CGContextFillPath(context);
                 
                 [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
@@ -125,11 +139,11 @@ int number2;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-      /*              if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
+                    if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
                     else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
                     else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
                     else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
-       */               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
+       /*               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
        {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
            corporation2 = @"CityCorp+West";
            faction2 = @"capitalists";
@@ -148,9 +162,15 @@ int number2;
            CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);
            corporation2 = @"CityCorp+East";
            faction2 = @"globalists";
-       }
+       } */
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
+                    
+        /*                         NSString *name = [NSString stringWithFormat:@"BerTD_%d",number2];
+                     Functions *tech = [[Functions alloc] init];
+                     @try{[tech httprequest:@"name,district,coorx,coory,corporation,faction,city" :[NSString stringWithFormat:@"%@,%d,%f,%f,%@,%@,%@", name,number2,center.x,center.y,corporation2,faction2,@"Bergen"] :@"techdistricts.php"];
+                     }@catch(NSException *error){}
+               */
                     
                     context = UIGraphicsGetCurrentContext();
                     //   CGContextRotateCTM(context, 30*M_PI/180);
@@ -165,11 +185,11 @@ int number2;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-    /*                if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
+                    if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
                     else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
                     else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
                     else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
-                 */              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                 /*              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
                      corporation2 = @"CityCorp+West";
                      faction2 = @"capitalists";
                  }
@@ -184,7 +204,7 @@ int number2;
                  else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);
                      corporation2 = @"CityCorp+East";
                      faction2 = @"globalists";
-                 }
+                 } */
                     CGContextFillPath(context);
                     
                     number2 = number2+1;
