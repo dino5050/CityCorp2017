@@ -33,8 +33,9 @@ static UIView *cancel2;
 static UIView *dismiss2;
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoTimer) name:UIApplicationWillEnterForegroundNotification object:nil];
     // Do any additional setup after loading the view.
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
@@ -65,6 +66,7 @@ static UIView *dismiss2;
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
         secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+  //      [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
     }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
     else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
     else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
@@ -118,6 +120,32 @@ static UIView *dismiss2;
         NSRange bottom = NSMakeRange(textView.text.length -1, 1);
         [textView scrollRangeToVisible:bottom];
     }
+}
+-(void)redoTimer{
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *hackingtime = [[Functions alloc] init];
+    @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"hackingtime.php"];
+    }@catch(NSException *error){}
+    commandline.text=@"";
+    NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+    if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+        secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
+ //       timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+    }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+    else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
+    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
+        [cancel2 removeFromSuperview];
+        Button *dismiss = [[Button alloc] init];
+        dismiss.name = @"dismiss";
+        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [self.view addSubview:dismiss2];
+        
+    }
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)dismiss{
     [dismiss2 removeFromSuperview];
