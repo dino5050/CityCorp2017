@@ -36,6 +36,8 @@ static UIView *dismiss2;
 - (void)viewDidLoad{
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoTimer) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoTimer) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resign) name:UIApplicationWillResignActiveNotification object:nil];
     // Do any additional setup after loading the view.
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
@@ -64,6 +66,10 @@ static UIView *dismiss2;
     }@catch(NSException *error){}
     NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+        Button *cancel = [[Button alloc] init];
+        cancel.name = @"cancel";
+        cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [self.view addSubview:cancel2];
         secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
   //      [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
@@ -121,17 +127,24 @@ static UIView *dismiss2;
         [textView scrollRangeToVisible:bottom];
     }
 }
+-(void)resign{
+    [timer invalidate];
+    timer = nil;
+}
 -(void)redoTimer{
     preferences3 = [NSUserDefaults standardUserDefaults];
     NSString *username = [preferences3 stringForKey:@"username"];
     Functions *hackingtime = [[Functions alloc] init];
     @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"hackingtime.php"];
     }@catch(NSException *error){}
-    commandline.text=@"";
+//    commandline.text=@"";
+    int time = (int)[[NSDate date] timeIntervalSince1970];
     NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
-        secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
- //       timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+        secondsLeft = [timestamp intValue] - time;
+        [timer invalidate];
+        timer = nil;
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
     }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
     else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
     else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
@@ -144,6 +157,7 @@ static UIView *dismiss2;
         
     }
 }
+
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -164,6 +178,10 @@ static UIView *dismiss2;
     @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"contestdelete.php"];
     }@catch(NSException *error){}
     [timer invalidate];
+    Button *dismiss = [[Button alloc] init];
+    dismiss.name = @"dismiss";
+    dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+    [self.view addSubview:dismiss2];
     commandline.text = @"...hacking canceled";
 }
 - (void)runScheduledTask: (NSTimer *) runningTimer {
@@ -313,6 +331,7 @@ static UIView *dismiss2;
                                                                           cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
                                                                           [self.view addSubview:cancel2];
                                                                           @try{[scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playercontests.php"];}@catch(NSException *error){}
+                                                                    [dismiss2 removeFromSuperview];
                                                                           preferences3 = [NSUserDefaults standardUserDefaults];
                                                                           username = [preferences3 stringForKey:@"username"];
                                                                           Functions *hackingtime = [[Functions alloc] init];
