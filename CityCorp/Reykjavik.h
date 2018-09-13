@@ -8,6 +8,7 @@
 
 @interface Reykjavik : UIView
 
+@property(nonatomic, readwrite) NSString *districtName;
 -(void)drawRect:(CGRect)rect;
 -(void)industrial;
 @end

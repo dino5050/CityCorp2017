@@ -10,13 +10,22 @@
 #import <UIKit/UIKit.h>
 #import "Reykjavik.h"
 #import "Functions.h"
+#import "Button.h"
+#import "MapView.h"
 
 @implementation Reykjavik
 
+@synthesize districtName;
 NSString *corporation;
 NSString *faction;
 NSArray *districts1;
+static NSUserDefaults *preferences3;
 int number;
+static UIView *cancel2;
+static UIView *dismiss2;
+static NSString *timestamp;
+static int secondsLeft;
+static NSTimer *timer;
 
 -(void)drawRect:(CGRect)rect {
     int x = 51;
@@ -230,7 +239,9 @@ int number;
     int y1 = 29;
     int i = 0;
     //  while(y>100/3 && y<900/8){
-    number = 0;
+ //   number = 0;
+    
+    int add = 48+1;
     while(i<3){
         y = y + 175/3;
         x = 51/3+96;
@@ -260,8 +271,8 @@ int number;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number >= 0 && number <= 2) || (number >= 10 && number <= 11) || number==4 || (number>=6 && number<=7) || number==18 || number>18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                else if((number >= 2 && number <= 4) || (number >= 12 && number <= 13) || number==16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                if((number >= 0+add && number <= 2+add) || (number >= 10+add && number <= 11+add) || number==4+add || (number>=6+add && number<=7+add) || number==18+add || number>18+add) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                else if((number >= 2+add && number <= 4+add) || (number >= 12+add && number <= 13+add) || number==16+add) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                 else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
@@ -277,8 +288,8 @@ int number;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number >= 0 &&number <= 2) || (number >= 10 && number <= 11) || number==4 || (number>=6 && number<=7) || number==18 || number>18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                else if((number >= 2 && number <= 4) || (number >= 12 && number <= 13) || number==16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                if((number >= 0+add && number <= 2+add) || (number >= 10+add && number <= 11+add) || number==4+add || (number>=6+add && number<=7+add) || number==18+add || number>18+add) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                else if((number >= 2+add && number <= 4+add) || (number >= 12+add && number <= 13+add) || number==16+add) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                 else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                 CGContextFillPath(context);
                 
@@ -297,8 +308,8 @@ int number;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number >= 0 && number <= 1) || (number >= 10 && number <= 11) || (number>=6 && number<=7) || number==17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                    else if((number >= 2 && number <= 4) || number==5 || (number >= 12 && number <= 13) || number==15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                    if((number >= 0+add && number <= 1+add) || (number >= 10+add && number <= 11+add) || (number>=6+add && number<=7+add) || number==17+add)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                    else if((number >= 2+add && number <= 4+add) || number==5+add || (number >= 12+add && number <= 13+add) || number==15+add) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                     else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
@@ -316,8 +327,8 @@ int number;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number >= 0 && number <= 1) || (number >= 10 && number <= 11) || (number>=6 && number<=7) || number==17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                    else if((number >= 2 && number <= 4) || number==5 || (number >= 12 && number <= 13) || number==15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                    if((number >= 0+add && number <= 1+add) || (number >= 10+add && number <= 11+add) || (number>=6+add && number<=7+add) || number==17+add) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                    else if((number >= 2+add && number <= 4+add) || number==5+add || (number >= 12+add && number <= 13+add) || number==15+add) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                     else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                     CGContextFillPath(context);
                     number = number+1;
@@ -352,6 +363,10 @@ int number;
  //   NSString *str = [@(number) stringValue];
  //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    NSLog(@"ReyTD_%d",(int)clicked.tag);
+    NSString *district = [NSString stringWithFormat:@"ReyTD_%d", (int)clicked.tag];
+    MapView *view1 = [[MapView alloc] init];
+    [view1 hackDistrict:district];
+  //  NSLog(@"ReyTD_%d",(int)clicked.tag);
+ 
 }
 @end

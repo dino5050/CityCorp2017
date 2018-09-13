@@ -36,7 +36,7 @@ static UIView *dismiss2;
 - (void)viewDidLoad{
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoTimer) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoTimer) name:UIApplicationDidBecomeActiveNotification object:nil];
+ //   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoTimer) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resign) name:UIApplicationWillResignActiveNotification object:nil];
     // Do any additional setup after loading the view.
     CGRect screenBound = [[UIScreen mainScreen] bounds];
@@ -266,13 +266,6 @@ static UIView *dismiss2;
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction * action)
                          {
-                             preferences3 = [NSUserDefaults standardUserDefaults];
-                             NSString *username = [preferences3 stringForKey:@"username"];
-                             Functions *scan = [[Functions alloc] init];
-                             NSString *chance = [scan httprequest:@"hacker,player,exploit" :[NSString stringWithFormat:@"%@,%@,%@", username, array3[0], @"1"] :@"playerscan.php"];
-                             
-                    
-                             
                              
                              [alert dismissViewControllerAnimated:YES completion:nil];
                          }];

@@ -10,4 +10,6 @@
 
 @interface MapView : UIViewController
 
+-(void)hackDistrict: (NSString *)district;
+
 @end

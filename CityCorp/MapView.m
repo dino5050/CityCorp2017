@@ -14,6 +14,7 @@
 #import "Lisbon.h"
 #import "Torindor.h"
 #import "Button.h"
+#import "Functions.h"
 @import GoogleMobileAds;
 
 @interface MapView ()
@@ -22,6 +23,13 @@
 @end
 
 @implementation MapView
+static NSUserDefaults *preferences3;
+static UIViewController *viewController;
+static UIView *cancel2;
+static UIView *dismiss2;
+static NSString *timestamp;
+static int secondsLeft;
+static NSTimer *timer;
 
 static int iD;
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
@@ -31,7 +39,8 @@ static int iD;
 static UIView *panel;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    viewController = [[UIViewController alloc] init];
+    [self.view addSubview:viewController.view];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
     
@@ -312,6 +321,100 @@ static UIView *panel;
                                                             multiplier:1
                                                               constant:0]
                                 ]];
+}
+-(void)hackDistrict: (NSString *)district{
+    NSLog(district);
+    UIAlertAction* hack2;
+     
+     UIAlertController *alert =   [UIAlertController
+     alertControllerWithTitle:@""
+     message:@""
+     preferredStyle:UIAlertControllerStyleAlert];
+     UIAlertAction *dismiss = [UIAlertAction
+     actionWithTitle:@"Cancel"
+     style:UIAlertActionStyleDefault
+     handler:^(UIAlertAction * action){
+     [alert dismissViewControllerAnimated:YES completion:nil];
+     }];
+     preferences3 = [NSUserDefaults standardUserDefaults];
+     NSString *username = [preferences3 stringForKey:@"username"];
+     Functions *scan = [[Functions alloc] init];
+     NSString *chance = [scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username, district] :@"techscan.php"];
+     NSArray *array4 = [chance componentsSeparatedByString:@"|"];
+     NSString *chance2;
+ //    NSLog(@"?????%@?????", chance2);
+     if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
+     }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This Citizen's Computer is Temporarily Locked";
+     }else if([array4[0] isEqualToString:@"samecorp"]){ chance2 = @"Can't Hack Citizen In Same Corporation As You";
+     }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack Citizen In Same Faction As You";
+     }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on This Citizen's Computer";
+     }else{
+         double percentage = [array4[0] doubleValue]*100;
+         int percentage2 = percentage;
+         chance2 = [NSString stringWithFormat:@"Estimated Chance to Hack %@ is %d%%. Do You Want to Proceed?",district,percentage2];
+     }
+         hack2 = [UIAlertAction
+                  actionWithTitle:@"Hack"
+                  style:UIAlertActionStyleDefault
+                  handler:^(UIAlertAction * action)
+                  {
+                      preferences3 = [NSUserDefaults standardUserDefaults];
+                      NSString *username = [preferences3 stringForKey:@"username"];
+                      Functions *playerdelete = [[Functions alloc] init];
+                      @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"contestdelete.php"];
+                      }@catch(NSException *error){}
+                      Button *cancel = [[Button alloc] init];
+                      cancel.name = @"cancel";
+                      cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
+                      [self.view addSubview:cancel2];
+                      @try{[scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username,district] :@"techcontests.php"];}@catch(NSException *error){}
+                      [dismiss2 removeFromSuperview];
+                      preferences3 = [NSUserDefaults standardUserDefaults];
+                      username = [preferences3 stringForKey:@"username"];
+                      Functions *hackingtime = [[Functions alloc] init];
+                      @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"hackingtime.php"];
+                      }@catch(NSException *error){}
+                      NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+                      if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+                          secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
+                          //     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+                      }
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }];
+         
+         [alert addAction:hack2];
+    
+     [alert dismissViewControllerAnimated:YES completion:nil];
+     
+     
+     UIColor *color = [UIColor orangeColor]; // select needed color
+     NSString *string = chance2;
+     NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+     [alert setValue:attrStr forKey:@"attributedMessage"];
+     UIVisualEffect *blurEffect;
+     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+     [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert class]]] setEffect:blurEffect];
+     
+     
+     UIAlertAction* cancel = [UIAlertAction
+     actionWithTitle:@"Cancel"
+     style:UIAlertActionStyleDefault
+     handler:^(UIAlertAction * action)
+     {
+     [alert dismissViewControllerAnimated:YES completion:nil];
+     
+     }];
+     
+     
+     [alert setValue:attrStr forKey:@"attributedMessage"];
+     
+     color = [UIColor orangeColor];
+     
+     [alert addAction:hack2];
+     [alert addAction:cancel];
+    
+     [viewController presentViewController:alert animated:YES completion:nil];
 }
 /*
 #pragma mark - Navigation
