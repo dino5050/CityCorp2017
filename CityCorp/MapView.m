@@ -30,6 +30,8 @@ static UIView *dismiss2;
 static NSString *timestamp;
 static int secondsLeft;
 static NSTimer *timer;
+UITextView *commandline;
+static Reykjavik *tech;
 
 static int iD;
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
@@ -43,6 +45,9 @@ static UIView *panel;
     [self.view addSubview:viewController.view];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoTimer) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resign) name:UIApplicationWillResignActiveNotification object:nil];
     
     Button* back = [[Button alloc] init];
     back.name = @"back";
@@ -64,12 +69,47 @@ static UIView *panel;
     rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
     [panel addSubview:rey];
 
-    Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+    tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
     [panel addSubview:tech];
 //    [tech industrial: CGRectMake(50, 50, 400, 400)];
     tech.backgroundColor = [UIColor clearColor];
     
     //  [rey setClipsToBounds:TRUE];
+    commandline = [[UITextView alloc] initWithFrame:CGRectMake(67, 40, 165, 50)];
+    [commandline setBackgroundColor:[UIColor blackColor]];
+    commandline.layer.borderWidth = 2.0f;
+    commandline.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    [self.view addSubview:commandline];
+    commandline.editable = NO;
+    commandline.textColor = [UIColor greenColor];
+    commandline.text = @"connecting to CityCorp...\nconnected";
+    commandline.font = [UIFont fontWithName:@"Courier" size:12];
+    //    [self scrollTextViewToBottom:commandline];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *hackingtime = [[Functions alloc] init];
+    @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"hackingtime.php"];
+    }@catch(NSException *error){}
+    NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+    if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+        Button *cancel = [[Button alloc] init];
+        cancel.name = @"cancel";
+        cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [viewController.view addSubview:cancel2];
+        secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+        //      [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
+    }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+    else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
+    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
+        [cancel2 removeFromSuperview];
+        Button *dismiss = [[Button alloc] init];
+        dismiss.name = @"dismiss";
+        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [viewController.view addSubview:dismiss2];
+        
+    }
 
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
@@ -288,6 +328,99 @@ static UIView *panel;
         }
     }
 }
+-(void)resign{
+    [timer invalidate];
+    timer = nil;
+}
+-(void)redoTimer{
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *hackingtime = [[Functions alloc] init];
+    @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"hackingtime.php"];
+    }@catch(NSException *error){}
+    //    commandline.text=@"";
+    int time = (int)[[NSDate date] timeIntervalSince1970];
+    NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+    if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+        secondsLeft = [timestamp intValue] - time;
+        [timer invalidate];
+        timer = nil;
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+    }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+    else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
+    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
+        [cancel2 removeFromSuperview];
+        Button *dismiss = [[Button alloc] init];
+        dismiss.name = @"dismiss";
+        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [viewController.view addSubview:dismiss2];
+        
+    }
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+-(void)dismiss{
+    [dismiss2 removeFromSuperview];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *playerdelete = [[Functions alloc] init];
+    @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"contestdelete.php"];
+    }@catch(NSException *error){}
+    commandline.text = @"connecting to CityCorp...\nconnected";
+}
+-(void)cancel{
+    [cancel2 removeFromSuperview];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    NSString *username = [preferences3 stringForKey:@"username"];
+    Functions *playerdelete = [[Functions alloc] init];
+    @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"contestdelete.php"];
+    }@catch(NSException *error){}
+    [timer invalidate];
+    Button *dismiss = [[Button alloc] init];
+    dismiss.name = @"dismiss";
+    dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+    [viewController.view addSubview:dismiss2];
+    commandline.text = @"...hacking canceled";
+}
+- (void)runScheduledTask: (NSTimer *) runningTimer {
+    int hours, minutes, seconds;
+    secondsLeft--;
+    hours = secondsLeft / 3600;
+    minutes = (secondsLeft % 3600) / 60;
+    seconds = (secondsLeft %3600) % 60;
+    commandline.text =[NSString stringWithFormat:@"hacking completes in: %02d:%02d:%02d", hours, minutes, seconds];
+    if (secondsLeft<0) {
+        commandline.text = @"hacking complete: awaiting result...";
+        
+    }if(secondsLeft<-6){
+        [timer invalidate];
+        preferences3 = [NSUserDefaults standardUserDefaults];
+        NSString *username = [preferences3 stringForKey:@"username"];
+        Functions *hackingtime = [[Functions alloc] init];
+        @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"hackingtime.php"];
+        }@catch(NSException *error){}
+        NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
+        if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+        else if([getTime[0] isEqualToString:@"samefaction"]) commandline.text = @"hacking complete: awaiting result...\nfailed...same faction";
+        else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
+        else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+        [cancel2 removeFromSuperview];
+        Button *dismiss = [[Button alloc] init];
+        dismiss.name = @"dismiss";
+        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+        [viewController.view addSubview:dismiss2];
+        [tech removeFromSuperview];
+        tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+        [panel addSubview:tech];
+        //    [tech industrial: CGRectMake(50, 50, 400, 400)];
+        tech.backgroundColor = [UIColor clearColor];
+        
+        
+    }
+}
 -(void)viewDidAppear:(BOOL)animated{
 /*    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
     Hexagon *hexagon = [[Hexagon alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
@@ -361,12 +494,12 @@ static UIView *panel;
                       preferences3 = [NSUserDefaults standardUserDefaults];
                       NSString *username = [preferences3 stringForKey:@"username"];
                       Functions *playerdelete = [[Functions alloc] init];
-                      @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"contestdelete.php"];
+                      @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"contestdelete.php"];
                       }@catch(NSException *error){}
                       Button *cancel = [[Button alloc] init];
                       cancel.name = @"cancel";
                       cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
-                      [self.view addSubview:cancel2];
+                      [viewController.view addSubview:cancel2];
                       @try{[scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username,district] :@"techcontests.php"];}@catch(NSException *error){}
                       [dismiss2 removeFromSuperview];
                       preferences3 = [NSUserDefaults standardUserDefaults];
@@ -377,12 +510,12 @@ static UIView *panel;
                       NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
                       if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
                           secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
-                          //     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+                          timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
                       }
                       [alert dismissViewControllerAnimated:YES completion:nil];
                   }];
          
-         [alert addAction:hack2];
+  //       [alert addAction:hack2];
     
      [alert dismissViewControllerAnimated:YES completion:nil];
      
@@ -416,6 +549,7 @@ static UIView *panel;
     
      [viewController presentViewController:alert animated:YES completion:nil];
 }
+
 /*
 #pragma mark - Navigation
 
