@@ -32,6 +32,8 @@ static int secondsLeft;
 static NSTimer *timer;
 UITextView *commandline;
 static Reykjavik *tech;
+static UIView *previous2;
+static UIView *next2;
 
 static int iD;
 -(IBAction)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC{
@@ -99,9 +101,9 @@ static UIView *panel;
         secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
         //      [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
-    }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
-    else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
-    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+    }if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+    else if([getTime[0] isEqualToString:@"samefaction"]) commandline.text = @"hacking failed... district same faction as yours";
+    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
@@ -113,11 +115,12 @@ static UIView *panel;
 
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
+    previous2 = [previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)];
+    [panel addSubview:previous2];
     Button *next = [[Button alloc] init];
     next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-
+    next2 = [next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)];
+    [panel addSubview:next2];
     iD = 0;
     
     self.bannerView = [[GADBannerView alloc]
@@ -346,15 +349,22 @@ static UIView *panel;
         [timer invalidate];
         timer = nil;
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
-    }else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
-    else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
-    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+    }if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+    else if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking failed... district same faction as yours";
+    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
         dismiss.name = @"dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         [viewController.view addSubview:dismiss2];
+        [tech removeFromSuperview];
+        tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+        [panel addSubview:tech];
+        //    [tech industrial: CGRectMake(50, 50, 400, 400)];
+        tech.backgroundColor = [UIColor clearColor];
+        [panel bringSubviewToFront:previous2];
+        [panel bringSubviewToFront:next2];
         
     }
 }
@@ -404,9 +414,8 @@ static UIView *panel;
         }@catch(NSException *error){}
         NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
         if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
-        else if([getTime[0] isEqualToString:@"samefaction"]) commandline.text = @"hacking complete: awaiting result...\nfailed...same faction";
-        else if([getTime[0] isEqualToString:@"nothing"]) commandline.text = @"...hacking successful, but no blueprints found on their computer";
-        else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
+        else if([getTime[0] isEqualToString:@"samefaction"]) commandline.text = @"hacking failed... district same faction as yours";
+        else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
         dismiss.name = @"dismiss";
@@ -417,6 +426,8 @@ static UIView *panel;
         [panel addSubview:tech];
         //    [tech industrial: CGRectMake(50, 50, 400, 400)];
         tech.backgroundColor = [UIColor clearColor];
+        [panel bringSubviewToFront:previous2];
+        [panel bringSubviewToFront:next2];
         
         
     }
@@ -477,10 +488,9 @@ static UIView *panel;
      NSString *chance2;
  //    NSLog(@"?????%@?????", chance2);
      if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
-     }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This Citizen's Computer is Temporarily Locked";
-     }else if([array4[0] isEqualToString:@"samecorp"]){ chance2 = @"Can't Hack Citizen In Same Corporation As You";
-     }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack Citizen In Same Faction As You";
-     }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on This Citizen's Computer";
+     }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked";
+     }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack District In Same Faction As You";
+     }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
      }else{
          double percentage = [array4[0] doubleValue]*100;
          int percentage2 = percentage;
@@ -544,7 +554,8 @@ static UIView *panel;
      
      color = [UIColor orangeColor];
      
-     [alert addAction:hack2];
+     if(![array4[0] isEqualToString:@"slotused"] && ![array4[0] isEqualToString:@"locked"] && ![array4[0] isEqualToString:@"samefaction"] && ![array4[0] isEqualToString:@"canthack"]) [alert addAction:hack2];
+    
      [alert addAction:cancel];
     
      [viewController presentViewController:alert animated:YES completion:nil];
