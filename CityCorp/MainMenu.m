@@ -130,8 +130,8 @@ static int iD;
     
     info = [[UITextView alloc] init];
     info.editable = NO;
-    info.font = [UIFont fontWithName:@"Arial" size:12];
-    info.frame = CGRectMake(5, 5, 170, 150);
+    info.font = [UIFont fontWithName:@"Arial" size:13];
+    info.frame = CGRectMake(2, 5, 170, 150);
     [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     //info.text = @"";
@@ -226,7 +226,7 @@ static int iD;
     [panel addSubview:[create_corp button: CGRectMake(panel.frame.size.width/2-170/2, 250, 170, 50.0)]];
     Button *back = [[Button alloc] init];
     back.name = @"back";
-    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, 2, 60, 50.0)]];
 }
 -(void)computer{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -317,11 +317,11 @@ static int iD;
     empty.editable = NO;
     [panel addSubview:empty];
     
-        Button *back = [[Button alloc] init];
-        back.name = @"back";
-        [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-    
-        [self configureTableview];
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+
+    [self configureTableview];
 
 }
 -(void)modify_1{
@@ -666,7 +666,7 @@ static int iD;
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     Button *back = [[Button alloc] init];
     back.name = @"back";
-    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, 100+125 -45, 60, 50.0)]];
     UITextView *help = [[UITextView alloc] init];
     help.frame = CGRectMake(panel.frame.size.width/2- 130, 5, 260, 60);
     [help setText:@"Write us a question, error, or bug, and we'll get to you as soon as possible:"];

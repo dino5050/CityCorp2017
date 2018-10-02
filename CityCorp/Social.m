@@ -86,9 +86,9 @@ static UIView *panel;
     inbox.name = @"inbox";
     [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100+20, 83, 50.0)]];
     
-    UITextField *message = [[UITextField alloc] initWithFrame:CGRectMake(3+1, 85-34, 210-1, 30)];
+    UITextField *message = [[UITextField alloc] initWithFrame:CGRectMake(3+1, 85-32, 210-1, 30)];
     message.layer.borderWidth = 2.0f;
-    message.layer.borderColor = [UIColor orangeColor].CGColor;
+    message.layer.borderColor = [UIColor blueColor].CGColor;
     message.textColor = [UIColor whiteColor];
     message.backgroundColor = [UIColor grayColor];
     [panel addSubview:message];
