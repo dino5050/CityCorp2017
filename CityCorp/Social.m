@@ -12,7 +12,6 @@
 
 @interface Social ()
 @property(nonatomic, strong) GADBannerView *bannerView;
-
 @end
 
 @implementation Social
@@ -69,10 +68,13 @@ static UIView *panel;
     chat.backgroundColor = [UIColor blackColor];
     chat.layer.borderColor = [UIColor blueColor].CGColor;
     chat.layer.borderWidth = 2.0f;
+    chat.font = [UIFont fontWithName:@"Arial" size:10];
+    chat.textColor = [UIColor whiteColor];
+    chat.text = @"dino5050: Hello everyone!";
     chat.editable = NO;
     [panel addSubview:chat];
     
-    UITextView *new = [[UITextView alloc ] initWithFrame:CGRectMake(panel.frame.size.width-83-3, 85-6
+    UITextView *new = [[UITextView alloc ] initWithFrame:CGRectMake(panel.frame.size.width-83-3, 85-6+20
                                                                     , 100, 20)];
     new.backgroundColor = [UIColor blackColor];
     new.textColor = [UIColor whiteColor];
@@ -82,12 +84,13 @@ static UIView *panel;
     
     Button *inbox = [[Button alloc] init];
     inbox.name = @"inbox";
-    [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100, 83, 50.0)]];
+    [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100+20, 83, 50.0)]];
     
-    UITextField *message = [[UITextField alloc] initWithFrame:CGRectMake(3, 85-32, 210, 30)];
+    UITextField *message = [[UITextField alloc] initWithFrame:CGRectMake(3+1, 85-34, 210-1, 30)];
     message.layer.borderWidth = 2.0f;
-    message.layer.borderColor = [UIColor blueColor].CGColor;
+    message.layer.borderColor = [UIColor orangeColor].CGColor;
     message.textColor = [UIColor whiteColor];
+    message.backgroundColor = [UIColor grayColor];
     [panel addSubview:message];
     
     Button *send = [[Button alloc] init];

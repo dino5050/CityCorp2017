@@ -32,6 +32,7 @@
 		4BB3686D1FE817CC00801ED8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB3686C1FE817CC00801ED8 /* Assets.xcassets */; };
 		4BB368711FEBEBB600801ED8 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BB368701FEBEBB600801ED8 /* Button.m */; };
 		4BBC61AB2009191300AE9979 /* Forgot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBC61AA2009191300AE9979 /* Forgot.m */; };
+		4BF35C93216274240062CC6F /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF35C92216274230062CC6F /* DLRadioButton.m */; };
 		4BFE638C20223E2100E92F67 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BFE638B20223E2100E92F67 /* GoogleMobileAds.framework */; };
 		4BFF1DF81FF57465007902A1 /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFF1DF71FF57465007902A1 /* Functions.m */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,8 @@
 		4BB368721FEBEBCD00801ED8 /* Button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
 		4BBC61A92009191200AE9979 /* Forgot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Forgot.h; sourceTree = "<group>"; };
 		4BBC61AA2009191300AE9979 /* Forgot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Forgot.m; sourceTree = "<group>"; };
+		4BF35C91216274230062CC6F /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DLRadioButton.h; path = "../../../Dropbox/CityCorp 2017/DLRadioButton.h"; sourceTree = "<group>"; };
+		4BF35C92216274230062CC6F /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DLRadioButton.m; path = "../../../Dropbox/CityCorp 2017/DLRadioButton.m"; sourceTree = "<group>"; };
 		4BFE638B20223E2100E92F67 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		4BFF1DF71FF57465007902A1 /* Functions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		4BFF1DF91FF5751C007902A1 /* Functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 		4B9ECE8E1FE09FEE00D55D5B /* CityCorp */ = {
 			isa = PBXGroup;
 			children = (
+				4BF35C91216274230062CC6F /* DLRadioButton.h */,
+				4BF35C92216274230062CC6F /* DLRadioButton.m */,
 				4BB3686C1FE817CC00801ED8 /* Assets.xcassets */,
 				4B9ECE8F1FE09FEE00D55D5B /* AppDelegate.h */,
 				4B9ECE901FE09FEF00D55D5B /* AppDelegate.m */,
@@ -382,6 +387,7 @@
 				4B9ECEC61FE0A18200D55D5B /* Reykjavik.m in Sources */,
 				4B9ECE911FE09FEF00D55D5B /* AppDelegate.m in Sources */,
 				4BFF1DF81FF57465007902A1 /* Functions.m in Sources */,
+				4BF35C93216274240062CC6F /* DLRadioButton.m in Sources */,
 				4B057A892041C6F600619752 /* Faction.m in Sources */,
 				4B49D7A21FFBD1EF00F33B24 /* Signup.m in Sources */,
 				4B2EDF482128B747004F97D0 /* Torindor.m in Sources */,

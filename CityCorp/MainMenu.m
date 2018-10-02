@@ -35,6 +35,7 @@ static Button* back;
 static Button* back2;
 static NSUserDefaults *preferences3;
 static UITextView *message2;
+static UITextView *message3;
 static NSArray *array2;
 static NSArray *array3;
 static NSArray *tech;
@@ -129,7 +130,7 @@ static int iD;
     
     info = [[UITextView alloc] init];
     info.editable = NO;
-    info.font = [UIFont fontWithName:@"Arial" size:14];
+    info.font = [UIFont fontWithName:@"Arial" size:12];
     info.frame = CGRectMake(5, 5, 170, 150);
     [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
@@ -150,13 +151,23 @@ static int iD;
     [panel addSubview:info];
     [preferences3 setObject:values[7] forKey:@"faction"];
     message = [[UITextView alloc] init];
-    message.font = [UIFont fontWithName:@"Arial" size:16];
-    message.frame = CGRectMake(5, 5+155, 200, 100);
+    message.font = [UIFont fontWithName:@"Abduction" size:13];
+    message.frame = CGRectMake(5, 5+155+15, 220, 25);
     message.text = @"Message of the day";
         message.editable = NO;
-    [message setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
+    [message setTextColor:[UIColor orangeColor]];
     [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:message];
+    
+    message2 = [[UITextView alloc] init];
+    message2.font = [UIFont fontWithName:@"Arial" size:13];
+    message2.frame = CGRectMake(5, 5+155+25+15, 290, 110);
+    message2.text = @"Welcome to CityCorp 1.0. Check out the tutorial to get started.";
+    message2.editable = NO;
+    [message2 setTextColor:[UIColor whiteColor]];
+    [message2 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    [panel addSubview:message2];
+    
     
     if([values[2] isEqualToString:@"Corporate"]) [preferences3 setObject:@"corporate" forKey:@"profession"];
     else if([values[2] isEqualToString:@"Researcher"]) [preferences3 setObject:@"researcher" forKey:@"profession"];
@@ -185,6 +196,10 @@ static int iD;
     title.editable = NO;
     [panel addSubview:title];
     UITextView * corp_name = [[UITextView alloc] initWithFrame:CGRectMake(120,80,170,30)];
+    corp_name.backgroundColor = [UIColor grayColor];
+    corp_name.layer.borderColor = [UIColor orangeColor].CGColor;
+    corp_name.layer.borderWidth = 2.0f;
+    corp_name.textColor = [UIColor whiteColor];
     [panel addSubview:corp_name];
     UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(1, 80, 55, 25)];
     name.text = @"Name";
@@ -201,6 +216,10 @@ static int iD;
     description.editable = NO;
     [panel addSubview:description];
     UITextView * corp_description = [[UITextView alloc] initWithFrame:CGRectMake(120,120,170,100)];
+    corp_description.backgroundColor = [UIColor grayColor];
+    corp_description.layer.borderColor = [UIColor orangeColor].CGColor;
+    corp_description.layer.borderWidth = 2.0f;
+    corp_description.textColor = [UIColor whiteColor];
     [panel addSubview:corp_description];
     Button *create_corp = [[Button alloc] init];
     create_corp.name = @"create_corp";
@@ -656,22 +675,25 @@ static int iD;
     help.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
     
     [panel addSubview:help];
-    message2 = [[UITextView alloc] init];
-    message2.backgroundColor=[UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+    message3 = [[UITextView alloc] init];
  //   message.font = [UIFont fontWithName:@"Arial" size:16];
-    message2.frame = CGRectMake(panel.frame.size.width/2 - 140, 55, 280, 120);
-    message2.editable = YES;
+    message3.frame = CGRectMake(panel.frame.size.width/2 - 140, 55, 280, 120);
+    message3.editable = YES;
+    message3.layer.borderWidth = 2.0f;
+    message3.layer.borderColor = [UIColor orangeColor].CGColor;
+    message3.backgroundColor = [UIColor grayColor];
+    message3.textColor = [UIColor whiteColor];
     Button *send = [[Button alloc] init];
     send.name = @"send";
     [panel addSubview:[send button2: CGRectMake(panel.frame.size.width/2-30, 100+125 -45, 60, 50.0)]];
 
-    [panel addSubview:message2];
+    [panel addSubview:message3];
     
 }
 -(void)send{
  //   NSLog(@"%@", message.text);
     [self.view endEditing:YES];
-    message2.text=@"";
+    message3.text=@"";
     //go back to main screen after sent
 }
 -(void)back{ //
@@ -707,11 +729,6 @@ static int iD;
     [panel addSubview:info];
     
     
-    message.text = @"Message of the day";
-//    [message setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
-//    [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    [panel addSubview:message];
-    
     if([values[2] isEqualToString:@"Corporate"]) [preferences3 setObject:@"corporate" forKey:@"profession"];
     else if([values[2] isEqualToString:@"Researcher"]) [preferences3 setObject:@"researcher" forKey:@"profession"];
     else if ([values[2] isEqualToString:@"Hacker"]) [preferences3 setObject:@"hacker" forKey:@"profession"];
@@ -725,13 +742,22 @@ static int iD;
     [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-65, 180, 50.0)]];
     
     message = [[UITextView alloc] init];
-    message.font = [UIFont fontWithName:@"Arial" size:16];
-    message.frame = CGRectMake(5, 5+155, 200, 100);
+    message.font = [UIFont fontWithName:@"Abduction" size:13];
+    message.frame = CGRectMake(5, 5+155+15, 220, 25);
     message.text = @"Message of the day";
     message.editable = NO;
-    [message setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
+    [message setTextColor:[UIColor orangeColor]];
     [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:message];
+    
+    message2 = [[UITextView alloc] init];
+    message2.font = [UIFont fontWithName:@"Arial" size:13];
+    message2.frame = CGRectMake(5, 5+155+25+15, 290, 50);
+    message2.text = @"Welcome to CityCorp 1.0. Check out the tutorial to get started.";
+    message2.editable = NO;
+    [message2 setTextColor:[UIColor whiteColor]];
+    [message2 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+    [panel addSubview:message2];
 }
 -(void)back_{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
