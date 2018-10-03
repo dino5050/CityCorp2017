@@ -152,8 +152,8 @@ static int iD;
     [preferences3 setObject:values[7] forKey:@"faction"];
     message = [[UITextView alloc] init];
     message.font = [UIFont fontWithName:@"Abduction" size:13];
-    message.frame = CGRectMake(5, 5+155+15, 220, 25);
-    message.text = @"Message of the day";
+    message.frame = CGRectMake(5, 5+155+15, 230, 25);
+    message.text = @"Message of the week";
         message.editable = NO;
     [message setTextColor:[UIColor orangeColor]];
     [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
@@ -1067,6 +1067,11 @@ static int iD;
             if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
             if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+        }else if([array3[3] isEqualToString:@"exploit"]){
+            type = @"- Generic Mod";
+            if([array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            if([array3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
         }
              //   cell.imageView.image = assets;
     }else if([whichTable isEqualToString:@"modify"]){
