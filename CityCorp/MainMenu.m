@@ -152,8 +152,8 @@ static int iD;
     [preferences3 setObject:values[7] forKey:@"faction"];
     message = [[UITextView alloc] init];
     message.font = [UIFont fontWithName:@"Abduction" size:13];
-    message.frame = CGRectMake(5, 5+155+15, 230, 25);
-    message.text = @"Message of the week";
+    message.frame = CGRectMake(5, 5+155+15, 255, 25);
+    message.text = @"Message from the city";
         message.editable = NO;
     [message setTextColor:[UIColor orangeColor]];
     [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
@@ -604,6 +604,40 @@ static int iD;
         }
     }
 }
+-(void)goto_corp{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *corporations = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    corporations.text = @"Corporations";
+    corporations.backgroundColor = [UIColor blackColor];
+    corporations.font = [UIFont fontWithName:@"Abduction" size:14];
+    corporations.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    corporations.editable = NO;
+    [panel addSubview:corporations];
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"goto_corp";
+    username3 = [preferences3 stringForKey:@"faction"];
+    //    [username3 lowercaseString];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"corporation.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
+    }@catch(NSException *error){}
+    //   NSLog(@"%@ |||||||||||||||||||",username3);
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    [self configureTableview];
+}
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UITextView *corporations = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
@@ -841,6 +875,7 @@ static int iD;
         mainmenu.layer.borderWidth = 2.0;
         mainmenu.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
         mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
+        mainmenu.backgroundColor = [UIColor blackColor];
         mainmenu.delegate = self;
         mainmenu.dataSource = self;
         [panel addSubview:mainmenu];
@@ -855,18 +890,7 @@ static int iD;
         mainmenu.dataSource = self;
         [panel addSubview:mainmenu];
     }
-    else if([whichTable isEqualToString:@"inventory"]){
-        mainmenu = [[UITableView alloc] init];
-        mainmenu.frame = CGRectMake(5, 50, 235, (array2.count-1)*60);
-        //     market.setMasksToBounds:YES];
-        //     [layer setCornerRadius: 4.0];
-        mainmenu.layer.borderWidth = 2.0f;
-        mainmenu.layer.borderColor = [UIColor blueColor].CGColor;
-        mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
-        mainmenu.delegate = self;
-        mainmenu.dataSource = self;
-        [panel addSubview:mainmenu];
-    }else if([whichTable isEqualToString:@"modify"]){
+    else{
         mainmenu = [[UITableView alloc] init];
         mainmenu.frame = CGRectMake(5, 50, 235, (array2.count-1)*60);
         //     market.setMasksToBounds:YES];
@@ -932,7 +956,8 @@ static int iD;
             [alert addAction:dismiss];
             [self presentViewController:alert animated:YES completion:nil];
             
-        }else {
+        }
+        else {
             
             NSString *items = [array2 objectAtIndex:indexPath.row];
             array3 = [items componentsSeparatedByString: @","];
@@ -946,6 +971,38 @@ static int iD;
                 [self back_];
             }
         }
+    }else if([whichTable isEqualToString:@"join_corp"]){
+        warning = @"Are you sure you want to join this corporation?";
+        UIAlertController *alert =   [UIAlertController
+                                      alertControllerWithTitle:@""
+                                      message:@""
+                                      preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* ok = [UIAlertAction
+                             actionWithTitle:@"Yes"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 //SET PREFERENCES HASCORP VALUE TO 1
+                             }];
+        UIAlertAction *dismiss = [UIAlertAction
+                                  actionWithTitle:@"Cancel"
+                                  style:UIAlertActionStyleDefault
+                                  handler:^(UIAlertAction * action){
+                                      [alert dismissViewControllerAnimated:YES completion:nil];
+                                      
+                                  }];
+        UIColor *color = [UIColor orangeColor]; // select needed color
+        NSString *string = warning;
+        NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+        NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+        [alert setValue:attrStr forKey:@"attributedMessage"];
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert class]]] setEffect:blurEffect];
+        [alert addAction:ok];
+        [alert addAction:dismiss];
+        [self presentViewController:alert animated:YES completion:nil];
     }
   
 }
@@ -954,7 +1011,6 @@ static int iD;
     static NSString *cellIdentifier = @"cellIdentifier";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
         
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
@@ -974,6 +1030,20 @@ static int iD;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ members", array3[2]];
         
      //   cell.detailTextLabel.text = @"1 member";
+    }else if([whichTable isEqualToString:@"goto_corp"]){
+        UIImage *avatar = [UIImage imageNamed:@"avatar.png"];
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.imageView.image = avatar;
+        NSString *items = [array2 objectAtIndex:indexPath.row];
+        //     NSLog(@"%@", items);
+        array3 = [items componentsSeparatedByString: @","];
+        cell.textLabel.text =  array3[0];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Level %@", array3[2]];
+        
+        //   cell.detailTextLabel.text = @"1 member";
     }
     else if([whichTable isEqualToString:@"equipment"]){
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
@@ -1108,15 +1178,10 @@ static int iD;
         //   cell.imageView.image = assets;
     }
 
-    
-    
-
   /*  NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     UIImage *theImage = [UIImage imageWithContentsOfFile:path];
     cell.imageView.image = theImage; */
-    
-    
-    
+ 
     return cell;
 }
 /*

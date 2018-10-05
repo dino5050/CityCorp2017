@@ -41,8 +41,8 @@ static int iD;
 }
 
 static UIView *panel;
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidAppear:(BOOL)animated{
+ //   [super viewDidLoad];
     viewController = [[UIViewController alloc] init];
     [self.view addSubview:viewController.view];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
@@ -431,13 +431,6 @@ static UIView *panel;
         
         
     }
-}
--(void)viewDidAppear:(BOOL)animated{
-/*    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
-    Hexagon *hexagon = [[Hexagon alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
-    [self.view addSubview:hexagon];
-    hexagon.backgroundColor = [UIColor clearColor];
-*/
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

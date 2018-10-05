@@ -75,16 +75,16 @@ static UIView *panel;
     [panel addSubview:chat];
     
     UITextView *new = [[UITextView alloc ] initWithFrame:CGRectMake(panel.frame.size.width-83-3, 85-6+20
-                                                                    , 100, 20)];
+                                                                    , 86, 20)];
     new.backgroundColor = [UIColor blackColor];
     new.textColor = [UIColor whiteColor];
     new.text = @"2 new messages";
     new.font = [UIFont fontWithName:@"Arial" size:10];
-    [panel addSubview:new];
+ //   [panel addSubview:new];
     
     Button *inbox = [[Button alloc] init];
     inbox.name = @"inbox";
-    [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100+20, 83, 50.0)]];
+ //   [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100+20, 83, 50.0)]];
     
     UITextField *message = [[UITextField alloc] initWithFrame:CGRectMake(3+1, 85-32, 210-1, 30)];
     message.layer.borderWidth = 2.0f;
