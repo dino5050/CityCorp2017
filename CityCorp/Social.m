@@ -38,11 +38,11 @@ static UIView *panel;
     
     Button* mail = [[Button alloc] init];
     mail.name = @"mail";
-    [self.view addSubview:[mail button2: CGRectMake(10+52+72+82, 40, 64, 50.0)]];
+ //   [self.view addSubview:[mail button2: CGRectMake(10+52+72+82, 40, 64, 50.0)]];
     
     Button* space = [[Button alloc] init];
     space.name = @"";
-    [self.view addSubview:[space button2: CGRectMake(10+52+72+82+66, 40, screenSize.width-(10+52+72+82+66+10), 50.0)]];
+    [self.view addSubview:[space button2: CGRectMake(10+52+72+82, 40, screenSize.width-(10+52+72+82+66+10)+64, 50.0)]];
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
      [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
@@ -134,6 +134,9 @@ static UIView *panel;
                                                             multiplier:1
                                                               constant:0]
                                 ]];
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 /*
 #pragma mark - Navigation

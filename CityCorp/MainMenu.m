@@ -52,6 +52,10 @@ static NSString *get_items;
 static int counts;
 static int slots;
 static NSString *type;
+static UITextView * corp_name;
+static UITextView * corp_ticker;
+static UITextView *name_warning;
+static UITextView *ticker_warning;
 //static UIAlertController * alert2;
 //static UIAlertAction* dismiss;
 static int iD;
@@ -188,6 +192,7 @@ static int iD;
 }
 -(void)create_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    whichTable = @"create_corp";
     UITextView *title = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 315, 25)];
     title.text = @"Create Your Corporation";
     title.backgroundColor = [UIColor blackColor];
@@ -195,7 +200,19 @@ static int iD;
     title.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     title.editable = NO;
     [panel addSubview:title];
-    UITextView * corp_name = [[UITextView alloc] initWithFrame:CGRectMake(120,80,170,30)];
+    name_warning = [[UITextView alloc] initWithFrame:CGRectMake(120, 59, 200, 20)];
+    name_warning.backgroundColor = [UIColor blackColor];
+    name_warning.textColor = [UIColor redColor];
+    name_warning.font = [UIFont fontWithName:@"Arial-BoldMT" size:10];
+//    name_warning.text = @"name already taken";
+    [panel addSubview:name_warning];
+    ticker_warning = [[UITextView alloc] initWithFrame:CGRectMake(120+75, 110, 65, 50)];
+    ticker_warning.backgroundColor = [UIColor blackColor];
+    ticker_warning.textColor = [UIColor redColor];
+    ticker_warning.font = [UIFont fontWithName:@"Arial-BoldMT" size:10];
+//    ticker_warning.text = @"ticker already taken";
+    [panel addSubview:ticker_warning];
+    corp_name = [[UITextView alloc] initWithFrame:CGRectMake(120,80,170,30)];
     corp_name.backgroundColor = [UIColor grayColor];
     corp_name.layer.borderColor = [UIColor orangeColor].CGColor;
     corp_name.layer.borderWidth = 2.0f;
@@ -208,25 +225,85 @@ static int iD;
     name.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     name.editable = NO;
     [panel addSubview:name];
-    UITextView *description = [[UITextView alloc] initWithFrame:CGRectMake(1, 120, 120, 25)];
-    description.text = @"Description";
-    description.backgroundColor = [UIColor blackColor];
-    description.font = [UIFont fontWithName:@"Abduction" size:10];
-    description.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
-    description.editable = NO;
-    [panel addSubview:description];
-    UITextView * corp_description = [[UITextView alloc] initWithFrame:CGRectMake(120,120,170,100)];
-    corp_description.backgroundColor = [UIColor grayColor];
-    corp_description.layer.borderColor = [UIColor orangeColor].CGColor;
-    corp_description.layer.borderWidth = 2.0f;
-    corp_description.textColor = [UIColor whiteColor];
-    [panel addSubview:corp_description];
+    UITextView *ticker = [[UITextView alloc] initWithFrame:CGRectMake(1, 120, 120, 25)];
+    ticker.text = @"Ticker";
+    ticker.backgroundColor = [UIColor blackColor];
+    ticker.font = [UIFont fontWithName:@"Abduction" size:10];
+    ticker.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    ticker.editable = NO;
+    [panel addSubview:ticker];
+    corp_ticker = [[UITextView alloc] initWithFrame:CGRectMake(120,120,70,30)];
+    corp_ticker.backgroundColor = [UIColor grayColor];
+    corp_ticker.layer.borderColor = [UIColor orangeColor].CGColor;
+    corp_ticker.layer.borderWidth = 2.0f;
+    corp_ticker.textColor = [UIColor whiteColor];
+    [panel addSubview:corp_ticker];
     Button *create_corp = [[Button alloc] init];
-    create_corp.name = @"create_corp";
-    [panel addSubview:[create_corp button: CGRectMake(panel.frame.size.width/2-170/2, 250, 170, 50.0)]];
+    create_corp.name = @"create_corp_";
+    [panel addSubview:[create_corp button: CGRectMake(panel.frame.size.width/2-190/2, 160, 170, 50.0)]];
     Button *back = [[Button alloc] init];
     back.name = @"back";
-    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, 2, 60, 50.0)]];
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, 160, 60, 50.0)]];
+
+ //   preferences3 = [NSUserDefaults standardUserDefaults];
+ //   [preferences3 setInteger:1 forKey:@"hasCorp"];
+}
+-(void)create_corp_{
+    if(corp_name.text.length>16) name_warning.text=@"Too many characters";
+    else if(corp_name.text.length<3) name_warning.text=@"Too few characters";
+    else if(corp_ticker.text.length>4) ticker_warning.text=@"Too many characters";
+    else if(corp_ticker.text.length<1) ticker_warning.text=@"Too few characters";
+    else{
+        name_warning.text = @"";
+        ticker_warning.text = @"";
+        NSString *corp_name2 = [corp_name.text stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        username3 = [preferences3 stringForKey:@"username"];
+        Functions *corporation = [[Functions alloc] init];
+        @try{NSString *check = [corporation httprequest:@"name,menu,corp,ticker" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, whichTable, corp_name2,corp_ticker.text] :@"corporation.php"];
+        NSArray *check_corp = [check componentsSeparatedByString: @"|"];
+            if([check_corp[0] isEqualToString:@"illegalTicker"]) ticker_warning.text=@"illegal characters";
+        else if([check_corp[0] isEqualToString:@"illegalCorp"]) name_warning.text=@"illegal characters";
+        else if([check_corp[0] isEqualToString:@"sameCorp"]) name_warning.text=@"name already taken";
+        else if([check_corp[0] isEqualToString:@"sameTicker"]) ticker_warning.text=@"ticker already taken";
+        else if([check_corp[0] isEqualToString:@"accepted"]){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            preferences3 = [NSUserDefaults standardUserDefaults];
+            [preferences3 setInteger:1 forKey:@"hasCorp"];
+            UITextView *corporations = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+            corporations.text = @"Corporations";
+            corporations.backgroundColor = [UIColor blackColor];
+            corporations.font = [UIFont fontWithName:@"Abduction" size:14];
+            corporations.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+            corporations.editable = NO;
+            [panel addSubview:corporations];
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            preferences3 = [NSUserDefaults standardUserDefaults];
+            //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+            whichTable = @"goto_corp";
+            username3 = [preferences3 stringForKey:@"faction"];
+            //    [username3 lowercaseString];
+            inventory1 = [[Functions alloc] init];
+            iD = 0;
+            @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"corporation.php"];
+                array2 = [get_items componentsSeparatedByString: @"|"];
+                if([array2 count] > 5) counts = [array2[5] intValue];
+                else counts = 0;
+            }@catch(NSException *error){}
+            //   NSLog(@"%@ |||||||||||||||||||",username3);
+            Button *back = [[Button alloc] init];
+            back.name = @"back";
+            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+            
+            [self configureTableview];
+        }
+            
+        }@catch(NSException *error){}
+    }
 }
 -(void)computer{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -1183,6 +1260,9 @@ static int iD;
     cell.imageView.image = theImage; */
  
     return cell;
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 /*
 #pragma mark - Navigation

@@ -41,8 +41,8 @@ static int iD;
 }
 
 static UIView *panel;
-- (void)viewDidAppear:(BOOL)animated{
- //   [super viewDidLoad];
+- (void)viewDidLoad{
+    [super viewDidLoad];
     viewController = [[UIViewController alloc] init];
     [self.view addSubview:viewController.view];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
