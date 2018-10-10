@@ -699,7 +699,7 @@ static int iD;
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"goto_corp";
-    username3 = [preferences3 stringForKey:@"faction"];
+    username3 = [preferences3 stringForKey:@"username"];
     //    [username3 lowercaseString];
     inventory1 = [[Functions alloc] init];
     iD = 0;
@@ -989,7 +989,7 @@ static int iD;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"] || [whichTable isEqualToString:@"modify"]) return array2.count-1;
+    if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"] || [whichTable isEqualToString:@"modify"] || [whichTable isEqualToString:@"goto_corp"]) return array2.count-1;
     else return array2.count-1+slots;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -1118,7 +1118,7 @@ static int iD;
         //     NSLog(@"%@", items);
         array3 = [items componentsSeparatedByString: @","];
         cell.textLabel.text =  array3[0];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Level %@", array3[2]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Level %@ %@", array3[1], array3[2]];
         
         //   cell.detailTextLabel.text = @"1 member";
     }
