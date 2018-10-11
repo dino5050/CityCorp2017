@@ -123,7 +123,7 @@ static int iD;
     [panel addSubview:[tutorial button2: CGRectMake(panel.frame.size.width-85-5, panel.frame.size.height-50-5-50-5, 85, 50.0)]];
     
     preferences3 = [NSUserDefaults standardUserDefaults];
-    
+ //   [preferences3 setInteger:0 forKey:@"hasCorp"];
     Button *computer = [[Button alloc] init];
     computer.name = @"computer";
     [panel addSubview:[computer button2: CGRectMake(panel.frame.size.width-115-5, 5, 115, 50.0)]];
@@ -266,40 +266,10 @@ static int iD;
         else if([check_corp[0] isEqualToString:@"sameCorp"]) name_warning.text=@"name already taken";
         else if([check_corp[0] isEqualToString:@"sameTicker"]) ticker_warning.text=@"ticker already taken";
         else if([check_corp[0] isEqualToString:@"accepted"]){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             preferences3 = [NSUserDefaults standardUserDefaults];
             [preferences3 setInteger:1 forKey:@"hasCorp"];
-            UITextView *corporations = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-            corporations.text = @"Corporations";
-            corporations.backgroundColor = [UIColor blackColor];
-            corporations.font = [UIFont fontWithName:@"Abduction" size:14];
-            corporations.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
-            corporations.editable = NO;
-            [panel addSubview:corporations];
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
-            preferences3 = [NSUserDefaults standardUserDefaults];
-            //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
-            whichTable = @"goto_corp";
-            username3 = [preferences3 stringForKey:@"faction"];
-            //    [username3 lowercaseString];
-            inventory1 = [[Functions alloc] init];
-            iD = 0;
-            @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"corporation.php"];
-                array2 = [get_items componentsSeparatedByString: @"|"];
-                if([array2 count] > 5) counts = [array2[5] intValue];
-                else counts = 0;
-            }@catch(NSException *error){}
-            //   NSLog(@"%@ |||||||||||||||||||",username3);
-            Button *back = [[Button alloc] init];
-            back.name = @"back";
-            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-            
-            [self configureTableview];
+            [preferences3 setObject:corp_name forKey:@"corporation"];
+            [self goto_corp];
         }
             
         }@catch(NSException *error){}
@@ -683,13 +653,6 @@ static int iD;
 }
 -(void)goto_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *corporations = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    corporations.text = @"Corporations";
-    corporations.backgroundColor = [UIColor blackColor];
-    corporations.font = [UIFont fontWithName:@"Abduction" size:14];
-    corporations.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
-    corporations.editable = NO;
-    [panel addSubview:corporations];
     Button *previous = [[Button alloc] init];
     previous.name = @"previous";
     [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
@@ -708,12 +671,86 @@ static int iD;
         if([array2 count] > 5) counts = [array2[5] intValue];
         else counts = 0;
     }@catch(NSException *error){}
+    NSArray *get_corp = [array2[0] componentsSeparatedByString:@","];
+    UITextView *corporation = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, 215, 25)];
+    corporation.text = get_corp[3];
+    corporation.backgroundColor = [UIColor blackColor];
+    corporation.font = [UIFont fontWithName:@"Abduction" size:14];
+    corporation.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    corporation.editable = NO;
+    [panel addSubview:corporation];
+    UITextView *members = [[UITextView alloc] initWithFrame:CGRectMake(5, 28, 215, 20)];
+    members.text = @"Members";
+    members.backgroundColor = [UIColor blackColor];
+    members.font = [UIFont fontWithName:@"Abduction" size:11];
+    members.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    members.editable = NO;
+    [panel addSubview:members];
+    Functions *get_districts = [[Functions alloc] init];
+    iD = 0;
+    NSString *corp = [get_corp[3] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSString *districts;
+    @try{districts = [get_districts httprequest:@"name,menu,corporation" :[NSString stringWithFormat:@"%@,%@,%@",username3,@"districts",corp] :@"corporation.php"];
+    }@catch(NSException *error){}
+    UITextView *districtsNum = [[UITextView alloc] initWithFrame:CGRectMake(125, 28, 215, 20)];
+    districtsNum.text = [NSString stringWithFormat:@"%@  districts  owned", districts];
+    districtsNum.backgroundColor = [UIColor blackColor];
+    districtsNum.font = [UIFont fontWithName:@"Abduction" size:10];
+    districtsNum.textColor = [UIColor orangeColor];
+    districtsNum.editable = NO;
+    [panel addSubview:districtsNum];
     //   NSLog(@"%@ |||||||||||||||||||",username3);
     Button *back = [[Button alloc] init];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-    
+    NSString *profession = [preferences3 stringForKey:@"profession"];
+    if(![profession isEqualToString:@"corporate"]){
+        Button *leave = [[Button alloc] init];
+        leave.name = @"leave";
+        [panel addSubview:[leave button2: CGRectMake(panel.frame.size.width-60-5-61, panel.frame.size.height-50-5, 60, 50.0)]];
+    }
     [self configureTableview];
+}
+-(void)leave{
+    warning = @"Are you sure you want to leave this corporation?";
+    UIAlertController *alert =   [UIAlertController
+                                  alertControllerWithTitle:@""
+                                  message:@""
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Yes"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             
+                             Functions *join = [[Functions alloc] init];
+                             whichTable = @"leave";
+                             @try{[join httprequest:@"name,menu" :[NSString stringWithFormat:@"%@,%@",username3,whichTable] :@"corporation.php"];
+                             }@catch(NSException *error){}
+                             [preferences3 setInteger:0 forKey:@"hasCorp"];
+                             [preferences3 setObject:@"None" forKey:@"corporation"];
+                             [self join_corp];
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             //SET PREFERENCES HASCORP VALUE TO 1
+                         }];
+    UIAlertAction *dismiss = [UIAlertAction
+                              actionWithTitle:@"Cancel"
+                              style:UIAlertActionStyleDefault
+                              handler:^(UIAlertAction * action){
+                                  [alert dismissViewControllerAnimated:YES completion:nil];
+                                  
+                              }];
+    UIColor *color = [UIColor orangeColor]; // select needed color
+    NSString *string = warning;
+    NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+    [alert setValue:attrStr forKey:@"attributedMessage"];
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert class]]] setEffect:blurEffect];
+    [alert addAction:ok];
+    [alert addAction:dismiss];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -733,11 +770,12 @@ static int iD;
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"join_corp";
-    username3 = [preferences3 stringForKey:@"faction"];
+    username3 = [preferences3 stringForKey:@"username"];
+    NSString *faction = [preferences3 stringForKey:@"faction"];
 //    [username3 lowercaseString];
     inventory1 = [[Functions alloc] init];
     iD = 0;
-    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",faction, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
         array2 = [get_items componentsSeparatedByString: @"|"];
         if([array2 count] > 5) counts = [array2[5] intValue];
         else counts = 0;
@@ -1059,6 +1097,16 @@ static int iD;
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
+                                 NSString *items = [array2 objectAtIndex:indexPath.row];
+                                 array3 = [items componentsSeparatedByString: @","];
+                                 Functions *join = [[Functions alloc] init];
+                                 NSString *corp = [array3[0] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+                                 
+                                 @try{[join httprequest:@"name,menu,corporation" :[NSString stringWithFormat:@"%@,%@,%@",username3,whichTable,corp] :@"corporation.php"];
+                                 }@catch(NSException *error){}
+                                 [preferences3 setObject:array3[0] forKey:@"corporation"];
+                                 [preferences3 setInteger:1 forKey:@"hasCorp"];
+                                 [self goto_corp];
                                  [alert dismissViewControllerAnimated:YES completion:nil];
                                  //SET PREFERENCES HASCORP VALUE TO 1
                              }];
