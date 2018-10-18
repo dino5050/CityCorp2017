@@ -8,6 +8,7 @@
 
 #import "Bergen.h"
 #import "Functions.h"
+#import "MapView.h"
 
 @implementation Bergen
 
@@ -224,7 +225,9 @@ int number2;
     int x1 = 16;
     int y1 = 29;
     int i = 0;
-    number2 = 0;
+ //   number2 = 0;
+    int add = 50+1;
+    
     while(i<3){
         y = y + 175/3;
         x = 51/3+134;    //change this
@@ -254,12 +257,13 @@ int number2;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number2 >= 0 && number2 <= 2) || (number2 >= 10 && number2 <= 11) || number2==4 || (number2>=6 && number2<=7) || number2==18 || number2>18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                else if((number2 >= 2 && number2 <= 4) || (number2 >= 12 && number2 <= 13) || number2==16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                if((number2 >= add + 0 && number2 <= add + 2) || (number2 >= add + 10 && number2 <= add + 11) || number2== add +4 || (number2>= add +6 && number2<= add +7) || number2== add +18 || number2>add+18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                else if((number2 >= add + 2 && number2 <= add + 4) || (number2 >= add + 12 && number2 <= add + 13) || number2== add +16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                 else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
-                
+                int level;
+        
                 context = UIGraphicsGetCurrentContext();
                 //   CGContextRotateCTM(context, 30*M_PI/180);
                 center = CGPointMake(x, y);
@@ -271,8 +275,8 @@ int number2;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number2 >= 0 &&number2 <= 2) || (number2 >= 10 && number2 <= 11) || number2==4 || (number2>=6 && number2<=7) || number2==18 || number2>18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                else if((number2 >= 2 && number2 <= 4) || (number2 >= 12 && number2 <= 13) || number2==16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                if((number2 >= add + 0 &&number2 <= add + 2) || (number2 >= add + 10 && number2 <= add + 11) || number2== add +4 || (number2>= add +6 && number2<= add +7) || number2== add +18 || number2>add+18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                else if((number2 >= add + 2 && number2 <= add + 4) || (number2 >= add + 12 && number2 <= add + 13) || number2== add +16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                 else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                 CGContextFillPath(context);
                 
@@ -291,12 +295,13 @@ int number2;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number2 >= 0 && number2 <= 1) || (number2 >= 10 && number2 <= 11) || (number2>=6 && number2<=7) || number2==17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                    else if((number2 >= 2 && number2 <= 4) || number2==5 || (number2 >= 12 && number2 <= 13) || number2==15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                    if((number2 >= add + 0 && number2 <= add + 1) || (number2 >= add + 10 && number2 <= add + 11) || (number2>= add +6 && number2<= add +7) || number2== add +17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                    else if((number2 >= add + 2 && number2 <= add + 4) || number2== add +5 || (number2 >= add + 12 && number2 <= add + 13) || number2== add +15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                     else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
                     
+          
                     context = UIGraphicsGetCurrentContext();
                     //   CGContextRotateCTM(context, 30*M_PI/180);
                     [self addSubview:[self button:CGRectMake(center.x-buttonSize/2, center.y-buttonSize/2, buttonSize, buttonSize)]];
@@ -310,8 +315,8 @@ int number2;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number2 >= 0 && number2 <= 1) || (number2 >= 10 && number2 <= 11) || (number2>=6 && number2<=7) || number2==17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                    else if((number2 >= 2 && number2 <= 4) || number2==5 || (number2 >= 12 && number2 <= 13) || number2==15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                    if((number2 >= add + 0 && number2 <= add + 1) || (number2 >= add + 10 && number2 <= add + 11) || (number2>= add +6 && number2<= add +7) || number2== add +17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                    else if((number2 >= add + 2 && number2 <= add + 4) || number2== add +5 || (number2 >= add + 12 && number2 <= add + 13) || number2== add +15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                     else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                     CGContextFillPath(context);
                     number2 = number2+1;
@@ -346,7 +351,14 @@ int number2;
     //   NSString *str = [@(number2) stringValue];
     //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    NSLog(@"ReyTD_%d",(int)clicked.tag);
+    int level;
+    if((int)clicked.tag == 55 || ((int)clicked.tag>= 51 && (int)clicked.tag<=53) || ((int)clicked.tag>= 57 && (int)clicked.tag<=58) || (int)clicked.tag== 61 || (int)clicked.tag== 62 || (int)clicked.tag== 68 || (int)clicked.tag== 75 || (int)clicked.tag== 76) {level = 10;}
+    else if((int)clicked.tag== 54 || (int)clicked.tag== 56 || ((int)clicked.tag>= 63 && (int)clicked.tag<= 64) || (int)clicked.tag== 66 || (int)clicked.tag== 67) {level = 20;}
+    else {level = 30;}
+    
+    NSString *district = [NSString stringWithFormat:@"BerTD_%d", (int)clicked.tag];
+    MapView *view1 = [[MapView alloc] init];
+    [view1 hackDistrict:district];
 }
 
 

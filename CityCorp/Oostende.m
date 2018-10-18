@@ -8,6 +8,7 @@
 
 #import "Oostende.h"
 #import "Functions.h"
+#import "MapView.h"
 
 @implementation Oostende
 
@@ -224,7 +225,8 @@ int number3;
     int y1 = 29;
     int i = 0;
     //  while(y>100/3 && y<900/8){
-    number3 = 0;
+//    number3 = 0;
+    int add = 51+1;
     while(i<3){
         y = y + 175/3;
         x = 51/3+96-65;
@@ -254,8 +256,8 @@ int number3;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number3 >= 0 && number3 <= 2) || (number3 >= 10 && number3 <= 11) || number3==4 || (number3>=6 && number3<=7) || number3==18 || number3>18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                else if((number3 >= 2 && number3 <= 4) || (number3 >= 12 && number3 <= 13) || number3==16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                if((number3 >= add + 0 && number3 <= add + 2) || (number3 >= add + 10 && number3 <= add + 11) || number3 == add +4 || (number3 >= add +6 && number3 <= add +7) || number3 == add +18 || number3>add+18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                else if((number3 >= add + 2 && number3 <= add + 4) || (number3 >= add + 12 && number3 <= add + 13) || number3 == add +16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                 else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
@@ -271,8 +273,8 @@ int number3;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number3 >= 0 &&number3 <= 2) || (number3 >= 10 && number3 <= 11) || number3==4 || (number3>=6 && number3<=7) || number3==18 || number3>18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                else if((number3 >= 2 && number3 <= 4) || (number3 >= 12 && number3 <= 13) || number3==16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                if((number3 >= add + 0 &&number3 <= add + 2) || (number3 >= add + 10 && number3 <= add + 11) || number3 == add +4 || (number3 >= add +6 && number3 <= add +7) || number3 == add +18 || number3>add+18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                else if((number3 >= add + 2 && number3 <= add + 4) || (number3 >= add + 12 && number3 <= add + 13) || number3 == add +16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                 else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                 CGContextFillPath(context);
                 
@@ -291,8 +293,8 @@ int number3;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number3 >= 0 && number3 <= 1) || (number3 >= 10 && number3 <= 11) || (number3>=6 && number3<=7) || number3==17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                    else if((number3 >= 2 && number3 <= 4) || number3==5 || (number3 >= 12 && number3 <= 13) || number3==15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                    if((number3 >= add + 0 && number3 <= add + 1) || (number3 >= add + 10 && number3 <= add + 11) || (number3 >= add +6 && number3 <= add +7) || number3 == add +17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                    else if((number3 >= add + 2 && number3 <= add + 4) || number3 == add +5 || (number3 >= add + 12 && number3 <= add + 13) || number3 == add +15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                     else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
@@ -310,8 +312,8 @@ int number3;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number3 >= 0 && number3 <= 1) || (number3 >= 10 && number3 <= 11) || (number3>=6 && number3<=7) || number3==17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                    else if((number3 >= 2 && number3 <= 4) || number3==5 || (number3 >= 12 && number3 <= 13) || number3==15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                    if((number3 >= add + 0 && number3 <= add + 1) || (number3 >= add + 10 && number3 <= add + 11) || (number3 >= add +6 && number3 <= add +7) || number3 == add +17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                    else if((number3 >= add + 2 && number3 <= add + 4) || number3 == add +5 || (number3 >= add + 12 && number3 <= add + 13) || number3 == add +15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                     else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                     CGContextFillPath(context);
                     number3 = number3+1;
@@ -346,7 +348,13 @@ int number3;
     //   NSString *str = [@(number) stringValue];
     //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    NSLog(@"ReyTD_%d",(int)clicked.tag);
+    int level;
+    if((int)clicked.tag == 56 || ((int)clicked.tag>= 58 && (int)clicked.tag<=59) || ((int)clicked.tag>= 72 && (int)clicked.tag<=75) || (int)clicked.tag== 62 || (int)clicked.tag== 63 || (int)clicked.tag== 69) {level = 10;}
+    else if((int)clicked.tag== 57 || ((int)clicked.tag>= 64 && (int)clicked.tag<= 65) || (int)clicked.tag== 67 || (int)clicked.tag== 68) {level = 20;}
+    else {level = 30;}
+    NSString *district = [NSString stringWithFormat:@"OosTD_%d", (int)clicked.tag];
+    MapView *view1 = [[MapView alloc] init];
+    [view1 hackDistrict:district];
 }
 
 @end

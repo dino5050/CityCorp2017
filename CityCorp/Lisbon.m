@@ -8,6 +8,7 @@
 
 #import "Lisbon.h"
 #import "Functions.h"
+#import "MapView.h"
 
 @implementation Lisbon
 
@@ -219,7 +220,8 @@ int number5;
     int x1 = 16;
     int y1 = 29;
     int i = 0;
-    number5 = 0;
+ //   number5 = 0;
+    int add = 61+1;
     while(i<3){
         y = y + 175/3;
         x = 51/3+134;    //change this
@@ -249,8 +251,8 @@ int number5;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number5 >= 0 && number5 <= 2) || (number5 >= 10 && number5 <= 11) || number5==4 || (number5>=6 && number5<=7) || number5==18 || number5>18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                else if((number5 >= 2 && number5 <= 4) || (number5 >= 12 && number5 <= 13) || number5==16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                if((number5 >= add + 0 && number5 <= add + 2) || (number5 >= add + 10 && number5 <= add + 11) || number5 == add +4 || (number5 >= add +6 && number5 <= add +7) || number5 == add +18 || number5>add+18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                else if((number5 >= add + 2 && number5 <= add + 4) || (number5 >= add + 12 && number5 <= add + 13) || number5 == add +16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                 else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
@@ -266,8 +268,8 @@ int number5;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number5 >= 0 &&number5 <= 2) || (number5 >= 10 && number5 <= 11) || number5==4 || (number5>=6 && number5<=7) || number5==18 || number5>18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                else if((number5 >= 2 && number5 <= 4) || (number5 >= 12 && number5 <= 13) || number5==16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                if((number5 >= add + 0 &&number5 <= add + 2) || (number5 >= add + 10 && number5 <= add + 11) || number5 == add +4 || (number5 >= add +6 && number5 <= add +7) || number5 == add +18 || number5>add+18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                else if((number5 >= add + 2 && number5 <= add + 4) || (number5 >= add + 12 && number5 <= add + 13) || number5 == add +16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                 else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                 CGContextFillPath(context);
                 
@@ -286,8 +288,8 @@ int number5;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number5 >= 0 && number5 <= 1) || (number5 >= 10 && number5 <= 11) || (number5>=6 && number5<=7) || number5==17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                    else if((number5 >= 2 && number5 <= 4) || number5==5 || (number5 >= 12 && number5 <= 13) || number5==15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                    if((number5 >= add + 0 && number5 <= add + 1) || (number5 >= add + 10 && number5 <= add + 11) || (number5 >= add +6 && number5 <= add +7) || number5 == add +17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                    else if((number5 >= add + 2 && number5 <= add + 4) || number5 == add +5 || (number5 >= add + 12 && number5 <= add + 13) || number5 == add +15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                     else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
@@ -305,8 +307,8 @@ int number5;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number5 >= 0 && number5 <= 1) || (number5 >= 10 && number5 <= 11) || (number5>=6 && number5<=7) || number5==17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                    else if((number5 >= 2 && number5 <= 4) || number5==5 || (number5 >= 12 && number5 <= 13) || number5==15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                    if((number5 >= add + 0 && number5 <= add + 1) || (number5 >= add + 10 && number5 <= add + 11) || (number5 >= add +6 && number5 <= add +7) || number5 == add +17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                    else if((number5 >= add + 2 && number5 <= add + 4) || number5 == add +5 || (number5 >= add + 12 && number5 <= add + 13) || number5 == add +15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                     else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                     CGContextFillPath(context);
                     number5 = number5+1;
@@ -341,7 +343,13 @@ int number5;
     //   NSString *str = [@(number5) stringValue];
     //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    NSLog(@"ReyTD_%d",(int)clicked.tag);
+    int level;
+    if((int)clicked.tag == 66 || ((int)clicked.tag>= 62 && (int)clicked.tag<=64) || ((int)clicked.tag>= 68 && (int)clicked.tag<=69) || (int)clicked.tag== 72 || (int)clicked.tag== 73 || (int)clicked.tag== 79 || (int)clicked.tag== 86 || (int)clicked.tag== 87) {level = 10;}
+    else if((int)clicked.tag== 65 || (int)clicked.tag== 67 || ((int)clicked.tag>= 74 && (int)clicked.tag<= 75) || (int)clicked.tag== 77 || (int)clicked.tag== 78) {level = 20;}
+    else {level = 30;}
+    NSString *district = [NSString stringWithFormat:@"LisTD_%d", (int)clicked.tag];
+    MapView *view1 = [[MapView alloc] init];
+    [view1 hackDistrict:district];
 }
 
 @end

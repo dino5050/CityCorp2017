@@ -276,6 +276,16 @@ static NSTimer *timer;
                 else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
+       /*         int level;
+                if(number==53 || (number>=55 && number<=60) || number==68 || number==69) {level = 10;}
+                else if(number==54 || (number>=61 && number<=62) || number==64 || number==65) {level = 20;}
+                else {level = 30;}
+                
+                NSString *name = [NSString stringWithFormat:@"ReyID_%d",number];
+                 Functions *tech = [[Functions alloc] init];
+                 @try{[tech httprequest:@"name,district,level,coorx,coory,city" :[NSString stringWithFormat:@"%@,%d,%d,%f,%f,%@", name,number,level,center.x,center.y,@"Reykjavik"] :@"industrialdistricts.php"];
+                 }@catch(NSException *error){}
+                */
                 
                 context = UIGraphicsGetCurrentContext();
                 //   CGContextRotateCTM(context, 30*M_PI/180);
@@ -313,6 +323,16 @@ static NSTimer *timer;
                     else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
+           /*
+                    if(number==53 || (number>=55 && number<=60) || number==68 || number==69) {level = 10;}
+                    else if(number==54 || (number>=61 && number<=62) || number==64 || number==65) {level = 20;}
+                    else {level = 30;}
+                    
+                    NSString *name = [NSString stringWithFormat:@"ReyID_%d",number];
+                    Functions *tech = [[Functions alloc] init];
+                    @try{[tech httprequest:@"name,district,level,coorx,coory,city" :[NSString stringWithFormat:@"%@,%d,%d,%f,%f,%@", name,number,level,center.x,center.y,@"Reykjavik"] :@"industrialdistricts.php"];
+                    }@catch(NSException *error){}
+                    */
                     
                     context = UIGraphicsGetCurrentContext();
                     //   CGContextRotateCTM(context, 30*M_PI/180);
@@ -363,6 +383,10 @@ static NSTimer *timer;
  //   NSString *str = [@(number) stringValue];
  //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
+    int level;
+    if((int)clicked.tag==53 || ((int)clicked.tag>=55 && (int)clicked.tag<=60) || (int)clicked.tag==68 || (int)clicked.tag==69) {level = 10;}
+    else if((int)clicked.tag==54 || ((int)clicked.tag>=61 && (int)clicked.tag<=62) || (int)clicked.tag==64 || (int)clicked.tag==65) {level = 20;}
+    else {level = 30;}
     NSString *district = [NSString stringWithFormat:@"ReyTD_%d", (int)clicked.tag];
     MapView *view1 = [[MapView alloc] init];
     [view1 hackDistrict:district];

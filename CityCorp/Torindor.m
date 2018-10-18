@@ -8,6 +8,7 @@
 
 #import "Torindor.h"
 #import "Functions.h"
+#import "MapView.h"
 
 @implementation Torindor
 
@@ -222,7 +223,8 @@ int number6;
     int x1 = 16;
     int y1 = 29;
     int i = 0;
-    number6 = 0;
+ //   number6 = 0;
+    int add = 59+1;
     while(i<3){
         y = y + 175/3;
         x = 51/3+134;    //change this
@@ -252,8 +254,8 @@ int number6;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number6 >= 0 && number6 <= 2) || (number6 >= 10 && number6 <= 11) || number6==4 || (number6>=6 && number6<=7) || number6==18 || number6>18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                else if((number6 >= 2 && number6 <= 4) || (number6 >= 12 && number6 <= 13) || number6==16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                if((number6 >= add + 0 && number6 <= add + 2) || (number6 >= add + 10 && number6 <= add + 11) || number6 == add +4 || (number6 >= add +6 && number6 <= add +7) || number6 == add +18 || number6>add+18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                else if((number6 >= add + 2 && number6 <= add + 4) || (number6 >= add + 12 && number6 <= add + 13) || number6 == add +16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                 else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
@@ -269,8 +271,8 @@ int number6;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number6 >= 0 &&number6 <= 2) || (number6 >= 10 && number6 <= 11) || number6==4 || (number6>=6 && number6<=7) || number6==18 || number6>18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                else if((number6 >= 2 && number6 <= 4) || (number6 >= 12 && number6 <= 13) || number6==16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                if((number6 >= add + 0 &&number6 <= add + 2) || (number6 >= add + 10 && number6 <= add + 11) || number6 == add +4 || (number6 >= add +6 && number6 <= add +7) || number6 == add +18 || number6>add+18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                else if((number6 >= add + 2 && number6 <= add + 4) || (number6 >= add + 12 && number6 <= add + 13) || number6 == add +16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                 else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                 CGContextFillPath(context);
                 
@@ -289,8 +291,8 @@ int number6;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number6 >= 0 && number6 <= 1) || (number6 >= 10 && number6 <= 11) || (number6>=6 && number6<=7) || number6==17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                    else if((number6 >= 2 && number6 <= 4) || number6==5 || (number6 >= 12 && number6 <= 13) || number6==15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                    if((number6 >= add + 0 && number6 <= add + 1) || (number6 >= add + 10 && number6 <= add + 11) || (number6 >= add +6 && number6 <= add +7) || number6 == add +17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                    else if((number6 >= add + 2 && number6 <= add + 4) || number6 == add +5 || (number6 >= add + 12 && number6 <= add + 13) || number6 == add +15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                     else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
@@ -308,8 +310,8 @@ int number6;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number6 >= 0 && number6 <= 1) || (number6 >= 10 && number6 <= 11) || (number6>=6 && number6<=7) || number6==17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                    else if((number6 >= 2 && number6 <= 4) || number6==5 || (number6 >= 12 && number6 <= 13) || number6==15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                    if((number6 >= add + 0 && number6 <= add + 1) || (number6 >= add + 10 && number6 <= add + 11) || (number6 >= add +6 && number6 <= add +7) || number6 == add +17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                    else if((number6 >= add + 2 && number6 <= add + 4) || number6 == add +5 || (number6 >= add + 12 && number6 <= add + 13) || number6 == add +15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                     else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                     CGContextFillPath(context);
                     number6 = number6+1;
@@ -344,7 +346,21 @@ int number6;
     //   NSString *str = [@(number) stringValue];
     //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    NSLog(@"ReyTD_%d",(int)clicked.tag);
+    if((int)clicked.tag>59){
+        NSNumber* level;
+        if((int)clicked.tag == 64 || ((int)clicked.tag>= 60 && (int)clicked.tag<=62) || ((int)clicked.tag>= 66 && (int)clicked.tag<=67) || (int)clicked.tag== 70 || (int)clicked.tag== 71 || (int)clicked.tag== 77 || (int)clicked.tag== 84 || (int)clicked.tag== 85) {level = [NSNumber numberWithInt:10];}
+        else if((int)clicked.tag== 63 || (int)clicked.tag== 65 || ((int)clicked.tag>= 72 && (int)clicked.tag<= 73) || (int)clicked.tag== 75 || (int)clicked.tag== 76) {level = [NSNumber numberWithInt:20];}
+        else {level = [NSNumber numberWithInt:30];}
+        NSString *district = [NSString stringWithFormat:@"TorID_%d", (int)clicked.tag];
+        MapView *view1 = [[MapView alloc] init];
+        [view1 hackDistrict:district:@"industrial":level];
+    }
+    else{
+        NSString *district = [NSString stringWithFormat:@"TorTD_%d", (int)clicked.tag];
+        MapView *view1 = [[MapView alloc] init];
+        NSNumber *level = [NSNumber numberWithInt:0];
+        [view1 hackDistrict:district:@"tech":level];
+    }
 }
 
 @end

@@ -112,7 +112,7 @@ static int iD;
     //load data from default values (username)
     Button *changeProfession = [[Button alloc] init];
     changeProfession.name = @"change_profession";
-    [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
+ //   [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
     
     Button *help = [[Button alloc] init];
     help.name = @"help";
@@ -135,7 +135,7 @@ static int iD;
     info = [[UITextView alloc] init];
     info.editable = NO;
     info.font = [UIFont fontWithName:@"Arial" size:13];
-    info.frame = CGRectMake(2, 5, 170, 150);
+    info.frame = CGRectMake(2, 5, 170, 160);
     [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     //info.text = @"";

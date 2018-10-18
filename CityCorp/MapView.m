@@ -459,8 +459,8 @@ static UIView *panel;
                                                               constant:0]
                                 ]];
 }
--(void)hackDistrict: (NSString *)district{
-    NSLog(district);
+-(void)hackDistrict: (NSString *)district: (NSString *) type: (NSNumber *) level{
+ //   NSLog(district);
     UIAlertAction* hack2;
      
      UIAlertController *alert =   [UIAlertController
@@ -476,19 +476,37 @@ static UIView *panel;
      preferences3 = [NSUserDefaults standardUserDefaults];
      NSString *username = [preferences3 stringForKey:@"username"];
      Functions *scan = [[Functions alloc] init];
-     NSString *chance = [scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username, district] :@"techscan.php"];
-     NSArray *array4 = [chance componentsSeparatedByString:@"|"];
-     NSString *chance2;
- //    NSLog(@"?????%@?????", chance2);
-     if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
-     }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked";
-     }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack District In Same Faction As You";
-     }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
-     }else{
-         double percentage = [array4[0] doubleValue]*100;
-         int percentage2 = percentage;
-         chance2 = [NSString stringWithFormat:@"Estimated Chance to Hack %@ is %d%%. Do You Want to Proceed?",district,percentage2];
-     }
+    NSString *chance2;
+    NSArray *array4;
+    if([type isEqualToString:@"tech"]){
+        NSString *chance = [scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username, district] :@"techscan.php"];
+        array4 = [chance componentsSeparatedByString:@"|"];
+    
+        
+     //    NSLog(@"?????%@?????", chance2);
+         if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
+         }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked";
+         }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack District In Same Faction As You";
+         }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
+         }else{
+             double percentage = [array4[0] doubleValue]*100;
+             int percentage2 = percentage;
+             chance2 = [NSString stringWithFormat:@"Estimated Chance to Hack %@ is %d%%. Do You Want to Proceed?",district,percentage2];
+        }
+    }else{
+        NSString *chance = [scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username, district] :@"industrialscan.php"];
+        array4 = [chance componentsSeparatedByString:@"|"];
+        
+        //    NSLog(@"?????%@?????", chance2);
+        if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
+        }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked. Try another district";
+        }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
+        }else{
+            double percentage = [array4[0] doubleValue]*100;
+            int percentage2 = percentage;
+            chance2 = [NSString stringWithFormat:@"Estimated Chance to Hack %@ is %d%%. Do You Want to Proceed?",district,percentage2];
+        }
+    }
          hack2 = [UIAlertAction
                   actionWithTitle:@"Hack"
                   style:UIAlertActionStyleDefault

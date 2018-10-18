@@ -8,6 +8,7 @@
 
 #import "Penzance.h"
 #import "Functions.h"
+#import "MapView.h"
 
 @implementation Penzance
 
@@ -225,7 +226,8 @@ int number4;
     int y1 = 29;
     int i = 0;
     //  while(y>100/3 && y<900/8){
-    number4 = 0;
+ //   number4 = 0;
+    int add = 61+1;
     while(i<3){
         y = y + 175/3;
         x = 51/3+96+35;
@@ -255,8 +257,8 @@ int number4;
                 CGContextClosePath(context);
                 //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                 //    CGContextFillPath(context);
-                if((number4 >= 0 && number4 <= 2) || (number4 >= 10 && number4 <= 11) || number4==4 || (number4>=6 && number4<=7) || number4==18 || number4>18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                else if((number4 >= 2 && number4 <= 4) || (number4 >= 12 && number4 <= 13) || number4==16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                if((number4 >= add + 0 && number4 <= add + 2) || (number4 >= add + 10 && number4 <= add + 11) || number4 == add +4 || (number4 >= add +6 && number4 <= add +7) || number4 == add +18 || number4>add+18) CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                else if((number4 >= add + 2 && number4 <= add + 4) || (number4 >= add + 12 && number4 <= add + 13) || number4 == add +16) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                 else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetLineWidth(context, 2);
                 CGContextStrokePath(context);
@@ -272,8 +274,8 @@ int number4;
                     CGContextAddLineToPoint(context, center.x+x, center.y-y);
                 }
                 CGContextClosePath(context);
-                if((number4 >= 0 &&number4 <= 2) || (number4 >= 10 && number4 <= 11) || number4==4 || (number4>=6 && number4<=7) || number4==18 || number4>18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                else if((number4 >= 2 && number4 <= 4) || (number4 >= 12 && number4 <= 13) || number4==16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                if((number4 >= add + 0 &&number4 <= add + 2) || (number4 >= add + 10 && number4 <= add + 11) || number4 == add +4 || (number4 >= add +6 && number4 <= add +7) || number4 == add +18 || number4>add+18) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                else if((number4 >= add + 2 && number4 <= add + 4) || (number4 >= add + 12 && number4 <= add + 13) || number4 == add +16) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                 else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                 CGContextFillPath(context);
                 
@@ -292,8 +294,8 @@ int number4;
                     CGContextClosePath(context);
                     //    CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.5);
                     //    CGContextFillPath(context);
-                    if((number4 >= 0 && number4 <= 1) || (number4 >= 10 && number4 <= 11) || (number4>=6 && number4<=7) || number4==17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
-                    else if((number4 >= 2 && number4 <= 4) || number4==5 || (number4 >= 12 && number4 <= 13) || number4==15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+                    if((number4 >= add + 0 && number4 <= add + 1) || (number4 >= add + 10 && number4 <= add + 11) || (number4 >= add +6 && number4 <= add +7) || number4 == add +17)  CGContextSetRGBStrokeColor(context, 165/255.0, 42/255.0, 42/255.0, 1.0);
+                    else if((number4 >= add + 2 && number4 <= add + 4) || number4 == add +5 || (number4 >= add + 12 && number4 <= add + 13) || number4 == add +15) CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
                     else CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                     CGContextSetLineWidth(context, 2);
                     CGContextStrokePath(context);
@@ -311,8 +313,8 @@ int number4;
                         CGContextAddLineToPoint(context, center.x+x, center.y-y);
                     }
                     CGContextClosePath(context);
-                    if((number4 >= 0 && number4 <= 1) || (number4 >= 10 && number4 <= 11) || (number4>=6 && number4<=7) || number4==17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
-                    else if((number4 >= 2 && number4 <= 4) || number4==5 || (number4 >= 12 && number4 <= 13) || number4==15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
+                    if((number4 >= add + 0 && number4 <= add + 1) || (number4 >= add + 10 && number4 <= add + 11) || (number4 >= add +6 && number4 <= add +7) || number4 == add +17) CGContextSetRGBFillColor(context, 165/255.0, 42/255.0, 42/255.0, 0.4);
+                    else if((number4 >= add + 2 && number4 <= add + 4) || number4 == add +5 || (number4 >= add + 12 && number4 <= add + 13) || number4 == add +15) CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.4);
                     else CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.4);
                     CGContextFillPath(context);
                     number4 = number4+1;
@@ -347,7 +349,13 @@ int number4;
     //   NSString *str = [@(number) stringValue];
     //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    NSLog(@"ReyTD_%d",(int)clicked.tag);
+    int level;
+    if((int)clicked.tag == 66 || ((int)clicked.tag>= 62 && (int)clicked.tag<=64) || ((int)clicked.tag>= 68 && (int)clicked.tag<=69) || (int)clicked.tag== 72 || (int)clicked.tag== 73 || (int)clicked.tag== 79 || (int)clicked.tag== 88) {level = 10;}
+    else if((int)clicked.tag== 65 || (int)clicked.tag== 67 || ((int)clicked.tag>= 74 && (int)clicked.tag<= 75) || (int)clicked.tag== 77 || (int)clicked.tag== 78) {level = 20;}
+    else {level = 30;}
+    NSString *district = [NSString stringWithFormat:@"PenTD_%d", (int)clicked.tag];
+    MapView *view1 = [[MapView alloc] init];
+    [view1 hackDistrict:district];
 }
 
 @end
