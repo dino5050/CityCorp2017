@@ -349,13 +349,21 @@ int number4;
     //   NSString *str = [@(number) stringValue];
     //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    int level;
-    if((int)clicked.tag == 66 || ((int)clicked.tag>= 62 && (int)clicked.tag<=64) || ((int)clicked.tag>= 68 && (int)clicked.tag<=69) || (int)clicked.tag== 72 || (int)clicked.tag== 73 || (int)clicked.tag== 79 || (int)clicked.tag== 88) {level = 10;}
-    else if((int)clicked.tag== 65 || (int)clicked.tag== 67 || ((int)clicked.tag>= 74 && (int)clicked.tag<= 75) || (int)clicked.tag== 77 || (int)clicked.tag== 78) {level = 20;}
-    else {level = 30;}
-    NSString *district = [NSString stringWithFormat:@"PenTD_%d", (int)clicked.tag];
-    MapView *view1 = [[MapView alloc] init];
-    [view1 hackDistrict:district];
+    if((int)clicked.tag>61){
+        NSNumber* level;
+        if((int)clicked.tag == 66 || ((int)clicked.tag>= 62 && (int)clicked.tag<=64) || ((int)clicked.tag>= 68 && (int)clicked.tag<=69) || (int)clicked.tag== 72 || (int)clicked.tag== 73 || (int)clicked.tag== 79 || (int)clicked.tag== 88) {level = [NSNumber numberWithInt:10];}
+        else if((int)clicked.tag== 65 || (int)clicked.tag== 67 || ((int)clicked.tag>= 74 && (int)clicked.tag<= 75) || (int)clicked.tag== 77 || (int)clicked.tag== 78) {level = [NSNumber numberWithInt:20];}
+        else {level = [NSNumber numberWithInt:30];}
+        NSString *district = [NSString stringWithFormat:@"PenID_%d", (int)clicked.tag];
+        MapView *view1 = [[MapView alloc] init];
+        [view1 hackDistrict:district:@"industrial":level];
+    }
+    else{
+        NSString *district = [NSString stringWithFormat:@"PenTD_%d", (int)clicked.tag];
+        MapView *view1 = [[MapView alloc] init];
+        NSNumber *level = [NSNumber numberWithInt:0];
+        [view1 hackDistrict:district:@"tech":level];
+    }
 }
 
 @end

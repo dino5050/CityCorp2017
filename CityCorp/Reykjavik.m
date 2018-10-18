@@ -383,13 +383,21 @@ static NSTimer *timer;
  //   NSString *str = [@(number) stringValue];
  //   NSLog(@"ReyT_%@", str);
     UIButton *clicked = (UIButton *) sender;
-    int level;
-    if((int)clicked.tag==53 || ((int)clicked.tag>=55 && (int)clicked.tag<=60) || (int)clicked.tag==68 || (int)clicked.tag==69) {level = 10;}
-    else if((int)clicked.tag==54 || ((int)clicked.tag>=61 && (int)clicked.tag<=62) || (int)clicked.tag==64 || (int)clicked.tag==65) {level = 20;}
-    else {level = 30;}
-    NSString *district = [NSString stringWithFormat:@"ReyTD_%d", (int)clicked.tag];
-    MapView *view1 = [[MapView alloc] init];
-    [view1 hackDistrict:district];
+    if((int)clicked.tag>48){
+        NSNumber* level;
+        if((int)clicked.tag==53 || ((int)clicked.tag>=55 && (int)clicked.tag<=60) || (int)clicked.tag==68 || (int)clicked.tag==69) {level = [NSNumber numberWithInt:10];}
+        else if((int)clicked.tag==54 || ((int)clicked.tag>=61 && (int)clicked.tag<=62) || (int)clicked.tag==64 || (int)clicked.tag==65) {level = [NSNumber numberWithInt:20];}
+        else {level = [NSNumber numberWithInt:30];}
+        NSString *district = [NSString stringWithFormat:@"ReyID_%d", (int)clicked.tag];
+        MapView *view1 = [[MapView alloc] init];
+        [view1 hackDistrict:district:@"industrial":level];
+    }
+    else{
+        NSString *district = [NSString stringWithFormat:@"ReyTD_%d", (int)clicked.tag];
+        MapView *view1 = [[MapView alloc] init];
+        NSNumber *level = [NSNumber numberWithInt:0];
+        [view1 hackDistrict:district:@"tech":level];
+    }
   //  NSLog(@"ReyTD_%d",(int)clicked.tag);
  
 }

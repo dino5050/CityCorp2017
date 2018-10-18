@@ -488,13 +488,13 @@ static UIView *panel;
          }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked";
          }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack District In Same Faction As You";
          }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
-         }else{
+         }else{ CHECK FOR EXPLOIT, REMOVE IN TECHCONTESTS.PHP
              double percentage = [array4[0] doubleValue]*100;
              int percentage2 = percentage;
              chance2 = [NSString stringWithFormat:@"Estimated Chance to Hack %@ is %d%%. Do You Want to Proceed?",district,percentage2];
         }
     }else{
-        NSString *chance = [scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username, district] :@"industrialscan.php"];
+        NSString *chance = [scan httprequest:@"hacker,name,level" :[NSString stringWithFormat:@"%@,%@,%d", username, district,[level intValue]] :@"industrialscan.php"];
         array4 = [chance componentsSeparatedByString:@"|"];
         
         //    NSLog(@"?????%@?????", chance2);
@@ -515,18 +515,22 @@ static UIView *panel;
                       preferences3 = [NSUserDefaults standardUserDefaults];
                       NSString *username = [preferences3 stringForKey:@"username"];
                       Functions *playerdelete = [[Functions alloc] init];
-                      @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"contestdelete.php"];
+                      @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, type] :@"contestdelete.php"];
                       }@catch(NSException *error){}
                       Button *cancel = [[Button alloc] init];
                       cancel.name = @"cancel";
                       cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
                       [viewController.view addSubview:cancel2];
+                      if([type isEqualToString:@"tech"]){
                       @try{[scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username,district] :@"techcontests.php"];}@catch(NSException *error){}
+                      }else{
+                          @try{[scan httprequest:@"hacker,name,level" :[NSString stringWithFormat:@"%@,%@,%d", username,district,[level intValue]] :@"industrialcontests.php"];}@catch(NSException *error){}
+                      }
                       [dismiss2 removeFromSuperview];
                       preferences3 = [NSUserDefaults standardUserDefaults];
                       username = [preferences3 stringForKey:@"username"];
                       Functions *hackingtime = [[Functions alloc] init];
-                      @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"hackingtime.php"];
+                      @try{timestamp = [hackingtime httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, type] :@"hackingtime.php"];
                       }@catch(NSException *error){}
                       NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
                       if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
