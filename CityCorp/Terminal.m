@@ -97,12 +97,16 @@ static UIView *dismiss2;
     [self.view addSubview:panel];
     
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-250/2,40,250,300) collectionViewLayout:layout];
+    UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-250/2,40,250,350) collectionViewLayout:layout];
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
     
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [collectionView setBackgroundColor:[UIColor blackColor]];
+    collectionView.layer.borderWidth = 2.0f;
+    collectionView.layer.borderColor = [UIColor blueColor].CGColor;
+    collectionView.alwaysBounceVertical = YES;
+    
     Functions *terminal = [[Functions alloc] init];
     NSString *players;
     iD = 0;  //ADD NEXT/PREVIOUS AND MAKE CELLS WIDER
@@ -379,8 +383,8 @@ static UIView *dismiss2;
     [alert setValue:attrStr1 forKey:@"attributedTitle"];
     
     
-    [alert addAction:message];
-    [alert addAction:befriend];
+//    [alert addAction:message];
+//    [alert addAction:befriend];
     [alert addAction:hack];
     [alert addAction:cancel];
     

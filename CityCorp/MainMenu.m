@@ -149,7 +149,8 @@ static int iD;
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
     NSInteger value = [values[8] intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], result];
+    int nextLevel = ([values[1] intValue]+1)*10*([values[1] intValue]+1)*10;
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result];
     [preferences3 setObject:values[1] forKey:@"level"];
  //   NSLog(@"%@ |||||||||||||||", [preferences3 stringForKey:@"level"]);
     [panel addSubview:info];
@@ -337,12 +338,12 @@ static int iD;
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     inventory.editable = NO;
     [panel addSubview:inventory];
-    Button *previous = [[Button alloc] init];
+/*    Button *previous = [[Button alloc] init];
     previous.name = @"previous";
     [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
     Button *next = [[Button alloc] init];
     next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]]; */
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"inventory";
@@ -380,12 +381,7 @@ static int iD;
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
     [panel addSubview:motherboards];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"modify";
@@ -424,12 +420,7 @@ static int iD;
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
     [panel addSubview:motherboards];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"modify";
@@ -472,12 +463,7 @@ static int iD;
         mod_id = array4[9];
     }
     [panel addSubview:motherboards];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"modify";
@@ -520,12 +506,7 @@ static int iD;
         mod_id = array4[9];
     }
     [panel addSubview:motherboards];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"modify";
@@ -568,12 +549,7 @@ static int iD;
         mod_id = array4[9];
     }
     [panel addSubview:motherboards];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"modify";
@@ -653,12 +629,7 @@ static int iD;
 }
 -(void)goto_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"goto_corp";
@@ -761,12 +732,7 @@ static int iD;
     corporations.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     corporations.editable = NO;
     [panel addSubview:corporations];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"join_corp";
@@ -872,7 +838,13 @@ static int iD;
     username3 = [preferences3 stringForKey:@"username"];
     @try{char_info = [get_char_info httprequest:@"name" :username3 :@"get_char_info.php"];
     values = [ char_info componentsSeparatedByString: @","];
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]];
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
+    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
+    NSInteger value = [values[8] intValue];
+    NSString *result = [fmt stringFromNumber:@(value)];
+    int nextLevel = ([values[1] intValue]+1)*10*([values[1] intValue]+1)*10;
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result];
  //   [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
   //  [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:info];
@@ -986,9 +958,9 @@ static int iD;
 {
  //   UITableView *corps = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     if([whichTable isEqualToString:@"join_corp"]){mainmenu = [[UITableView alloc] init];
-        mainmenu.frame = CGRectMake(0, 50, panel.frame.size.width-10, (array2.count-1)*60);
-        mainmenu.layer.borderWidth = 2.0;
-        mainmenu.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor clearColor]);
+        mainmenu.frame = CGRectMake(0, 50, panel.frame.size.width-10, 5*60-10);
+        mainmenu.layer.borderWidth = 2.0f;
+        mainmenu.layer.borderColor = [UIColor blueColor].CGColor;
         mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
         mainmenu.backgroundColor = [UIColor blackColor];
         mainmenu.delegate = self;
@@ -1001,18 +973,20 @@ static int iD;
         mainmenu.separatorColor = [UIColor clearColor];
         mainmenu.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
         mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
+        mainmenu.backgroundColor = [UIColor blackColor];
         mainmenu.delegate = self;
         mainmenu.dataSource = self;
         [panel addSubview:mainmenu];
     }
     else{
         mainmenu = [[UITableView alloc] init];
-        mainmenu.frame = CGRectMake(5, 50, 235, (array2.count-1)*60);
+        mainmenu.frame = CGRectMake(5, 50, 235, 5*60-10);
         //     market.setMasksToBounds:YES];
         //     [layer setCornerRadius: 4.0];
         mainmenu.layer.borderWidth = 2.0f;
         mainmenu.layer.borderColor = [UIColor blueColor].CGColor;
         mainmenu.layer.backgroundColor = [UIColor blackColor].CGColor;
+        mainmenu.backgroundColor = [UIColor blackColor];
         mainmenu.delegate = self;
         mainmenu.dataSource = self;
         [panel addSubview:mainmenu];

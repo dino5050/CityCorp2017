@@ -476,6 +476,7 @@ static UIView *panel;
      preferences3 = [NSUserDefaults standardUserDefaults];
      NSString *username = [preferences3 stringForKey:@"username"];
      Functions *scan = [[Functions alloc] init];
+    
     NSString *chance2;
     NSArray *array4;
     if([type isEqualToString:@"tech"]){
@@ -488,11 +489,11 @@ static UIView *panel;
          }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked";
          }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack District In Same Faction As You";
          }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
-         }else{ CHECK FOR EXPLOIT, REMOVE IN TECHCONTESTS.PHP
+         }else{ //CHECK FOR EXPLOIT, REMOVE IN TECHCONTESTS.PHP
              double percentage = [array4[0] doubleValue]*100;
              int percentage2 = percentage;
              chance2 = [NSString stringWithFormat:@"Estimated Chance to Hack %@ is %d%%. Do You Want to Proceed?",district,percentage2];
-        }
+        } //CHANGE LIMIT id,5 to id>$id LIMIT 5
     }else{
         NSString *chance = [scan httprequest:@"hacker,name,level" :[NSString stringWithFormat:@"%@,%@,%d", username, district,[level intValue]] :@"industrialscan.php"];
         array4 = [chance componentsSeparatedByString:@"|"];

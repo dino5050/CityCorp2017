@@ -28,7 +28,7 @@ static UIView *panel;
 static NSString *username3;
 static NSUserDefaults *preferences3;
 static NSString *get_items;
-static int counts;
+//static int counts;
 static Functions *ccmarket1;
 static Functions *blackmarket1;
 static Functions *inventory1;
@@ -73,12 +73,12 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [self.view addSubview:panel];
 }
 -(void)viewDidAppear:(BOOL)animated{
-    Button *previous = [[Button alloc] init];
+/*    Button *previous = [[Button alloc] init];
     previous.name = @"previous";
     [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
     Button *next = [[Button alloc] init];
     next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]]; */
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"ccmarket";
@@ -87,8 +87,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     iD = 0;
     @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
         items = [get_items componentsSeparatedByString: @"|"];
-        if([items count] > 5) counts = [items[5] intValue];
-        else counts = 0;
+/*       if([items count] > 5) counts = [items[5] intValue];
+        else counts = 0; */
     }@catch(NSException *error){}
     [self configureTableview];
     
@@ -222,12 +222,6 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     empty.editable = NO;
     [panel addSubview:empty];
     
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(2, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(1+55+1, 60*6, 55, 50.0)]];
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"blackmarket";
@@ -236,8 +230,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     iD = 0;
     @try{get_items = [blackmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
         items = [get_items componentsSeparatedByString: @"|"];
-        if([items count] > 5) counts = [items[5] intValue];
-        else counts = 0;
+        /*       if([items count] > 5) counts = [items[5] intValue];
+         else counts = 0; */
     }@catch(NSException *error){}
 //    [market reloadData];
     [self configureTableview];
@@ -286,7 +280,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
--(void)jobsmarket{
+-(void)jobs_market{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
  /*   Button *previous = [[Button alloc] init];
@@ -303,8 +297,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     iD = 0;
     @try{get_items = [blackmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
         items = [get_items componentsSeparatedByString: @"|"];
-        if([items count] > 5) counts = [items[5] intValue];
-        else counts = 0;
+        /*       if([items count] > 5) counts = [items[5] intValue];
+         else counts = 0; */
     }@catch(NSException *error){}
     //    [market reloadData];
     [self configureTableview];
@@ -362,12 +356,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     inventory.editable = NO;
     [panel addSubview:inventory];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"inventory";
@@ -376,8 +365,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     iD = 0;
     @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
         items = [get_items componentsSeparatedByString: @"|"];
-        if([items count] > 5) counts = [items[5] intValue];
-        else counts = 0;
+        /*       if([items count] > 5) counts = [items[5] intValue];
+         else counts = 0; */
     }@catch(NSException *error){}
     
     //   NSLog(@"%@ |||||||||||||||", array2[0]);
@@ -415,8 +404,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     iD = 0;
     @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
         items = [get_items componentsSeparatedByString: @"|"];
-        if([items count] > 5) counts = [items[5] intValue];
-        else counts = 0;
+        /*       if([items count] > 5) counts = [items[5] intValue];
+         else counts = 0; */
     }@catch(NSException *error){}
     [self configureTableview];
     
@@ -476,14 +465,14 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         else quantity1.text = [NSString stringWithFormat:@"%d",[quantity1.text intValue]-1];
     }
 }
--(void)next{
+/*-(void)next{
     if(iD<counts-5){
         iD = iD + 5;
         if(![whichTable isEqualToString:@"inventory"]){
             @try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
             items = [get_items componentsSeparatedByString: @"|"];
-            if([items count] > 5) counts = [items[5] intValue];
-            else counts = 0;
+                       if([items count] > 5) counts = [items[5] intValue];
+                 else counts = 0;
             }@catch(NSException *error){}
             [market removeFromSuperview];
             [market reloadData];
@@ -492,8 +481,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         }else{
             @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
             items = [get_items componentsSeparatedByString: @"|"];
-            if([items count] > 5) counts = [items[5] intValue];
-            else counts = 0;
+                       if([items count] > 5) counts = [items[5] intValue];
+                 else counts = 0;
             }@catch(NSException *error){}
             [market removeFromSuperview];
             [market reloadData];
@@ -509,8 +498,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         iD = iD - 5;
         if(![whichTable isEqualToString:@"inventory"]){@try{get_items = [ccmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
             items = [get_items componentsSeparatedByString: @"|"];
-            if([items count] > 5) counts = [items[5] intValue];
-            else counts = 0;
+                   if([items count] > 5) counts = [items[5] intValue];
+             else counts = 0;
             }@catch(NSException *error){}
             [market removeFromSuperview];
             [market reloadData];
@@ -518,8 +507,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         }else{
             @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
                 items = [get_items componentsSeparatedByString: @"|"];
-                if([items count] > 5) counts = [items[5] intValue];
-                else counts = 0;
+                       if([items count] > 5) counts = [items[5] intValue];
+                 else counts = 0;
             }@catch(NSException *error){}
             [market removeFromSuperview];
             [market reloadData];
@@ -527,7 +516,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         }
     }
     
-}
+} */
 - (void)addBannerViewToView:(UIView *)bannerView {
     bannerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:bannerView];
@@ -553,13 +542,14 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     
  //   if([whichTable isEqualToString:@"ccmarket"]){
     market = [[UITableView alloc] init];
-        market.frame = CGRectMake(5, 50, 235, (items.count-1)*60);
+        market.frame = CGRectMake(5, 50, 235, 5*60-10);
      //   market.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //    [market.layer setMasksToBounds:YES];
    //     [layer setCornerRadius: 4.0];
         market.layer.borderWidth = 2.0f;
         market.layer.borderColor = [UIColor blueColor].CGColor;
         market.layer.backgroundColor = [UIColor blackColor].CGColor;
+        market.backgroundColor = [UIColor blackColor];
         market.delegate = self;
         market.dataSource = self;
         
