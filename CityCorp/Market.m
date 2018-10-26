@@ -329,7 +329,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [panel addSubview:amount];
     
     UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    blackmarket3.text = @"Black Market";
+    blackmarket3.text = @"Jobs Market";
     blackmarket3.backgroundColor = [UIColor blackColor];
     blackmarket3.font = [UIFont fontWithName:@"Abduction" size:14];
     blackmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
@@ -385,17 +385,52 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     
     [self configureTableview];
 }
+-(void)jobs{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    inventory.text = @"Items to sell";
+    inventory.backgroundColor = [UIColor blackColor];
+    inventory.font = [UIFont fontWithName:@"Abduction" size:14];
+    inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    inventory.editable = NO;
+    [panel addSubview:inventory];
+    
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"inventory";
+    username3 = [preferences3 stringForKey:@"username"];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+        items = [get_items componentsSeparatedByString: @"|"];
+        /*       if([items count] > 5) counts = [items[5] intValue];
+         else counts = 0; */
+    }@catch(NSException *error){}
+    
+    //   NSLog(@"%@ |||||||||||||||", array2[0]);
+    
+    UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
+    empty.text = @"Empty";
+    empty.backgroundColor = [UIColor blackColor];
+    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    empty.editable = NO;
+    [panel addSubview:empty];
+    
+    Button *back = [[Button alloc] init];
+    back.name = @"back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    whichTable = @"jobs";
+    [self configureTableview];
+    whichTable = @"jobs";
+    
+}
 -(void)back2{
     [self dismissViewControllerAnimated:false completion:nil];
 }
 -(void)back{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    Button *previous = [[Button alloc] init];
-    previous.name = @"previous";
-    [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-    Button *next = [[Button alloc] init];
-    next.name = @"next";
-    [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"ccmarket";
@@ -541,8 +576,11 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 {
     
  //   if([whichTable isEqualToString:@"ccmarket"]){
-    market = [[UITableView alloc] init];
-        market.frame = CGRectMake(5, 50, 235, 5*60-10);
+    market = [[UITableView alloc] init];\
+    int rows;
+    if([whichTable isEqualToString:@"jobsmarket"]) rows = 3;
+    else rows = 5;
+        market.frame = CGRectMake(5, 50, 235, rows*60-10);
      //   market.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //    [market.layer setMasksToBounds:YES];
    //     [layer setCornerRadius: 4.0];
@@ -587,6 +625,9 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     NSString *items2 = [items objectAtIndex:indexPath.row];
     items3 = [items2 componentsSeparatedByString: @","];
     
+    if([whichTable isEqualToString:@"jobsmarket"]){
+        [self jobs];
+    }else{
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:@""
                                   message:@""
@@ -641,7 +682,9 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                                  [self presentViewController:alert2 animated:YES completion:nil];
                              [alert dismissViewControllerAnimated:YES completion:nil];
                          }else [alert dismissViewControllerAnimated:YES completion:nil];
+                            
     }];
+                         
     UIAlertAction* cancel = [UIAlertAction
                              actionWithTitle:@"Cancel"
                              style:UIAlertActionStyleDefault
@@ -650,26 +693,26 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                                  [alert dismissViewControllerAnimated:YES completion:nil];
                                  
                              }];
+                             
  /*   UIView *subview = alert.view.subviews.firstObject;
     UIView *alertContentView =  subview.subviews.firstObject;
     alertContentView.backgroundColor = [UIColor blackColor];
   */
-    UIColor *color = [UIColor whiteColor]; // select needed color
-    NSString *string = [NSString stringWithFormat:@"Buy the %@ for ₡%@",items3[0],items3[7]];
-    NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
-    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
-    [alert setValue:attrStr forKey:@"attributedMessage"];
-    
-    color = [UIColor orangeColor];
-    NSString *string1 = @"Market Order\n";
-    NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color, NSFontAttributeName : [UIFont fontWithName:@"Abduction" size:16]};
-    NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString:string1 attributes:attrs1];
-    [alert setValue:attrStr1 forKey:@"attributedTitle"];
-    
-    
-    [alert addAction:ok];
-    [alert addAction:cancel];
-    
+        UIColor *color = [UIColor whiteColor]; // select needed color
+        NSString *string = [NSString stringWithFormat:@"Buy the %@ for ₡%@",items3[0],items3[1]];
+        NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+        NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+        [alert setValue:attrStr forKey:@"attributedMessage"];
+      
+        color = [UIColor orangeColor];
+        NSString *string1 = @"Market Order\n";
+        NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color, NSFontAttributeName : [UIFont fontWithName:@"Abduction" size:16]};
+        NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString:string1 attributes:attrs1];
+        [alert setValue:attrStr1 forKey:@"attributedTitle"];
+      
+        [alert addAction:ok];
+        [alert addAction:cancel];
+  
     
  //   UIVisualEffectView.appearance(whenContainedInInstancesOf: [alert.classForCoder() as! UIAppearanceContainer.Type]).effect = UIBlurEffect(style: .dark)
     UIVisualEffect *blurEffect;
@@ -679,7 +722,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 //    let attributedString = NSAttributedString(string: "Invalid Name", attributes: [       NSParagraphStyleAttributeName: paragraphStyle,NSFontAttributeName : UIFont.systemFontOfSize(15),NSForegroundColorAttributeName : UIColor.redColor()])
     
     [self presentViewController:alert animated:YES completion:nil];
-    
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -691,7 +734,22 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     
- //   if([whichTable isEqualToString:@"ccmarket"]){
+    if([whichTable isEqualToString:@"jobsmarket"]){
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+        //     cell.imageView.image = gotoCorp;
+        NSString *items2 = [items objectAtIndex:indexPath.row];
+        NSArray *items3 = [items2 componentsSeparatedByString: @","];
+        NSString *job;
+        if([items3[1] isEqualToString:@"hacker"]) job = @"Compile Exploit";
+        else if([items3[1] isEqualToString:@"researcher"]) job = @"Research Blueprint";
+        else if([items3[1] isEqualToString:@"constructor"]) job = @"Construct Hardware";
+        cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@", job];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%@", items3[0]];
+    }
+    else{
      //   UIImage *gotoCorp = [UIImage imageNamed:@"goto.png"];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
         cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
@@ -700,33 +758,60 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
    //     cell.imageView.image = gotoCorp;
         NSString *items2 = [items objectAtIndex:indexPath.row];
         NSArray *items3 = [items2 componentsSeparatedByString: @","];
+        if([whichTable isEqualToString:@"jobs"] && [items3[11] isEqualToString:@"0"]){
         
-        NSString *type = [[NSString alloc] init];
-        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
-        if([items3[3] isEqualToString:@"computer"]){
-            type = @"- Motherboard";
-            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
-            if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
-            if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
-        }if([items3[3] isEqualToString:@"cpu"]){
-            type = @"- CPU";
-            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-            if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-            if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-        }if([items3[3] isEqualToString:@"mod"]){
-            type = @"- Generic Mod";
-            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-        }if([items3[3] isEqualToString:@"exploit"]){
-            type = @"- Generic Mod";
-            if([items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-            if([items3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-            if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            NSString *type = [[NSString alloc] init];
+            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
+            if([items3[3] isEqualToString:@"computer"]){
+                type = @"- Motherboard";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+            }if([items3[3] isEqualToString:@"cpu"]){
+                type = @"- CPU";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+                if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+            }if([items3[3] isEqualToString:@"mod"]){
+                type = @"- Generic Mod";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            }if([items3[3] isEqualToString:@"exploit"]){
+                type = @"- Generic Mod";
+                if([items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+                if([items3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+                if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            }
+            cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
+        }else if(![whichTable isEqualToString:@"jobs"]){
+            NSString *type = [[NSString alloc] init];
+            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
+            if([items3[3] isEqualToString:@"computer"]){
+                type = @"- Motherboard";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+            }if([items3[3] isEqualToString:@"cpu"]){
+                type = @"- CPU";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+                if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+            }if([items3[3] isEqualToString:@"mod"]){
+                type = @"- Generic Mod";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            }if([items3[3] isEqualToString:@"exploit"]){
+                type = @"- Generic Mod";
+                if([items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+                if([items3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+                if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            }
+            cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
         }
-        cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
         
- //   }
+    }
  //   cell.textLabel.text =  [items objectAtIndex:indexPath.row];
     
     
