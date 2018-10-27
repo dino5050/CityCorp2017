@@ -152,8 +152,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [panel addSubview:ccmarket3];
     
     Button *sell = [[Button alloc] init];
-    sell.name = @"sell";
-    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-175-5, 60*6, 60, 50.0)]];
+    sell.name = @"sell_to_ccmarket";
+    [panel addSubview:[sell button2: CGRectMake(5, 60*6, 240, 50.0)]];
  //   sell to ccmarket button
 //    Button *sell = [[Button alloc] init];
 //    sell.name = @"sell";
@@ -347,7 +347,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
--(void)sell{
+-(void)sell_to_ccmarket{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     inventory.text = @"Items to sell";
@@ -385,7 +385,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     
     [self configureTableview];
 }
--(void)jobs{
+-(void)jobs: (NSString *)type: (NSNumber *) identified{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     inventory.text = @"Items to sell";
@@ -397,11 +397,11 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
-    whichTable = @"inventory";
+    whichTable = @"jobs";
     username3 = [preferences3 stringForKey:@"username"];
     inventory1 = [[Functions alloc] init];
     iD = 0;
-    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",username3, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+    @try{get_items = [inventory1 httprequest:@"name,menu,type,identified" :[NSString stringWithFormat:@"%@,%@,%@,%d",username3,whichTable,type,[identified intValue]] :@"jobs.php"];
         items = [get_items componentsSeparatedByString: @"|"];
         /*       if([items count] > 5) counts = [items[5] intValue];
          else counts = 0; */
@@ -420,9 +420,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     Button *back = [[Button alloc] init];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
-    whichTable = @"jobs";
     [self configureTableview];
-    whichTable = @"jobs";
     
 }
 -(void)back2{
@@ -626,7 +624,13 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     items3 = [items2 componentsSeparatedByString: @","];
     
     if([whichTable isEqualToString:@"jobsmarket"]){
-        [self jobs];
+        NSString * jobtype;
+        NSNumber * identified;
+        if([items3[1] isEqualToString:@"hacker"]) { jobtype = @"exploit"; identified = [NSNumber numberWithInt:0];}
+        else if([items3[1] isEqualToString:@"researcher"]) { jobtype = @"blueprint"; identified = [NSNumber numberWithInt:0];}
+        else if([items3[1] isEqualToString:@"constructor"]) {
+            jobtype = @"blueprint"; identified = [NSNumber numberWithInt:1];;}
+        [self jobs:jobtype:identified];
     }else{
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:@""
@@ -758,58 +762,50 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
    //     cell.imageView.image = gotoCorp;
         NSString *items2 = [items objectAtIndex:indexPath.row];
         NSArray *items3 = [items2 componentsSeparatedByString: @","];
-        if([whichTable isEqualToString:@"jobs"] && [items3[11] isEqualToString:@"0"]){
         
-            NSString *type = [[NSString alloc] init];
-            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
+        NSString *type = [[NSString alloc] init];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
+        if([items3[10] isEqualToString:@"blueprint"]){
             if([items3[3] isEqualToString:@"computer"]){
                 type = @"- Motherboard";
-                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
-                if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
-                if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
-            }if([items3[3] isEqualToString:@"cpu"]){
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_blue.png"];
+                if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_green.png"];
+            }else if([items3[3] isEqualToString:@"cpu"]){
                 type = @"- CPU";
-                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-            }if([items3[3] isEqualToString:@"mod"]){
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
+                if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
+            }else if([items3[3] isEqualToString:@"mod"]){
                 type = @"- Generic Mod";
-                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-                if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-                if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            }if([items3[3] isEqualToString:@"exploit"]){
-                type = @"- Generic Mod";
-                if([items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-                if([items3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-                if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
             }
-            cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
-        }else if(![whichTable isEqualToString:@"jobs"]){
-            NSString *type = [[NSString alloc] init];
-            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",items3[7]];
-            if([items3[3] isEqualToString:@"computer"]){
-                type = @"- Motherboard";
-                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
-                if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
-                if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
-            }if([items3[3] isEqualToString:@"cpu"]){
-                type = @"- CPU";
-                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-            }if([items3[3] isEqualToString:@"mod"]){
-                type = @"- Generic Mod";
-                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-                if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-                if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            }if([items3[3] isEqualToString:@"exploit"]){
-                type = @"- Generic Mod";
-                if([items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-                if([items3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-                if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-            }
-            cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
         }
+        else if([items3[3] isEqualToString:@"computer"]){
+            type = @"- Motherboard";
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+            if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+            if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+        }else if([items3[3] isEqualToString:@"cpu"]){
+            type = @"- CPU";
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+            if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+            if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+        }else if([items3[3] isEqualToString:@"mod"]){
+            type = @"- Generic Mod";
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+        }else if([items3[3] isEqualToString:@"exploit"]){
+            type = @"- Generic Mod";
+            if([items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            if([items3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+        }
+        cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
+        
         
     }
  //   cell.textLabel.text =  [items objectAtIndex:indexPath.row];
