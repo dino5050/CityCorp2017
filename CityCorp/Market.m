@@ -388,7 +388,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 -(void)jobs: (NSString *)type: (NSNumber *) identified{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    inventory.text = @"Items to sell";
+    inventory.text = @"Choose item";
     inventory.backgroundColor = [UIColor blackColor];
     inventory.font = [UIFont fontWithName:@"Abduction" size:14];
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
