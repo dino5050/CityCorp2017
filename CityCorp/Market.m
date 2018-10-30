@@ -153,7 +153,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     
     Button *sell = [[Button alloc] init];
     sell.name = @"sell_to_ccmarket";
-    [panel addSubview:[sell button2: CGRectMake(5, 60*6, 240, 50.0)]];
+    [panel addSubview:[sell button2: CGRectMake(5, 60*6, 200, 50.0)]];
  //   sell to ccmarket button
 //    Button *sell = [[Button alloc] init];
 //    sell.name = @"sell";
@@ -270,8 +270,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [panel addSubview:blackmarket3];
     
     Button *sell = [[Button alloc] init];
-    sell.name = @"sell";
- //   [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-175, 60*6, 60, 50.0)]];
+    sell.name = @"sell_to_blackmarket";
+    [panel addSubview:[sell button2: CGRectMake(5, 60*6, 200, 50.0)]];
     
     Button *jobOrders = [[Button alloc] init];
     jobOrders.name = @"job_listing";
@@ -335,10 +335,6 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     blackmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     blackmarket3.editable = NO;
     [panel addSubview:blackmarket3];
-    
-    Button *sell = [[Button alloc] init];
-    sell.name = @"sell";
-    //   [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-175, 60*6, 60, 50.0)]];
     
     Button *jobOrders = [[Button alloc] init];
     jobOrders.name = @"job_listing";
@@ -418,7 +414,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     [self configureTableview];
     
@@ -475,8 +471,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [panel addSubview:ccmarket3];
     
     Button *sell = [[Button alloc] init];
-    sell.name = @"sell";
-    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-175-5, 60*6, 60, 50.0)]];
+    sell.name = @"sell_to_ccmarket";
+    [panel addSubview:[sell button2: CGRectMake(5, 60*6, 200, 50.0)]];
     //   sell to ccmarket button
     //    Button *sell = [[Button alloc] init];
     //    sell.name = @"sell";
@@ -485,6 +481,9 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     Button *jobOrders = [[Button alloc] init];
     jobOrders.name = @"job_listing";
     //    [panel addSubview:[jobOrders button2: CGRectMake(panel.frame.size.width-115-5, 60+55, 115, 50.0)]];
+}
+-(void)back_{
+    [self jobs_market];
 }
 -(void)add1{
     if([quantity1.text intValue]<99){
@@ -631,6 +630,29 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         else if([items3[1] isEqualToString:@"constructor"]) {
             jobtype = @"blueprint"; identified = [NSNumber numberWithInt:1];;}
         [self jobs:jobtype:identified];
+    }else if([items3[8] intValue] == 1 && [whichTable isEqualToString:@"inventory"]){
+        
+            alert2=   [UIAlertController
+                       alertControllerWithTitle:@""
+                       message:@""
+                       preferredStyle:UIAlertControllerStyleAlert];
+            dismiss = [UIAlertAction
+                       actionWithTitle:@"Dismiss"
+                       style:UIAlertActionStyleDefault
+                       handler:^(UIAlertAction * action){
+                           [alert2 dismissViewControllerAnimated:YES completion:nil];
+                       }];
+            UIColor *color = [UIColor orangeColor]; // select needed color
+            NSString *string = @"Can't sell an equipped item";
+            
+            NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+            NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+            [alert2 setValue:attrStr forKey:@"attributedMessage"];
+            [alert2 addAction:dismiss];
+            [self presentViewController:alert2 animated:YES completion:nil];
+            UIVisualEffect *blurEffect;
+            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+            [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert2 class]]] setEffect:blurEffect];
     }else{
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:@""
@@ -703,7 +725,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     alertContentView.backgroundColor = [UIColor blackColor];
   */
         UIColor *color = [UIColor whiteColor]; // select needed color
-        NSString *string = [NSString stringWithFormat:@"Buy the %@ for ₡%@",items3[0],items3[1]];
+        NSString *string = [NSString stringWithFormat:@"Buy the %@ for ₡%@",items3[0],items3[7]];
         NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
         NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
         [alert setValue:attrStr forKey:@"attributedMessage"];
@@ -752,6 +774,60 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         else if([items3[1] isEqualToString:@"constructor"]) job = @"Construct Hardware";
         cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@", job];
         cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%@", items3[0]];
+    }else if([whichTable isEqualToString:@"inventory"]){
+        
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+        //     cell.imageView.image = gotoCorp;
+        NSString *items2 = [items objectAtIndex:indexPath.row];
+        NSArray *items3 = [items2 componentsSeparatedByString: @","];
+        
+        NSString *type = [[NSString alloc] init];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"₡%@ - Generic Item",@"0"];
+        if([items3[10] isEqualToString:@"blueprint"]){
+            if([items3[3] isEqualToString:@"computer"]){
+                type = @"- Motherboard";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_blue.png"];
+                if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_green.png"];
+            }else if([items3[3] isEqualToString:@"cpu"]){
+                type = @"- CPU";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
+                if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
+            }else if([items3[3] isEqualToString:@"mod"]){
+                type = @"- Generic Mod";
+                if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
+                if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
+            }
+        }
+        else if([items3[3] isEqualToString:@"computer"]){
+            type = @"- Motherboard";
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+            if([items3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+            if([items3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+        }else if([items3[3] isEqualToString:@"cpu"]){
+            type = @"- CPU";
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"] || ([items3[1] intValue]>=3 && [items3[1] intValue]<=9)) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+            if([items3[1] isEqualToString:@"12"] || ([items3[1] intValue]>=12 && [items3[1] intValue]<=18)) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+            if([items3[1] isEqualToString:@"18"] || ([items3[1] intValue]>=21 && [items3[1] intValue]<=27)) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+        }else if([items3[3] isEqualToString:@"mod"]){
+            type = @"- Generic Mod";
+            if([items3[1] isEqualToString:@"3"] || [items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([items3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            if([items3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+        }else if([items3[3] isEqualToString:@"exploit"]){
+            type = @"- Generic Mod";
+            if([items3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            if([items3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            if([items3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+        }
+        cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", items3[0],type];
+        
+        
     }
     else{
      //   UIImage *gotoCorp = [UIImage imageNamed:@"goto.png"];
