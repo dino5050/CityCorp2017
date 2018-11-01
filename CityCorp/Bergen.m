@@ -15,6 +15,7 @@
 NSString *corporation2;
 NSString *faction2;
 NSArray *districts12;
+NSUserDefaults *preferences5;
 int number2;
 
 -(void)drawRect:(CGRect)rect {
@@ -26,7 +27,8 @@ int number2;
     number2 = 0;
     
     Functions *disricts = [[Functions alloc] init];
-    @try{faction2 = [disricts httprequest:@"city" :[NSString stringWithFormat:@"%@",@"Bergen"] :@"techfaction.php"];
+    preferences5 = [NSUserDefaults standardUserDefaults];
+    @try{faction2 = [disricts httprequest:@"city,server" :[NSString stringWithFormat:@"%@,%ld",@"Bergen",[preferences5 integerForKey:@"server"]] :@"techfaction.php"];
         districts12 = [faction2 componentsSeparatedByString: @"|"];
     }@catch(NSException *error){}
     

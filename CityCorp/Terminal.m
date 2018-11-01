@@ -110,7 +110,7 @@ static UIView *dismiss2;
     Functions *terminal = [[Functions alloc] init];
     NSString *players;
     iD = 0;  //ADD NEXT/PREVIOUS AND MAKE CELLS WIDER
-    @try{players = [terminal httprequest:@"id,name" :[NSString stringWithFormat:@"%d,%@",iD,username3] :@"terminal.php"];
+    @try{players = [terminal httprequest:@"id,name,server" :[NSString stringWithFormat:@"%d,%@,%ld",iD,username3,[preferences3 integerForKey:@"server"]] :@"terminal.php"];
     }@catch(NSException *error){}
     array2 = [players componentsSeparatedByString:@"|"];
     

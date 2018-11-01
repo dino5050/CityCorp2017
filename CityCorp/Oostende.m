@@ -15,6 +15,7 @@
 NSString *corporation3;
 NSString *faction3;
 NSArray *districts13;
+NSUserDefaults *preferences6;
 int number3;
 
 -(void)drawRect:(CGRect)rect {
@@ -26,7 +27,8 @@ int number3;
     //  while(y>100/3 && y<900/8){
     
     Functions *disricts = [[Functions alloc] init];
-    @try{faction3 = [disricts httprequest:@"city" :[NSString stringWithFormat:@"%@",@"Oostende"] :@"techfaction.php"];
+    preferences6 = [NSUserDefaults standardUserDefaults];
+    @try{faction3 = [disricts httprequest:@"city,server" :[NSString stringWithFormat:@"%@,%ld",@"Oostende",[preferences6 integerForKey:@"server"]] :@"techfaction.php"];
         districts13 = [faction3 componentsSeparatedByString: @"|"];
     }@catch(NSException *error){}
     

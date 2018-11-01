@@ -32,6 +32,12 @@ static int secondsLeft;
 static NSTimer *timer;
 UITextView *commandline;
 static Reykjavik *tech;
+static Bergen *tech2;
+static Oostende *tech3;
+static Penzance *tech4;
+static Lisbon *tech5;
+static Torindor *tech6;
+static NSString *city;
 static UIView *previous2;
 static UIView *next2;
 
@@ -144,7 +150,7 @@ static UIView *panel;
             UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
             rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
             [panel addSubview:rey];
-            
+            city = @"Reykjavik";
             Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech];
             tech.backgroundColor = [UIColor clearColor];
@@ -163,10 +169,10 @@ static UIView *panel;
             UIImageView *bergen = [[UIImageView alloc] initWithImage:bergen1];
             bergen.frame = CGRectMake(-200, -50, 1159*0.63, 1128*0.63);
             [panel addSubview:bergen];
-            
-            Bergen *tech = [[Bergen alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-            [panel addSubview:tech];
-            tech.backgroundColor = [UIColor clearColor];
+            city = @"Bergen";
+            tech2 = [[Bergen alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech2];
+            tech2.backgroundColor = [UIColor clearColor];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -182,10 +188,10 @@ static UIView *panel;
             UIImageView *oostende1 = [[UIImageView alloc] initWithImage:oostende];
             oostende1.frame = CGRectMake(-90, -80, 1100*0.58, 1057*0.58);
             [panel addSubview:oostende1];
-            
-            Oostende *tech = [[Oostende alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-            [panel addSubview:tech];
-            tech.backgroundColor = [UIColor clearColor];
+            city = @"Oostende";
+            tech3 = [[Oostende alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech3];
+            tech3.backgroundColor = [UIColor clearColor];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -200,10 +206,10 @@ static UIView *panel;
             UIImageView *penzance1 = [[UIImageView alloc] initWithImage:penzance];
             penzance1.frame = CGRectMake(-210, -40, 902*0.63, 1050*0.63);
             [panel addSubview:penzance1];
-            
-            Penzance *tech = [[Penzance alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-            [panel addSubview:tech];
-            tech.backgroundColor = [UIColor clearColor];
+            city = @"Penzance";
+            tech4 = [[Penzance alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech4];
+            tech4.backgroundColor = [UIColor clearColor];
         
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -218,10 +224,10 @@ static UIView *panel;
             UIImageView *lisbon1 = [[UIImageView alloc] initWithImage:lisbon];
             lisbon1.frame = CGRectMake(-150, -150, 1064*0.63, 1101*0.63);
             [panel addSubview:lisbon1];
-            
-            Lisbon *tech = [[Lisbon alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-            [panel addSubview:tech];
-            tech.backgroundColor = [UIColor clearColor];
+            city = @"Lisbon";
+            tech5 = [[Lisbon alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech5];
+            tech5.backgroundColor = [UIColor clearColor];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -236,10 +242,10 @@ static UIView *panel;
             UIImageView *torindor1 = [[UIImageView alloc] initWithImage:torindor];
             torindor1.frame = CGRectMake(-170, -200, 1032*0.63, 1335*0.63);
             [panel addSubview:torindor1];
-            
-            Torindor *tech = [[Torindor alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-            [panel addSubview:tech];
-            tech.backgroundColor = [UIColor clearColor];
+            city = @"Torindor";
+            tech6 = [[Torindor alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech6];
+            tech6.backgroundColor = [UIColor clearColor];
             
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -358,11 +364,39 @@ static UIView *panel;
         dismiss.name = @"dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         [viewController.view addSubview:dismiss2];
-        [tech removeFromSuperview];
-        tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-        [panel addSubview:tech];
-        //    [tech industrial: CGRectMake(50, 50, 400, 400)];
-        tech.backgroundColor = [UIColor clearColor];
+        
+        if([city isEqualToString:@"Reykjavik"]){
+            [tech removeFromSuperview];
+            tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Bergen"]){
+            [tech2 removeFromSuperview];
+            tech2 = [[Bergen alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech2];
+            tech2.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Oostende"]){
+            [tech3 removeFromSuperview];
+            tech3 = [[Oostende alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech3];
+            tech3.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Penzance"]){
+            [tech4 removeFromSuperview];
+            tech4 = [[Penzance alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech4];
+            tech4.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Lisbon"]){
+            [tech5 removeFromSuperview];
+            tech5 = [[Lisbon alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech5];
+            tech5.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Torindor"]){
+            [tech6 removeFromSuperview];
+            tech6 = [[Torindor alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech6];
+            tech6.backgroundColor = [UIColor clearColor];
+        }
+        
         [panel bringSubviewToFront:previous2];
         [panel bringSubviewToFront:next2];
         
@@ -421,11 +455,37 @@ static UIView *panel;
         dismiss.name = @"dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         [viewController.view addSubview:dismiss2];
-        [tech removeFromSuperview];
-        tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-        [panel addSubview:tech];
-        //    [tech industrial: CGRectMake(50, 50, 400, 400)];
-        tech.backgroundColor = [UIColor clearColor];
+        if([city isEqualToString:@"Reykjavik"]){
+            [tech removeFromSuperview];
+            tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech];
+            tech.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Bergen"]){
+            [tech2 removeFromSuperview];
+            tech2 = [[Bergen alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech2];
+            tech2.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Oostende"]){
+            [tech3 removeFromSuperview];
+            tech3 = [[Oostende alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech3];
+            tech3.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Penzance"]){
+            [tech4 removeFromSuperview];
+            tech4 = [[Penzance alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech4];
+            tech4.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Lisbon"]){
+            [tech5 removeFromSuperview];
+            tech5 = [[Lisbon alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech5];
+            tech5.backgroundColor = [UIColor clearColor];
+        }else if([city isEqualToString:@"Torindor"]){
+            [tech6 removeFromSuperview];
+            tech6 = [[Torindor alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            [panel addSubview:tech6];
+            tech6.backgroundColor = [UIColor clearColor];
+        }
         [panel bringSubviewToFront:previous2];
         [panel bringSubviewToFront:next2];
         
@@ -480,7 +540,7 @@ static UIView *panel;
     NSString *chance2;
     NSArray *array4;
     if([type isEqualToString:@"tech"]){
-        NSString *chance = [scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username, district] :@"techscan.php"];
+        NSString *chance = [scan httprequest:@"hacker,name,server" :[NSString stringWithFormat:@"%@,%@,%ld", username, district,[preferences3 integerForKey:@"server"]] :@"techscan.php"];
         array4 = [chance componentsSeparatedByString:@"|"];
     
         
@@ -523,7 +583,7 @@ static UIView *panel;
                       cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
                       [viewController.view addSubview:cancel2];
                       if([type isEqualToString:@"tech"]){
-                      @try{[scan httprequest:@"hacker,name" :[NSString stringWithFormat:@"%@,%@", username,district] :@"techcontests.php"];}@catch(NSException *error){}
+                      @try{[scan httprequest:@"hacker,name,server" :[NSString stringWithFormat:@"%@,%@,%ld", username,district,[preferences3 integerForKey:@"server"]] :@"techcontests.php"];}@catch(NSException *error){}
                       }else{
                           @try{[scan httprequest:@"hacker,name,level" :[NSString stringWithFormat:@"%@,%@,%d", username,district,[level intValue]] :@"industrialcontests.php"];}@catch(NSException *error){}
                       }

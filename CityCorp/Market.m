@@ -228,7 +228,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     username3 = [preferences3 stringForKey:@"username"];
     blackmarket1 = [[Functions alloc] init];
     iD = 0;
-    @try{get_items = [blackmarket1 httprequest:@"market,id" :[NSString stringWithFormat:@"%@,%@", whichTable, [NSString stringWithFormat:@"%d",iD]] :@"market.php"];
+    @try{get_items = [blackmarket1 httprequest:@"market,id,server" :[NSString stringWithFormat:@"%@,%@,%ld", whichTable, [NSString stringWithFormat:@"%d",iD],[preferences3 integerForKey:@"server"]] :@"market.php"];
         items = [get_items componentsSeparatedByString: @"|"];
         /*       if([items count] > 5) counts = [items[5] intValue];
          else counts = 0; */

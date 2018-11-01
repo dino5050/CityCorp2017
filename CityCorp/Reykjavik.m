@@ -19,7 +19,7 @@
 NSString *corporation;
 NSString *faction;
 NSArray *districts1;
-static NSUserDefaults *preferences3;
+static NSUserDefaults *preferences4;
 int number;
 static UIView *cancel2;
 static UIView *dismiss2;
@@ -36,7 +36,8 @@ static NSTimer *timer;
   //  while(y>100/3 && y<900/8){
     number = 0;
     Functions *disricts = [[Functions alloc] init];
-    @try{faction = [disricts httprequest:@"city" :[NSString stringWithFormat:@"%@",@"Reykjavik"] :@"techfaction.php"];
+    preferences4 = [NSUserDefaults standardUserDefaults];
+    @try{faction = [disricts httprequest:@"city,server" :[NSString stringWithFormat:@"%@,%ld",@"Reykjavik",[preferences4 integerForKey:@"server"]] :@"techfaction.php"];
         districts1 = [faction componentsSeparatedByString: @"|"];
     }@catch(NSException *error){}
     

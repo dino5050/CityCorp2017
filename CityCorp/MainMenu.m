@@ -135,9 +135,11 @@ static int iD;
     info = [[UITextView alloc] init];
     info.editable = NO;
     info.font = [UIFont fontWithName:@"Arial" size:13];
-    info.frame = CGRectMake(2, 5, 170, 160);
+    info.frame = CGRectMake(2, 5, 175, 170);
     [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+//    info.layer.borderWidth = 2.0f;
+//    info.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     //info.text = @"";
     
     username3 = [preferences3 stringForKey:@"username"];
@@ -150,9 +152,11 @@ static int iD;
     NSInteger value = [values[8] intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
     int nextLevel = ([values[1] intValue]+1)*10*([values[1] intValue]+1)*10;
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result];
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@\nServer: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result,values[9]];
     [preferences3 setObject:values[1] forKey:@"level"];
- //   NSLog(@"%@ |||||||||||||||", [preferences3 stringForKey:@"level"]);
+//    NSLog(@"%ld |||||||||||||||", [preferences3 integerForKey:@"server"]);
+    [preferences3 setInteger:[values[9] intValue] forKey:@"server"];
+
     [panel addSubview:info];
     [preferences3 setObject:values[7] forKey:@"faction"];
     message = [[UITextView alloc] init];
@@ -171,6 +175,8 @@ static int iD;
     message2.editable = NO;
     [message2 setTextColor:[UIColor whiteColor]];
     [message2 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+//    message2.layer.borderWidth = 2.0f;
+//    message2.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [panel addSubview:message2];
     
     
@@ -741,7 +747,7 @@ static int iD;
 //    [username3 lowercaseString];
     inventory1 = [[Functions alloc] init];
     iD = 0;
-    @try{get_items = [inventory1 httprequest:@"name,id,menu" :[NSString stringWithFormat:@"%@,%@,%@",faction, [NSString stringWithFormat:@"%d",iD],whichTable] :@"mainmenu.php"];
+    @try{get_items = [inventory1 httprequest:@"name,id,menu,server" :[NSString stringWithFormat:@"%@,%@,%@,%ld",faction, [NSString stringWithFormat:@"%d",iD],whichTable,[preferences3 integerForKey:@"server"]] :@"mainmenu.php"];
         array2 = [get_items componentsSeparatedByString: @"|"];
         if([array2 count] > 5) counts = [array2[5] intValue];
         else counts = 0;
@@ -819,10 +825,10 @@ static int iD;
     tutorial.name = @"tutorial";
     [panel addSubview:[tutorial button2: CGRectMake(panel.frame.size.width-85-5, panel.frame.size.height-50-5-50-5, 85, 50.0)]];
     
-    Button *changeProfession = [[Button alloc] init];
+ /*   Button *changeProfession = [[Button alloc] init];
     changeProfession.name = @"change_profession";
     [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
-    
+    */
     Button *help = [[Button alloc] init];
     help.name = @"help";
     [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -844,11 +850,14 @@ static int iD;
     NSInteger value = [values[8] intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
     int nextLevel = ([values[1] intValue]+1)*10*([values[1] intValue]+1)*10;
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result];
+        info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@\nServer: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result, values[9]];
  //   [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
   //  [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:info];
     
+    [preferences3 setObject:values[1] forKey:@"level"];
+    //    NSLog(@"%ld |||||||||||||||", [preferences3 integerForKey:@"server"]);
+ //   [preferences3 setInteger:[values[9] intValue] forKey:@"server"];
     
     if([values[2] isEqualToString:@"Corporate"]) [preferences3 setObject:@"corporate" forKey:@"profession"];
     else if([values[2] isEqualToString:@"Researcher"]) [preferences3 setObject:@"researcher" forKey:@"profession"];
@@ -860,7 +869,7 @@ static int iD;
     else if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"]) corp.name = @"create_corp";
     else if([preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
     else corp.name = @"join_corp";
-    [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-65, 180, 50.0)]];
+    [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-50-5, 180, 50.0)]];
     
     message = [[UITextView alloc] init];
     message.font = [UIFont fontWithName:@"Abduction" size:13];
@@ -873,11 +882,13 @@ static int iD;
     
     message2 = [[UITextView alloc] init];
     message2.font = [UIFont fontWithName:@"Arial" size:13];
-    message2.frame = CGRectMake(5, 5+155+25+15, 290, 50);
+    message2.frame = CGRectMake(5, 5+155+25+15, 290, 110);
     message2.text = @"Welcome to CityCorp 1.0. Check out the tutorial to get started.";
     message2.editable = NO;
     [message2 setTextColor:[UIColor whiteColor]];
     [message2 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
+ //   message2.layer.borderWidth = 2.0f;
+ //   message2.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [panel addSubview:message2];
 }
 -(void)back_{
