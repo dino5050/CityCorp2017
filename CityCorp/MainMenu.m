@@ -152,10 +152,13 @@ static int iD;
     NSInteger value = [values[8] intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
     int nextLevel = ([values[1] intValue]+1)*10*([values[1] intValue]+1)*10;
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@\nServer: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result,values[9]];
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@\nServer: %@", values[0], values[1], values[2], values[4], values[5], values[6], nextLevel, values[7], result,values[9]];
     [preferences3 setObject:values[1] forKey:@"level"];
 //    NSLog(@"%ld |||||||||||||||", [preferences3 integerForKey:@"server"]);
     [preferences3 setInteger:[values[9] intValue] forKey:@"server"];
+    if(![values[4] isEqualToString:@"None"]){
+        [preferences3 setInteger:1 forKey:@"hasCorp"];
+    }else [preferences3 setInteger:0 forKey:@"hasCorp"];
 
     [panel addSubview:info];
     [preferences3 setObject:values[7] forKey:@"faction"];
@@ -667,7 +670,7 @@ static int iD;
     iD = 0;
     NSString *corp = [get_corp[3] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     NSString *districts;
-    @try{districts = [get_districts httprequest:@"name,menu,corporation" :[NSString stringWithFormat:@"%@,%@,%@",username3,@"districts",corp] :@"corporation.php"];
+    @try{districts = [get_districts httprequest:@"name,menu,corporation,server" :[NSString stringWithFormat:@"%@,%@,%@,%ld",username3,@"districts",corp,[preferences3  integerForKey:@"server"]] :@"corporation.php"];
     }@catch(NSException *error){}
     UITextView *districtsNum = [[UITextView alloc] initWithFrame:CGRectMake(125, 28, 215, 20)];
     districtsNum.text = [NSString stringWithFormat:@"%@  districts  owned", districts];

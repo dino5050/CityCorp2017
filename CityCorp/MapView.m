@@ -31,6 +31,7 @@ static NSString *timestamp;
 static int secondsLeft;
 static NSTimer *timer;
 UITextView *commandline;
+UITextView *commandline2;
 static Reykjavik *tech;
 static Bergen *tech2;
 static Oostende *tech3;
@@ -47,6 +48,7 @@ static int iD;
 }
 
 static UIView *panel;
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     viewController = [[UIViewController alloc] init];
@@ -62,6 +64,7 @@ static UIView *panel;
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
     if(screenSize.height >= 667 && screenSize.height < 812)panel = [[UIView alloc] initWithFrame:CGRectMake(10+20, 55+40, screenSize.width-10-10-40, screenSize.height-55-40-125)];
+    else if (screenSize.height >= 896) panel = [[UIView alloc] initWithFrame:CGRectMake(10+20, 55+40, screenSize.width-10-10-40, screenSize.height-55-40-285)];
     else if (screenSize.height >= 812) panel = [[UIView alloc] initWithFrame:CGRectMake(10+20, 55+40, screenSize.width-10-10-40, screenSize.height-55-40-200)];
     else panel = [[UIView alloc] initWithFrame:CGRectMake(10, 55+40, screenSize.width-10-10, screenSize.height-55-40-50)];
     [panel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
@@ -69,8 +72,6 @@ static UIView *panel;
     panel.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
     [panel setClipsToBounds:TRUE];
     [self.view addSubview:panel];
-    
-    
     
     UIImage *rey5 = [UIImage imageNamed:@"Reykjavik5_3-1.png"];
     UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
@@ -83,16 +84,26 @@ static UIView *panel;
     tech.backgroundColor = [UIColor clearColor];
     
     //  [rey setClipsToBounds:TRUE];
-    commandline = [[UITextView alloc] initWithFrame:CGRectMake(67, 40, 165, 50)];
+
+    commandline = [[UITextView alloc] initWithFrame:CGRectMake(67-20, panel.frame.size.height-50-60, 165, 50)];
     [commandline setBackgroundColor:[UIColor blackColor]];
     commandline.layer.borderWidth = 2.0f;
     commandline.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [self.view addSubview:commandline];
     commandline.editable = NO;
     commandline.textColor = [UIColor greenColor];
-    commandline.text = @"connecting to CityCorp...\nconnected";
     commandline.font = [UIFont fontWithName:@"Courier" size:12];
+    
+    commandline2 = [[UITextView alloc] initWithFrame:CGRectMake(67, 40, 165, 50)];
+    [commandline2 setBackgroundColor:[UIColor blackColor]];
+    commandline2.layer.borderWidth = 2.0f;
+    commandline2.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
+    [self.view addSubview:commandline2];
+    commandline2.editable = NO;
+    commandline2.textColor = [UIColor greenColor];
+    commandline2.text = @"connecting to CityCorp...\nconnected";
+    commandline2.font = [UIFont fontWithName:@"Courier" size:12];
     //    [self scrollTextViewToBottom:commandline];
+  
     preferences3 = [NSUserDefaults standardUserDefaults];
     NSString *username = [preferences3 stringForKey:@"username"];
     Functions *hackingtime = [[Functions alloc] init];
@@ -100,22 +111,33 @@ static UIView *panel;
     }@catch(NSException *error){}
     NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
+        [panel addSubview:commandline];
         Button *cancel = [[Button alloc] init];
         cancel.name = @"cancel";
-        cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
-        [viewController.view addSubview:cancel2];
+    //    cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
+        cancel2 = [cancel button2:CGRectMake(67+167-20, panel.frame.size.height-50-60, 75, 50)];
+ //       [viewController.view addSubview:cancel2];
+        [panel addSubview:cancel2];
         secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
         //      [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
-    }if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
-    else if([getTime[0] isEqualToString:@"samefaction"]) commandline.text = @"hacking failed... district same faction as yours";
-    else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
+    }if([getTime[0] isEqualToString:@"failure"]) {commandline.text = @"hacking complete: awaiting result...\nhacking failed";
+        [panel addSubview:commandline];
+    }
+    else if([getTime[0] isEqualToString:@"samefaction"]){ commandline.text = @"hacking failed... district same faction as yours";
+        [panel addSubview:commandline];
+    }
+    else if([getTime[0] isEqualToString:@"hacked"]) {commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
+        [panel addSubview:commandline];
+    }
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
+        [panel addSubview:commandline];
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
         dismiss.name = @"dismiss";
-        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
-        [viewController.view addSubview:dismiss2];
+        //dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
+        dismiss2 = [dismiss button2:CGRectMake(67+167-20, panel.frame.size.height-50-60, 75, 50)];
+        [panel addSubview:dismiss2];
         
     }
 
@@ -256,87 +278,7 @@ static UIView *panel;
         }
     }
 }
--(void)previous{
-    if(iD>0){
-        iD--;
-        if(iD == 0){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            UIImage *rey5 = [UIImage imageNamed:@"Reykjavik5_3-1.png"];
-            UIImageView *rey = [[UIImageView alloc] initWithImage:rey5];
-            rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
-            [panel addSubview:rey];
-            
-            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
-            [panel addSubview:tech];
-            tech.backgroundColor = [UIColor clearColor];
-            
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-            //  [rey setClipsToBounds:TRUE];
-        }else if(iD == 1){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            UIImage *bergen1 = [UIImage imageNamed:@"Bergen.png"];
-            UIImageView *bergen = [[UIImageView alloc] initWithImage:bergen1];
-            bergen.frame = CGRectMake(-230, -50, 1159*0.53, 1128*0.53);
-            [panel addSubview:bergen];
-            
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-            
-        }else if(iD == 2){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-            
-        }else if(iD == 3){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-        }else if(iD == 4){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-        }else if(iD == 5){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-56, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, 60*6, 55, 50.0)]];
-        }
-    }
-}
+
 -(void)resign{
     [timer invalidate];
     timer = nil;
@@ -362,8 +304,9 @@ static UIView *panel;
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
         dismiss.name = @"dismiss";
-        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
-        [viewController.view addSubview:dismiss2];
+        dismiss2 = [dismiss button2: CGRectMake(67+167-20, panel.frame.size.height-50-60, 75, 50.0)];
+//        [viewController.view addSubview:dismiss2];
+        [panel addSubview:dismiss2];
         
         if([city isEqualToString:@"Reykjavik"]){
             [tech removeFromSuperview];
@@ -408,12 +351,13 @@ static UIView *panel;
 }
 -(void)dismiss{
     [dismiss2 removeFromSuperview];
+    commandline.text=@"";
     preferences3 = [NSUserDefaults standardUserDefaults];
     NSString *username = [preferences3 stringForKey:@"username"];
     Functions *playerdelete = [[Functions alloc] init];
     @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"tech"] :@"contestdelete.php"];
     }@catch(NSException *error){}
-    commandline.text = @"connecting to CityCorp...\nconnected";
+    [commandline removeFromSuperview];
 }
 -(void)cancel{
     [cancel2 removeFromSuperview];
@@ -425,8 +369,8 @@ static UIView *panel;
     [timer invalidate];
     Button *dismiss = [[Button alloc] init];
     dismiss.name = @"dismiss";
-    dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
-    [viewController.view addSubview:dismiss2];
+    dismiss2 = [dismiss button2: CGRectMake(67+167-20, panel.frame.size.height-50-60, 75, 50.0)];
+    [panel addSubview:dismiss2];
     commandline.text = @"...hacking canceled";
 }
 - (void)runScheduledTask: (NSTimer *) runningTimer {
@@ -435,7 +379,8 @@ static UIView *panel;
     hours = secondsLeft / 3600;
     minutes = (secondsLeft % 3600) / 60;
     seconds = (secondsLeft %3600) % 60;
-    commandline.text =[NSString stringWithFormat:@"hacking completes in: %02d:%02d:%02d", hours, minutes, seconds];
+    commandline.text = [NSString stringWithFormat:@"hacking completes in: %02d:%02d:%02d",hours,minutes,seconds];
+    
     if (secondsLeft<0) {
         commandline.text = @"hacking complete: awaiting result...";
         
@@ -453,8 +398,8 @@ static UIView *panel;
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
         dismiss.name = @"dismiss";
-        dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
-        [viewController.view addSubview:dismiss2];
+        dismiss2 = [dismiss button2: CGRectMake(67+167-20, panel.frame.size.height-50-60, 75, 50)];
+        [panel addSubview:dismiss2];
         if([city isEqualToString:@"Reykjavik"]){
             [tech removeFromSuperview];
             tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
@@ -497,6 +442,8 @@ static UIView *panel;
     // Dispose of any resources that can be recreated.
 }
 -(void)back{
+    [timer invalidate];
+    timer = nil;
     [self dismissViewControllerAnimated:false completion:nil];
 }
 - (void)addBannerViewToView:(UIView *)bannerView {
@@ -573,6 +520,7 @@ static UIView *panel;
                   style:UIAlertActionStyleDefault
                   handler:^(UIAlertAction * action)
                   {
+                      [panel addSubview:commandline];
                       preferences3 = [NSUserDefaults standardUserDefaults];
                       NSString *username = [preferences3 stringForKey:@"username"];
                       Functions *playerdelete = [[Functions alloc] init];
@@ -580,8 +528,8 @@ static UIView *panel;
                       }@catch(NSException *error){}
                       Button *cancel = [[Button alloc] init];
                       cancel.name = @"cancel";
-                      cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
-                      [viewController.view addSubview:cancel2];
+                      cancel2 = [cancel button2: CGRectMake(67+167-20, panel.frame.size.height-50-60, 75, 50.0)];
+                      [panel addSubview:cancel2];
                       if([type isEqualToString:@"tech"]){
                       @try{[scan httprequest:@"hacker,name,server" :[NSString stringWithFormat:@"%@,%@,%ld", username,district,[preferences3 integerForKey:@"server"]] :@"techcontests.php"];}@catch(NSException *error){}
                       }else{
