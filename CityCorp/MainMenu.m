@@ -1168,25 +1168,66 @@ static int iD;
         if(array2.count-1>indexPath.row){
             NSString *items = [array2 objectAtIndex:indexPath.row];
             array3 = [items componentsSeparatedByString: @","];
-            cell.textLabel.text =  array3[0];
-            cell.detailTextLabel.text = array3[3];
             NSString *type;// = array3[1];
+            NSString *detail;
             if([array3[3] isEqualToString:@"computer"]){
-                type = @"- Motherboard";
-                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
-                if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
-                if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+                type = [NSString stringWithFormat:@"Mainboard Lvl.%@", array3[1]];
+                if([array3[1] isEqualToString:@"1"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                    detail = [NSString stringWithFormat:@"Power +3"];
+                }
+                if([array3[1] isEqualToString:@"3"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                    detail = [NSString stringWithFormat:@"Power +10"];
+                }
+                if([array3[1] isEqualToString:@"12"] || [array3[1] isEqualToString:@"10"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                    if([array3[1] isEqualToString:@"10"]) detail = [NSString stringWithFormat:@"Power +18"];
+                    else detail = [NSString stringWithFormat:@"Power +20"];
+                }
+                if([array3[1] isEqualToString:@"21"] || [array3[1] isEqualToString:@"19"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+                    if([array3[1] isEqualToString:@"19"]) detail = [NSString stringWithFormat:@"Power +27"];
+                    else detail = [NSString stringWithFormat:@"Power +30"];
+                }
             }if([array3[3] isEqualToString:@"cpu"]){
-                type = @"- CPU";
-                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+                type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
+                if([array3[1] isEqualToString:@"1"]){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                    detail = [NSString stringWithFormat:@"Speed +3"];
+                }
+                if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                    detail = [NSString stringWithFormat:@"Speed +10"];
+                }
+                if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+                    detail = [NSString stringWithFormat:@"Speed +20"];
+                }
+                if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+                    detail = [NSString stringWithFormat:@"Speed +30"];
+                }
             }if([array3[3] isEqualToString:@"mod"]){
-                type = @"- Generic Mod";
-                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-                if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-                if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
+                if([array3[1] intValue] >= 1 && [array3[1] intValue] <= 9){
+                    cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                    if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                    else detail = [NSString stringWithFormat:@"+10 %@ %@",array3[4],array3[5]];
+                }
+                if([array3[1] intValue] >= 12 && [array3[1] intValue] <= 18){
+                    cell.imageView.image=[UIImage imageNamed:@"mod_blue.png"];
+                    if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                    else detail = [NSString stringWithFormat:@"+20 %@ %@",array3[4],array3[5]];
+                }
+                if([array3[1] intValue] >= 21 && [array3[1] intValue] <= 27){
+                    cell.imageView.image=[UIImage imageNamed:@"mod_green.png"];
+                    if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                    else detail = [NSString stringWithFormat:@"+30 %@ %@",array3[4],array3[5]];
+                }
             }
+            cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@ Lvl.%@", array3[0], array3[1]];
+            cell.detailTextLabel.text = detail;
         }else if(indexPath.row == 2 && (slots == 1 || slots == 2 || slots == 3)){
             cell.textLabel.text = @"Mod Slot";
             cell.detailTextLabel.text = @"Empty slot";
@@ -1214,48 +1255,132 @@ static int iD;
         NSString *equipped;
         if([array3[8] isEqualToString:@"1"]) equipped = @" - Equipped";
         else equipped = @"";
-        cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@%@", array3[0], equipped];
-        cell.detailTextLabel.text = array3[3];
         NSString *type;// = array3[1];
+        NSString *detail = [[NSString alloc] init];
         if([array3[10] isEqualToString:@"blueprint"]){
             if([array3[3] isEqualToString:@"computer"]){
-                type = @"- Motherboard Blueprint";
-                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_bluegreen.png"];
-                if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_blue.png"];
-                if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_bp_green.png"];
+                type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
+                if([array3[1] isEqualToString:@"1"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_bp_bluegreen.png"];
+                    detail = [NSString stringWithFormat:@"Power +3"];
+                }
+                if([array3[1] isEqualToString:@"3"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_bp_bluegreen.png"];
+                    if([array3[1] isEqualToString:@"10"]) detail = [NSString stringWithFormat:@"Power +8"];
+                    else detail = [NSString stringWithFormat:@"Power +10"];
+                }
+                if([array3[1] isEqualToString:@"12"] || [array3[1] isEqualToString:@"10"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_bp_blue.png"];
+                    if([array3[1] isEqualToString:@"10"]) detail = [NSString stringWithFormat:@"Power +18"];
+                    else detail = [NSString stringWithFormat:@"Power +20"];
+                }
+                if([array3[1] isEqualToString:@"21"] || [array3[1] isEqualToString:@"19"]){
+                    cell.imageView.image=[UIImage imageNamed:@"computer_bp_green.png"];
+                    if([array3[1] isEqualToString:@"19"]) detail = [NSString stringWithFormat:@"Power + 27"];
+                    else detail = [NSString stringWithFormat:@"Power +30"];
+                }
             }else if([array3[3] isEqualToString:@"cpu"]){
-                type = @"- CPU Blueprint";
-                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
-                if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
+                type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
+                if([array3[1] isEqualToString:@"1"]){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
+                    detail = [NSString stringWithFormat:@"Speed +3"];
+                }
+                if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
+                    detail = [NSString stringWithFormat:@"Speed +10"];
+                }
+                if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
+                    detail = [NSString stringWithFormat:@"Speed +20"];
+                }
+                if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
+                    cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
+                    detail = [NSString stringWithFormat:@"Speed +30"];
+                }
             }else if([array3[3] isEqualToString:@"mod"]){
-                type = @"- Mod Blueprint";
-                if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
-                if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
-                if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
+                type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
+                if([array3[1] intValue] >= 1 && [array3[1] intValue] <= 9){
+                    cell.imageView.image=[UIImage imageNamed:@"mod_bp_bluegreen.png"];
+                    if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                    else detail = [NSString stringWithFormat:@"+10 %@ %@",array3[4],array3[5]];
+                }
+                if([array3[1] intValue] >= 12 && [array3[1] intValue] <= 18){
+                    cell.imageView.image=[UIImage imageNamed:@"mod_bp_blue.png"];
+                    if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                    else detail = [NSString stringWithFormat:@"+20 %@ %@",array3[4],array3[5]];
+                }
+                if([array3[1] intValue] >= 21 && [array3[1] intValue] <= 27){
+                    cell.imageView.image=[UIImage imageNamed:@"mod_bp_green.png"];
+                    if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                    else detail = [NSString stringWithFormat:@"+30 %@ %@",array3[4],array3[5]];
+                }
             }
         }
         else if([array3[3] isEqualToString:@"computer"]){
-            type = @"- Motherboard";
-            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
-            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
-            if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+            type = [NSString stringWithFormat:@"Mainboard Lvl.%@", array3[1]];
+            if([array3[1] isEqualToString:@"1"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                detail = [NSString stringWithFormat:@"Power +3"];
+            }
+            if([array3[1] isEqualToString:@"3"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                if([array3[1] isEqualToString:@"10"]) detail = [NSString stringWithFormat:@"Power +8"];
+                else detail = [NSString stringWithFormat:@"Power +10"];
+            }
+            if([array3[1] isEqualToString:@"12"] || [array3[1] isEqualToString:@"10"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                if([array3[1] isEqualToString:@"10"]) detail = [NSString stringWithFormat:@"Power +18"];
+                else detail = [NSString stringWithFormat:@"Power +20"];
+            }
+            if([array3[1] isEqualToString:@"21"] || [array3[1] isEqualToString:@"19"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+                if([array3[1] isEqualToString:@"19"]) detail = [NSString stringWithFormat:@"Power +27"];
+                else detail = [NSString stringWithFormat:@"Power +30"];
+            }
         }else if([array3[3] isEqualToString:@"cpu"]){
-            type = @"- CPU";
-            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-            if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+            type = [NSString stringWithFormat:@"CPU Lvl.%@", array3[1]];
+            if([array3[1] isEqualToString:@"1"]){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                detail = [NSString stringWithFormat:@"Speed +3"];
+            }
+            if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                detail = [NSString stringWithFormat:@"Speed +10"];
+            }
+            if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+                detail = [NSString stringWithFormat:@"Speed +20"];
+            }
+            if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+                detail = [NSString stringWithFormat:@"Speed +30"];
+            }
         }else if([array3[3] isEqualToString:@"mod"]){
-            type = @"- Generic Mod";
-            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            type = [NSString stringWithFormat:@"Mod Lvl.%@", array3[1]];
+            if([array3[1] intValue] >= 1 && [array3[1] intValue] <= 9){
+                cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                else detail = [NSString stringWithFormat:@"+10 %@ %@",array3[4],array3[5]];
+            }
+            if([array3[1] intValue] >= 12 && [array3[1] intValue] <= 18){
+                cell.imageView.image=[UIImage imageNamed:@"mod_blue.png"];
+                if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                else detail = [NSString stringWithFormat:@"+20 %@ %@",array3[4],array3[5]];
+            }
+            if([array3[1] intValue] >= 21 && [array3[1] intValue] <= 27){
+                cell.imageView.image=[UIImage imageNamed:@"mod_green.png"];
+                if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                else detail = [NSString stringWithFormat:@"+30 %@ %@",array3[4],array3[5]];
+            }
         }else if([array3[3] isEqualToString:@"exploit"]){
-            type = @"- Generic Mod";
+            type = @"- Compiled";
             if([array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-            if([array3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
-            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
+            if([array3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_blue.png"];
+            if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_green.png"];
         }
+        cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@ Lvl.%@%@", array3[0], array3[1], equipped];
+        cell.detailTextLabel.text = detail;
+
              //   cell.imageView.image = assets;
     }else if([whichTable isEqualToString:@"modify"]){
         cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
@@ -1272,23 +1397,67 @@ static int iD;
         cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@%@", array3[0], equipped];
         cell.detailTextLabel.text = array3[3];
         NSString *type;// = array3[1];
+        NSString *detail;
         if([array3[3] isEqualToString:@"computer"]){
-            type = @"- Motherboard";
-            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
-            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
-            if([array3[1] isEqualToString:@"21"]) cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
+            type = [NSString stringWithFormat:@"Mainboard Lvl.%@", array3[1]];
+            if([array3[1] isEqualToString:@"1"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                detail = [NSString stringWithFormat:@"Power +3"];
+            }
+            if([array3[1] isEqualToString:@"3"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_bluegreen.png"];
+                detail = [NSString stringWithFormat:@"Power +10"];
+            }
+            if([array3[1] isEqualToString:@"12"] || [array3[1] isEqualToString:@"10"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                if([array3[1] isEqualToString:@"10"]) detail = [NSString stringWithFormat:@"Power +18"];
+                else detail = [NSString stringWithFormat:@"Power +20"];
+            }
+            if([array3[1] isEqualToString:@"21"] || [array3[1] isEqualToString:@"19"]){
+                cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                if([array3[1] isEqualToString:@"19"]) detail = [NSString stringWithFormat:@"Power +27"];
+                else detail = [NSString stringWithFormat:@"Power +30"];
+            }
         }else if([array3[3] isEqualToString:@"cpu"]){
-            type = @"- CPU";
-            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-            if([array3[1] isEqualToString:@"12"]) cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-            if([array3[1] isEqualToString:@"18"]) cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+            type = [NSString stringWithFormat:@"CPU Lvl.%@", array3[1]];
+            if([array3[1] isEqualToString:@"1"]){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                detail = [NSString stringWithFormat:@"Speed +3"];
+            }
+            if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
+                detail = [NSString stringWithFormat:@"Speed +10"];
+            }
+            if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
+                detail = [NSString stringWithFormat:@"Speed +20"];
+            }
+            if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
+                cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
+                detail = [NSString stringWithFormat:@"Speed +30"];
+            }
         }else if([array3[3] isEqualToString:@"mod"]){
-            type = @"- Generic Mod";
-            if([array3[1] isEqualToString:@"3"] || [array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            if([array3[1] isEqualToString:@"6"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
-            if([array3[1] isEqualToString:@"9"]) cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+            type = [NSString stringWithFormat:@"Mod Lvl.%@", array3[1]];
+            if([array3[1] intValue] >= 1 && [array3[1] intValue] <= 9){
+                cell.imageView.image=[UIImage imageNamed:@"mod_bluegreen.png"];
+                if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                else detail = [NSString stringWithFormat:@"+10 %@ %@",array3[4],array3[5]];
+            }
+            if([array3[1] intValue] >= 12 && [array3[1] intValue] <= 18){
+                cell.imageView.image=[UIImage imageNamed:@"mod_blue.png"];
+                if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                else detail = [NSString stringWithFormat:@"+10 %@ %@",array3[4],array3[5]];
+            }
+            if([array3[1] intValue] >= 21 && [array3[1] intValue] <= 27){
+                cell.imageView.image=[UIImage imageNamed:@"mod_green.png"];
+                if([array3[4] isEqualToString:@"hacking"] && [array3[5] isEqualToString:@"time"]) detail = [NSString stringWithFormat:@"+10 %@ speed",array3[4]];
+                else detail = [NSString stringWithFormat:@"+10 %@ %@",array3[4],array3[5]];
+            }
         }
-        //   cell.imageView.image = assets;
+        cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@ Lvl.%@%@", array3[0], array3[1], equipped];
+        cell.detailTextLabel.text = detail;
+
+                //   cell.imageView.image = assets;
     }
 
   /*  NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
