@@ -162,7 +162,7 @@ static UIView *panel;
         //    cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
         cancel22 = [cancel21 button2:CGRectMake(67+167, 40, 75, 50)];
         //       [viewController.view addSubview:cancel2];
-        [viewController.view addSubview:cancel22];
+        [self.view addSubview:cancel22];
         secondsLeft2 = [timestamp2 intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
         timer2 = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask2:) userInfo:nil repeats:YES];
         //      [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
@@ -214,7 +214,7 @@ static UIView *panel;
             rey.frame = CGRectMake(0, -90, 900*0.63, 959*0.63);
             [panel addSubview:rey];
             city = @"Reykjavik";
-            Reykjavik *tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
+            tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech];
             tech.backgroundColor = [UIColor clearColor];
         }else if(day == 3){
@@ -313,31 +313,43 @@ static UIView *panel;
             tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech];
             tech.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Bergen"]){
             [tech2 removeFromSuperview];
             tech2 = [[Bergen alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech2];
             tech2.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Oostende"]){
             [tech3 removeFromSuperview];
             tech3 = [[Oostende alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech3];
             tech3.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Penzance"]){
             [tech4 removeFromSuperview];
             tech4 = [[Penzance alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech4];
             tech4.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Lisbon"]){
             [tech5 removeFromSuperview];
             tech5 = [[Lisbon alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech5];
             tech5.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Torindor"]){
             [tech6 removeFromSuperview];
             tech6 = [[Torindor alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech6];
             tech6.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }
     }
 }
@@ -449,31 +461,43 @@ static UIView *panel;
             tech = [[Reykjavik alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech];
             tech.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Bergen"]){
             [tech2 removeFromSuperview];
             tech2 = [[Bergen alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech2];
             tech2.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Oostende"]){
             [tech3 removeFromSuperview];
             tech3 = [[Oostende alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech3];
             tech3.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Penzance"]){
             [tech4 removeFromSuperview];
             tech4 = [[Penzance alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech4];
             tech4.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Lisbon"]){
             [tech5 removeFromSuperview];
             tech5 = [[Lisbon alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech5];
             tech5.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }else if([city isEqualToString:@"Torindor"]){
             [tech6 removeFromSuperview];
             tech6 = [[Torindor alloc] initWithFrame:CGRectMake(-15, 0, 400, 450)];
             [panel addSubview:tech6];
             tech6.backgroundColor = [UIColor clearColor];
+            [panel bringSubviewToFront:commandline];
+            [panel bringSubviewToFront:dismiss2];
         }
         [panel bringSubviewToFront:dismiss2];
         [panel bringSubviewToFront:commandline];
@@ -616,6 +640,7 @@ static UIView *panel;
                               timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
                           }
                       }else{
+                          
                           Button *cancel = [[Button alloc] init];
                           cancel.name = @"cancel_";
                           cancel22 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];

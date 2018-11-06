@@ -46,7 +46,7 @@ static NSString *mod_id;
 static Functions *inventory1;
 static UITableView *mainmenu;
 static NSArray *items;
-static NSArray *items3;
+//static NSArray *items3;
 static NSString *warning;
 static NSString *get_items;
 static int counts;
@@ -1257,7 +1257,22 @@ static int iD;
         else equipped = @"";
         NSString *type;// = array3[1];
         NSString *detail = [[NSString alloc] init];
-        if([array3[10] isEqualToString:@"blueprint"]){
+        if([array3[10] isEqualToString:@"blueprint"] && [array3[11] isEqualToString:@"0"]){
+            type = @"Unidentified Blueprint";
+            if([array3[1] intValue]>=1 && [array3[1] intValue]<=9){
+                cell.imageView.image=[UIImage imageNamed:@"unidentified_bp_bluegreen.png"];
+                detail = [NSString stringWithFormat:@""];
+            }
+            else if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
+                cell.imageView.image=[UIImage imageNamed:@"unidentified_bp_blue.png"];
+                detail = [NSString stringWithFormat:@""];
+            }
+            else if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
+                cell.imageView.image=[UIImage imageNamed:@"unidentified_bp_green.png"];
+                detail = [NSString stringWithFormat:@""];
+            }
+        }
+        else if([array3[10] isEqualToString:@"blueprint"]){
             if([array3[3] isEqualToString:@"computer"]){
                 type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
                 if([array3[1] isEqualToString:@"1"]){
@@ -1373,12 +1388,15 @@ static int iD;
                 else detail = [NSString stringWithFormat:@"+3 %@ %@",array3[4],array3[5]];
             }
         }else if([array3[3] isEqualToString:@"exploit"]){
-            type = @"- Compiled";
+            if([array3[11] isEqualToString:@"0"]) type = @"- Uncompiled";
+            else type = @"- Compiled";
             if([array3[1] isEqualToString:@"1"]) cell.imageView.image=[UIImage imageNamed:@"exploit_bluegreen.png"];
             if([array3[1] isEqualToString:@"2"]) cell.imageView.image=[UIImage imageNamed:@"exploit_blue.png"];
             if([array3[1] isEqualToString:@"3"]) cell.imageView.image=[UIImage imageNamed:@"exploit_green.png"];
         }
-        cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@ Lvl.%@%@", array3[0], array3[1], equipped];
+        if([array3[10] isEqualToString:@"blueprint"] && [array3[11] isEqualToString:@"0"]) cell.textLabel.text = type;
+        else if([array3[10] isEqualToString:@"exploit"] && [array3[11] isEqualToString:@"0"]) cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@ %@", array3[0],type];
+        else cell.textLabel.text =  [[NSString alloc] initWithFormat:@"%@ Lvl.%@%@", array3[0], array3[1], equipped];
         cell.detailTextLabel.text = detail;
 
              //   cell.imageView.image = assets;
