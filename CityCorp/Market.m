@@ -28,7 +28,11 @@ static UIView *panel;
 static NSString *username3;
 static NSUserDefaults *preferences3;
 static NSString *get_items;
+static NSString * jobtype;
+static NSNumber * identified;
 static NSString *action1;
+static int price2;
+int identified2;
 //static int counts;
 static Functions *ccmarket1;
 static Functions *blackmarket1;
@@ -283,7 +287,29 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 }
 -(void)jobs_market{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    credits.text = @"Credits: ";
+    credits.backgroundColor = [UIColor blackColor];
+    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    credits.editable = NO;
+    [panel addSubview:credits];
+    get_credits = [[Functions alloc] init];
+    @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
+    }@catch(NSException *error){}
     
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
+    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
+    NSInteger value = [get_items intValue];
+    NSString *result = [fmt stringFromNumber:@(value)];
+    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
+    amount.backgroundColor = [UIColor blackColor];
+    amount.font = [UIFont fontWithName:@"Arial" size:12];
+    amount.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    amount.editable = NO;
+    [panel addSubview:amount];
  /*   Button *previous = [[Button alloc] init];
     previous.name = @"previous";
     [panel addSubview:[previous previous: CGRectMake(2, 60*6, 55, 50.0)]];
@@ -304,31 +330,6 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     //    [market reloadData];
     [self configureTableview];
     
-    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
-    credits.text = @"Credits: ";
-    credits.backgroundColor = [UIColor blackColor];
-    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
-    credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
-    credits.editable = NO;
-    [panel addSubview:credits];
-    
-    get_credits = [[Functions alloc] init];
-    @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
-    }@catch(NSException *error){}
-    
-    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
-    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
-    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
-    NSInteger value = [get_items intValue];
-    NSString *result = [fmt stringFromNumber:@(value)];
-    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
-    amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
-    amount.backgroundColor = [UIColor blackColor];
-    amount.font = [UIFont fontWithName:@"Arial" size:12];
-    amount.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
-    amount.editable = NO;
-    [panel addSubview:amount];
-    
     UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     blackmarket3.text = @"Jobs Market";
     blackmarket3.backgroundColor = [UIColor blackColor];
@@ -344,7 +345,34 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
+-(void)sell_to_blackmarket{
+    [self sell_to_ccmarket];
+}
 -(void)sell_to_ccmarket{
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    credits.text = @"Credits: ";
+    credits.backgroundColor = [UIColor blackColor];
+    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    credits.editable = NO;
+    [panel addSubview:credits];
+    get_credits = [[Functions alloc] init];
+    @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
+    }@catch(NSException *error){}
+    
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
+    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
+    NSInteger value = [get_items intValue];
+    NSString *result = [fmt stringFromNumber:@(value)];
+    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
+    amount.backgroundColor = [UIColor blackColor];
+    amount.font = [UIFont fontWithName:@"Arial" size:12];
+    amount.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    amount.editable = NO;
+    [panel addSubview:amount];
+    
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     inventory.text = @"Items to sell";
@@ -403,6 +431,30 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         /*       if([items count] > 5) counts = [items[5] intValue];
          else counts = 0; */
     }@catch(NSException *error){}
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    credits.text = @"Credits: ";
+    credits.backgroundColor = [UIColor blackColor];
+    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    credits.editable = NO;
+    [panel addSubview:credits];
+    
+    get_credits = [[Functions alloc] init];
+    @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
+    }@catch(NSException *error){}
+    
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
+    [fmt setMaximumFractionDigits:0]; // to avoid any decimal
+    NSInteger value = [get_items intValue];
+    NSString *result = [fmt stringFromNumber:@(value)];
+    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
+    amount.backgroundColor = [UIColor blackColor];
+    amount.font = [UIFont fontWithName:@"Arial" size:12];
+    amount.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
+    amount.editable = NO;
+    [panel addSubview:amount];
     
     //   NSLog(@"%@ |||||||||||||||", array2[0]);
     
@@ -554,7 +606,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     int price = 0;
     preferences3 = [NSUserDefaults standardUserDefaults];
     NSString *profession = [preferences3 stringForKey:@"profession"];
-    if([action isEqualToString:@"Execute"]){
+    if([action isEqualToString:@"Execute"] || [action isEqualToString:@"Construct"]){
         if([type isEqualToString:@"blueprint"]){
             if([identified intValue] == 0){
                 if([profession isEqualToString:@"researcher"]) price = 0;
@@ -657,12 +709,11 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     items3 = [items2 componentsSeparatedByString: @","];
     
     if([whichTable isEqualToString:@"jobsmarket"]){
-        NSString * jobtype;
-        NSNumber * identified;
+        
         if([items3[1] isEqualToString:@"hacker"]) { jobtype = @"exploit"; identified = [NSNumber numberWithInt:0];}
         else if([items3[1] isEqualToString:@"researcher"]) { jobtype = @"blueprint"; identified = [NSNumber numberWithInt:0];}
         else if([items3[1] isEqualToString:@"constructor"]) {
-            jobtype = @"blueprint"; identified = [NSNumber numberWithInt:1];;}
+            jobtype = @"blueprint"; identified = [NSNumber numberWithInt:1]; identified2=1;}
         [self jobs:jobtype:identified];
     }else if([items3[8] intValue] == 1 && [whichTable isEqualToString:@"inventory"]){
         
@@ -689,8 +740,28 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
             [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert2 class]]] setEffect:blurEffect];
     }else{
         if([whichTable isEqualToString:@"inventory"]) action1 = @"Sell";
+        else if([whichTable isEqualToString:@"jobs"] && [jobtype isEqualToString:@"blueprint"] && identified2 == 1)  action1 = @"Construct";
         else if([whichTable isEqualToString:@"jobs"])  action1 = @"Execute";
         else action1 = @"Buy";
+        identified2 = 0;
+        preferences3 = [NSUserDefaults standardUserDefaults];
+        NSString *username = [preferences3 stringForKey:@"username"];
+        NSString *item_id;
+        //          int price2;
+        NSNumber *level = [NSNumber numberWithInt:[items3[1] intValue]];
+        if(![action1 isEqualToString:@"Buy"])
+        {   NSNumber *unidentified = [NSNumber numberWithInt:[items3[11] intValue]];
+            //NSNumber *)level: (NSNumber *) identified: (NSString *) type: (NSString *) action
+            if([items3[10] isEqualToString:@"blueprint"] && ![action1 isEqualToString:@"Buy"]){ price2 = [self price:level:unidentified:@"blueprint":action1];
+                item_id = items3[9];
+            }
+            else if(![action1 isEqualToString:@"Buy"]){ price2 = [self price:level:unidentified:items3[3]:action1];
+                item_id = items3[9];
+            }
+        }
+        else { price2 = [items3[7] intValue];
+            item_id = items3[0];
+        }
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:@""
                                   message:@""
@@ -701,27 +772,13 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction * action)
                          {
-                             preferences3 = [NSUserDefaults standardUserDefaults];
-                             NSString *username = [preferences3 stringForKey:@"username"];
-                             NSString *item_id;
-                             int price2;
-                             NSNumber *level = [NSNumber numberWithInt:[items3[1] intValue]];
-                             NSNumber *unidentified = [NSNumber numberWithInt:[items3[11] intValue]];
-                             //NSNumber *)level: (NSNumber *) identified: (NSString *) type: (NSString *) action
-                             if([items3[10] isEqualToString:@"blueprint"] && ![action1 isEqualToString:@"Buy"]){ price2 = [self price:level:unidentified:@"blueprint":action1];
-                                 item_id = items3[9];
-                             }
-                             else if(![action1 isEqualToString:@"Buy"]){ price2 = [self price:level:unidentified:items3[3]:action1];
-                                 item_id = items3[9];
-                             }
-                             else { price2 = [items3[7] intValue];
-                                 item_id = items3[0];
-                             }
+                             
                              Functions *buy = [[Functions alloc] init];
-                             NSString *transaction = [buy httprequest:@"name,item,cost,market,action" :[NSString stringWithFormat:@"%@,%@,%@,%@,%@", username, item_id, [NSString stringWithFormat:@"%d", price2],whichTable,action1] :@"buy.php"];
+                             NSString *transaction = [buy httprequest:@"name,item,cost,market,action" :[NSString stringWithFormat:@"%@,%@,%d,%@,%@", username, item_id, price2,whichTable,action1] :@"buy.php"];
                              
                              @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
                              }@catch(NSException *error){}
+                             
                              
                              NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
                              [fmt setNumberStyle:NSNumberFormatterDecimalStyle]; // to get commas (or locale equivalent)
@@ -738,6 +795,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                              [panel addSubview:amount];
    //                          UPDATE CREDITS AND MARKET TABLE
                              [alert dismissViewControllerAnimated:YES completion:nil];
+                             if([action1 isEqualToString:@"Sell"])[self sell_to_ccmarket];
+                             if([action1 isEqualToString:@"Execute"] || [action1 isEqualToString:@"Construct"]) [self jobs:jobtype:identified];
                              if([transaction isEqualToString:@"insufficient"]){
                              alert2=   [UIAlertController
                                                                alertControllerWithTitle:@""
@@ -777,9 +836,9 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
   */
         UIColor *color = [UIColor whiteColor]; // select needed color
         NSString *string;
-        if([action1 isEqualToString:@"Execute"]) string = [NSString stringWithFormat:@"Craft the %@ for ₡%@",items3[0],items3[7]];
-        else if([action1 isEqualToString:@"Sell"]) string = [NSString stringWithFormat:@"Sell the %@ for ₡%@",items3[0],items3[7]];
-        else string = [NSString stringWithFormat:@"Buy the %@ for ₡%@",items3[0],items3[7]];
+        if([action1 isEqualToString:@"Execute"] || [action1 isEqualToString:@"Construct"]) string = [NSString stringWithFormat:@"Craft the item for ₡%d",price2];
+        else if([action1 isEqualToString:@"Sell"]) string = [NSString stringWithFormat:@"Sell the %@ for ₡%d",items3[0],price2];
+        else string = [NSString stringWithFormat:@"Buy the %@ for ₡%d",items3[0],price2];
         NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
         NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
         [alert setValue:attrStr forKey:@"attributedMessage"];

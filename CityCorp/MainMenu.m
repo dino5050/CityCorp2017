@@ -116,7 +116,7 @@ static int iD;
     
     Button *help = [[Button alloc] init];
     help.name = @"help";
-    [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+ //   [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     Button *tutorial = [[Button alloc] init];
     tutorial.name = @"tutorial";

@@ -8,6 +8,7 @@
 
 #import "Social.h"
 #import "Button.h"
+#import "Functions.h"
 @import GoogleMobileAds;
 
 @interface Social ()
@@ -15,7 +16,14 @@
 @end
 
 @implementation Social
+
 static UIView *panel;
+static NSTimer *timer;
+static NSUserDefaults *preferences3;
+static NSString *username3;
+static UITextView *chat;
+static UITextField *message;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -30,11 +38,11 @@ static UIView *panel;
     
     Button* corp = [[Button alloc] init];
     corp.name = @"corp";
-    [self.view addSubview:[corp button2: CGRectMake(10+52, 40, 70, 50.0)]];
+ //   [self.view addSubview:[corp button2: CGRectMake(10+52, 40, 70, 50.0)]];
     
     Button* faction = [[Button alloc] init];
     faction.name = @"faction";
-    [self.view addSubview:[faction button2: CGRectMake(10+52+72, 40, 80, 50.0)]];
+ //   [self.view addSubview:[faction button2: CGRectMake(10+52+72, 40, 80, 50.0)]];
     
     Button* mail = [[Button alloc] init];
     mail.name = @"mail";
@@ -42,7 +50,7 @@ static UIView *panel;
     
     Button* space = [[Button alloc] init];
     space.name = @"";
-    [self.view addSubview:[space button2: CGRectMake(10+52+72+82, 40, screenSize.width-(10+52+72+82+66+10)+64, 50.0)]];
+//    [self.view addSubview:[space button2: CGRectMake(10+52+72+82, 40, screenSize.width-(10+52+72+82+66+10)+64, 50.0)]];
     /*   Button* space = [[Button alloc] init];
      space.name = @"";
      [self.view addSubview:[space button2: CGRectMake(10+87+67+70+70, 40, screenSize.width-(10+87+67+70+70+10), 50.0)]];
@@ -56,6 +64,8 @@ static UIView *panel;
     
     [self.view addSubview:panel];
     
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    
     UITextView *general = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, 215, 25)];
     general.text = @"General Chat";
     general.editable = NO;
@@ -64,13 +74,13 @@ static UIView *panel;
     general.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     [panel addSubview:general];
     
-    UITextView *chat = [[UITextView alloc] initWithFrame:CGRectMake(3, 85, 210, 333)];
+    chat = [[UITextView alloc] initWithFrame:CGRectMake(3, 85, 210, 333)];
     chat.backgroundColor = [UIColor blackColor];
     chat.layer.borderColor = [UIColor blueColor].CGColor;
     chat.layer.borderWidth = 2.0f;
-    chat.font = [UIFont fontWithName:@"Arial" size:10];
+    chat.font = [UIFont fontWithName:@"Arial" size:14];
     chat.textColor = [UIColor whiteColor];
-    chat.text = @"dino5050: Hello everyone!";
+    chat.text = @"";
     chat.editable = NO;
     [panel addSubview:chat];
     
@@ -86,7 +96,7 @@ static UIView *panel;
     inbox.name = @"inbox";
  //   [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100+20, 83, 50.0)]];
     
-    UITextField *message = [[UITextField alloc] initWithFrame:CGRectMake(3+1, 85-32, 210-1, 30)];
+    message = [[UITextField alloc] initWithFrame:CGRectMake(3+1, 85-32, 210-1, 30)];
     message.layer.borderWidth = 2.0f;
     message.layer.borderColor = [UIColor blueColor].CGColor;
     message.textColor = [UIColor whiteColor];
@@ -97,6 +107,8 @@ static UIView *panel;
     send.name = @"send";
     [panel addSubview:[send button2: CGRectMake(3+212, 85-32, 60, 30.0)]];
     
+    timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
+    
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];
     
@@ -106,7 +118,34 @@ static UIView *panel;
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
 }
-
+- (void)runScheduledTask: (NSTimer *) runningTimer {
+    Functions *get = [[Functions alloc] init];
+    int i = 0;
+    @try{NSString *text = [get httprequest:@"chat,action" :[NSString stringWithFormat:@"%@,%@",@"general", @"get"] :@"chat.php"];
+        NSArray *text1 = [text componentsSeparatedByString:@"|"];
+        chat.text = @"";
+        while(i < text1.count){
+            [chat insertText:[NSString stringWithFormat:@"%@\n",text1[i]]];
+            i++;
+        }
+    }@catch(NSException *error){}
+    [self scrollTextViewToBottom:chat];
+}
+-(void)send{
+    username3 = [preferences3 stringForKey:@"username"];
+ //   NSLog(@"|||||||||%@",username3);
+    Functions *post = [[Functions alloc] init];
+    @try{[post httprequest:@"name,message,chat,action" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3,[message.text stringByReplacingOccurrencesOfString:@" " withString:@"%20"],@"general", @"post"] :@"chat.php"];
+      //  chat.text = text;
+    }@catch(NSException *error){}
+    message.text = @"";
+}
+-(void)scrollTextViewToBottom:(UITextView *)textView {
+    if(textView.text.length > 0 ) {
+        NSRange bottom = NSMakeRange(textView.text.length -1, 1);
+        [textView scrollRangeToVisible:bottom];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

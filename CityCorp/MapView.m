@@ -601,7 +601,9 @@ static UIView *panel;
         array4 = [chance componentsSeparatedByString:@"|"];
         
         //    NSLog(@"?????%@?????", chance2);
+        
         if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
+        }if([array4[0] isEqualToString:@"noexploit"]){ chance2 = [NSString stringWithFormat:@"Level %d Compiled Exploit required",[level intValue]/10];
         }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked. Try another district";
         }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
         }else{
@@ -646,6 +648,7 @@ static UIView *panel;
                           cancel22 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
                           [viewController.view addSubview:cancel22];
                           @try{[scan httprequest:@"hacker,name,level" :[NSString stringWithFormat:@"%@,%@,%d", username,district,[level intValue]] :@"industrialcontests.php"];}@catch(NSException *error){}
+                          @try{[scan httprequest:@"hacker,level" :[NSString stringWithFormat:@"%@,%d", username,[level intValue]] :@"exploitdelete.php"];}@catch(NSException *error){}
                           [dismiss22 removeFromSuperview];
                           preferences3 = [NSUserDefaults standardUserDefaults];
                           username = [preferences3 stringForKey:@"username"];
@@ -666,7 +669,6 @@ static UIView *panel;
   //       [alert addAction:hack2];
     
      [alert dismissViewControllerAnimated:YES completion:nil];
-     
      
      UIColor *color = [UIColor orangeColor]; // select needed color
      NSString *string = chance2;
@@ -692,7 +694,7 @@ static UIView *panel;
      
      color = [UIColor orangeColor];
      
-     if(![array4[0] isEqualToString:@"slotused"] && ![array4[0] isEqualToString:@"locked"] && ![array4[0] isEqualToString:@"samefaction"] && ![array4[0] isEqualToString:@"canthack"]) [alert addAction:hack2];
+    if(![array4[0] isEqualToString:@"noexploit"] && ![array4[0] isEqualToString:@"slotused"] && ![array4[0] isEqualToString:@"locked"] && ![array4[0] isEqualToString:@"samefaction"] && ![array4[0] isEqualToString:@"canthack"]) [alert addAction:hack2];
     
      [alert addAction:cancel];
     
