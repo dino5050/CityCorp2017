@@ -391,6 +391,7 @@ static int iD;
 }
 -(void)inventory{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     inventory.text = @"Inventory";
     inventory.backgroundColor = [UIColor blackColor];
@@ -398,6 +399,12 @@ static int iD;
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     inventory.editable = NO;
     [panel addSubview:inventory];
+    UITextView *market_info = [[UITextView alloc] initWithFrame:CGRectMake(0, panel.frame.size.height-85, 220, 70)];
+    market_info.backgroundColor = [UIColor blackColor];
+    market_info.font = [UIFont fontWithName:@"Arial" size:13];
+    market_info.textColor = [UIColor whiteColor];
+    market_info.text = @"Go to the Market to sell items. You can also go to Market -> Jobs Market to craft uncompiled, unidentified, or unconstructed items.";
+    [panel addSubview:market_info];
 /*    Button *previous = [[Button alloc] init];
     previous.name = @"previous";
     [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
@@ -1036,7 +1043,7 @@ static int iD;
     NSInteger value = [values[8] intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
     int nextLevel = ([values[1] intValue]+1)*10*([values[1] intValue]+1)*10;
-        info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@\nServer: %@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result, values[9]];
+        info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nStock Value: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[3], values[4], values[5], values[6], nextLevel, values[7], result];
  //   [info setTextColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
   //  [info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     [panel addSubview:info];
@@ -1069,7 +1076,9 @@ static int iD;
     message2 = [[UITextView alloc] init];
     message2.font = [UIFont fontWithName:@"Arial" size:13];
     message2.frame = CGRectMake(5, 5+155+25+15, 290, 110);
-    message2.text = @"Welcome to CityCorp 1.0. Check out the tutorial to get started.";
+    Functions *getmessage = [[Functions alloc] init];
+    @try{welcome = [getmessage httprequest:@"" :[NSString stringWithFormat:@""] :@"welcome.php"];}@catch(NSException *error){}
+    message2.text = welcome;
     message2.editable = NO;
     [message2 setTextColor:[UIColor whiteColor]];
     [message2 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];

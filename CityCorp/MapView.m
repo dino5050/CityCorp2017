@@ -587,6 +587,7 @@ static UIView *panel;
         NSString *chance = [scan httprequest:@"hacker,name,server" :[NSString stringWithFormat:@"%@,%@,%ld", username, district,[preferences3 integerForKey:@"server"]] :@"techscan.php"];
         array4 = [chance componentsSeparatedByString:@"|"];
         if([array4[0] isEqualToString:@"notcorporate"]){ chance2 = @"You can only hack dark red, black and red districts. Only the corporate class can hack tech districts";
+        }else if([array4[0] isEqualToString:@"nocorp"]){ chance2 = @"You need to create a corporation first to be able to hack tech districts.";
         }else if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
          }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked";
          }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack District In Same Faction As You";
@@ -603,7 +604,9 @@ static UIView *panel;
         //    NSLog(@"?????%@?????", chance2);
         
         if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
-        }if([array4[0] isEqualToString:@"noexploit"]){ chance2 = [NSString stringWithFormat:@"Level %d Compiled Exploit required",[level intValue]/10];
+        }if([array4[0] isEqualToString:@"noexploit"]){
+            if([level intValue]/10==1) chance2 = [NSString stringWithFormat:@"Level %d Compiled Exploit required. Go to Market -> BlackMarket to buy Level 1 exploits",[level intValue]/10];
+            else chance2 = [NSString stringWithFormat:@"Level %d Compiled Exploit required.",[level intValue]/10];
         }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked. Try another district";
         }else if([array4[0] isEqualToString:@"canthack"]){ chance2 = @"Your Computer is Not Capable enough of Attempting a Hack on this District";
         }else{
@@ -694,7 +697,7 @@ static UIView *panel;
      
      color = [UIColor orangeColor];
      
-    if(![array4[0] isEqualToString:@"noexploit"] && ![array4[0] isEqualToString:@"notcorporate"] && ![array4[0] isEqualToString:@"slotused"] && ![array4[0] isEqualToString:@"locked"] && ![array4[0] isEqualToString:@"samefaction"] && ![array4[0] isEqualToString:@"canthack"]) [alert addAction:hack2];
+    if(![array4[0] isEqualToString:@"nocorp"] && ![array4[0] isEqualToString:@"noexploit"] && ![array4[0] isEqualToString:@"notcorporate"] && ![array4[0] isEqualToString:@"slotused"] && ![array4[0] isEqualToString:@"locked"] && ![array4[0] isEqualToString:@"samefaction"] && ![array4[0] isEqualToString:@"canthack"]) [alert addAction:hack2];
     
      [alert addAction:cancel];
     
