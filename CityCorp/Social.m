@@ -114,7 +114,7 @@ static UITextField *message;
     
     [self addBannerViewToView:_bannerView];
     
-    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/3829260800";
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
 }
@@ -122,7 +122,7 @@ static UITextField *message;
     Functions *get = [[Functions alloc] init];
     int i = 0;
     @try{NSString *text = [get httprequest:@"chat,action" :[NSString stringWithFormat:@"%@,%@",@"general", @"get"] :@"chat.php"];
-        NSArray *text1 = [text componentsSeparatedByString:@"|"];
+        NSArray *text1 = [text componentsSeparatedByString:@"|&|"];
         chat.text = @"";
         while(i < text1.count){
             [chat insertText:[NSString stringWithFormat:@"%@\n",text1[i]]];

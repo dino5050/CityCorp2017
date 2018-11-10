@@ -175,7 +175,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     
     [self addBannerViewToView:_bannerView];
     
-    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/3829260800";
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
 }
@@ -349,6 +349,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 }
 -(void)sell_to_blackmarket{
     [self sell_to_ccmarket];
+    whichMarket = @"blackmarket";
 }
 -(void)sell_to_ccmarket{
     whichMarket = @"ccmarket";
