@@ -43,7 +43,7 @@ static UIView *dismiss2;
     CGSize screenSize = screenBound.size;
     
     Button* back = [[Button alloc] init];
-    back.name = @"Back";
+    back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
     preferences3 = [NSUserDefaults standardUserDefaults];

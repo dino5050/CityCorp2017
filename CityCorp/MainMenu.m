@@ -403,7 +403,7 @@ static int iD;
     UITextView *market_info = [[UITextView alloc] initWithFrame:CGRectMake(0, panel.frame.size.height-85, 220, 70)];
     market_info.backgroundColor = [UIColor blackColor];
     market_info.font = [UIFont fontWithName:@"Arial" size:13];
-    market_info.textColor = [UIColor whiteColor];
+    market_info.textColor = [UIColor orangeColor];
     market_info.text = @"Go to the Market to sell items. You can also go to Market -> Jobs Market to craft uncompiled, unidentified, or unconstructed items.";
     [panel addSubview:market_info];
 /*    Button *previous = [[Button alloc] init];
@@ -474,7 +474,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"Back_";
+    back.name = @"Back ";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -513,7 +513,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"Back_";
+    back.name = @"Back ";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -556,7 +556,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"Back_";
+    back.name = @"Back ";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -599,7 +599,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"Back_";
+    back.name = @"Back ";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -642,7 +642,7 @@ static int iD;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"Back_";
+    back.name = @"Back ";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];

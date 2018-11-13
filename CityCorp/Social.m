@@ -33,7 +33,7 @@ static UITextField *message;
     //send message to buddy on home screen, number of messages
     
     Button* back = [[Button alloc] init];
-    back.name = @"Back";
+    back.name = @"back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 50, 50.0)]];
     
     Button* corp = [[Button alloc] init];

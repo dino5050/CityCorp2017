@@ -126,7 +126,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     quantity_text.editable = NO;
     [panel addSubview:quantity_text];
     */
-    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18+5)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
     credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
@@ -142,7 +142,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
     NSInteger value = [get_items intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
-    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5+2, 110, 19)];
     amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
     amount.backgroundColor = [UIColor blackColor];
     amount.font = [UIFont fontWithName:@"Arial" size:12];
@@ -150,13 +150,15 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     amount.editable = NO;
     [panel addSubview:amount];
     
-    UITextView *ccmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    ccmarket3.text = @"CityCorp  Market";
+    UITextView *ccmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
+    ccmarket3.text = @"CityCorp Market";
     ccmarket3.backgroundColor = [UIColor blackColor];
     ccmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     ccmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     ccmarket3.editable = NO;
     [panel addSubview:ccmarket3];
+    [panel bringSubviewToFront:credits];
+    [panel bringSubviewToFront:amount];
     
     Button *sell = [[Button alloc] init];
     sell.name = @"Sell To CCmarket";
@@ -243,7 +245,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 //    [market reloadData];
     [self configureTableview];
     
-    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18+5)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
     credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
@@ -260,7 +262,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
     NSInteger value = [get_items intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
-    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5+2, 110, 19)];
     amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
     amount.backgroundColor = [UIColor blackColor];
     amount.font = [UIFont fontWithName:@"Arial" size:12];
@@ -268,13 +270,15 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     amount.editable = NO;
     [panel addSubview:amount];
     
-    UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     blackmarket3.text = @"Black Market";
     blackmarket3.backgroundColor = [UIColor blackColor];
     blackmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     blackmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     blackmarket3.editable = NO;
     [panel addSubview:blackmarket3];
+    [panel bringSubviewToFront:credits];
+    [panel bringSubviewToFront:amount];
     
     Button *sell = [[Button alloc] init];
     sell.name = @"Sell To Black Market";
@@ -289,7 +293,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 }
 -(void)jobs_market{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18+5)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
     credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
@@ -305,7 +309,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
     NSInteger value = [get_items intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
-    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5+2, 110, 19)];
     amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
     amount.backgroundColor = [UIColor blackColor];
     amount.font = [UIFont fontWithName:@"Arial" size:12];
@@ -332,13 +336,15 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     //    [market reloadData];
     [self configureTableview];
     
-    UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     blackmarket3.text = @"Jobs Market";
     blackmarket3.backgroundColor = [UIColor blackColor];
     blackmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     blackmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     blackmarket3.editable = NO;
     [panel addSubview:blackmarket3];
+    [panel bringSubviewToFront:credits];
+    [panel bringSubviewToFront:amount];
     
     Button *jobOrders = [[Button alloc] init];
     jobOrders.name = @"Job Listing";
@@ -353,7 +359,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 }
 -(void)sell_to_ccmarket{
     whichMarket = @"ccmarket";
-    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18+5)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
     credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
@@ -369,7 +375,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
     NSInteger value = [get_items intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
-    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5+2, 110, 19)];
     amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
     amount.backgroundColor = [UIColor blackColor];
     amount.font = [UIFont fontWithName:@"Arial" size:12];
@@ -385,6 +391,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     inventory.editable = NO;
     [panel addSubview:inventory];
+    [panel bringSubviewToFront:credits];
+    [panel bringSubviewToFront:amount];
     
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
@@ -424,6 +432,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     inventory.editable = NO;
     [panel addSubview:inventory];
     
+    
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"jobs";
@@ -435,7 +444,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         /*       if([items count] > 5) counts = [items[5] intValue];
          else counts = 0; */
     }@catch(NSException *error){}
-    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18+5)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
     credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
@@ -452,7 +461,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
     NSInteger value = [get_items intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
-    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    UITextView *amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5+2, 110, 19)];
     amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
     amount.backgroundColor = [UIColor blackColor];
     amount.font = [UIFont fontWithName:@"Arial" size:12];
@@ -471,7 +480,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"Back_";
+    back.name = @"Back ";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     [self configureTableview];
     
@@ -511,7 +520,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [fmt setMaximumFractionDigits:0]; // to avoid any decimal
     NSInteger value = [get_items intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
-    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+    amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5+2, 110, 19)];
     amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
     amount.backgroundColor = [UIColor blackColor];
     amount.font = [UIFont fontWithName:@"Arial" size:12];
@@ -519,14 +528,15 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     amount.editable = NO;
     [panel addSubview:amount];
     
-    UITextView *ccmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    ccmarket3.text = @"CityCorp  Market";
+    UITextView *ccmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
+    ccmarket3.text = @"CityCorp Market";
     ccmarket3.backgroundColor = [UIColor blackColor];
     ccmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     ccmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     ccmarket3.editable = NO;
     [panel addSubview:ccmarket3];
-    
+    [panel bringSubviewToFront:credits];
+    [panel bringSubviewToFront:amount];
     Button *sell = [[Button alloc] init];
     sell.name = @"Sell To CCmarket";
     [panel addSubview:[sell button2: CGRectMake(5, 60*6, 200, 50.0)]];
@@ -717,8 +727,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     
     if([whichTable isEqualToString:@"jobsmarket"]){
         
-        if([items3[1] isEqualToString:@"hacker"]) { jobtype = @"exploit"; identified = [NSNumber numberWithInt:0];}
-        else if([items3[1] isEqualToString:@"researcher"]) { jobtype = @"blueprint"; identified = [NSNumber numberWithInt:0];}
+        if([items3[1] isEqualToString:@"hacker"]) { jobtype = @"exploit"; identified = [NSNumber numberWithInt:0]; identified2=0;}
+        else if([items3[1] isEqualToString:@"researcher"]) { jobtype = @"blueprint"; identified = [NSNumber numberWithInt:0]; identified2=0;}
         else if([items3[1] isEqualToString:@"constructor"]) {
             jobtype = @"blueprint"; identified = [NSNumber numberWithInt:1]; identified2=1;}
         [self jobs:jobtype:identified];
@@ -750,7 +760,6 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         else if([whichTable isEqualToString:@"jobs"] && [jobtype isEqualToString:@"blueprint"] && identified2 == 1)  action1 = @"Construct";
         else if([whichTable isEqualToString:@"jobs"])  action1 = @"Execute";
         else action1 = @"Buy";
-        identified2 = 0;
         preferences3 = [NSUserDefaults standardUserDefaults];
         NSString *username = [preferences3 stringForKey:@"username"];
         NSString *item_id;
@@ -793,7 +802,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                              [fmt setMaximumFractionDigits:0]; // to avoid any decimal
                              NSInteger value = [get_items intValue];
                              NSString *result = [fmt stringFromNumber:@(value)];
-                             amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5, 110, 19)];
+                             amount = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-110, -5+2, 110, 19)];
                              amount.text = [[NSString alloc] initWithFormat:@"₡%@",result];
                              amount.backgroundColor = [UIColor blackColor];
                              amount.font = [UIFont fontWithName:@"Arial" size:12];

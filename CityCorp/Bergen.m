@@ -63,8 +63,8 @@ int number2;
                 if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
                 else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
                 else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
-                else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
-                /*               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
+                else if([districts12[number2] isEqualToString:@"globalists"]){CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
+                else {CGContextSetRGBStrokeColor(context, 100/255.0, 100/255.0, 100/255.0, 1.0);}                /*               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
                  {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
                  corporation2 = @"CityCorp+West";
                  faction2 = @"capitalists";
@@ -107,8 +107,8 @@ int number2;
                 if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
                 else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
                 else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
-                else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
-                /*              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                else if([districts12[number2] isEqualToString:@"globalists"]){CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}//east globalists
+                else {CGContextSetRGBFillColor(context, 100/255.0, 100/255.0, 100/255.0, 0.4);}                /*              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
                  corporation2 = @"CityCorp+West";
                  faction2 = @"capitalists";
                  }
@@ -145,8 +145,8 @@ int number2;
                     if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBStrokeColor(context, 75/255.0, 0.0, 130/255.0, 1.0);}//north statists
                     else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);}//west capitalists
                     else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBStrokeColor(context, 255/255.0, 69/255.0, 0/255.0, 1.0);}//south outlaws
-                    else {CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
-       /*               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
+                    else if([districts12[number2] isEqualToString:@"globalists"]){CGContextSetRGBStrokeColor(context, 0.0, 100/255.0, 0.0, 1.0);}//east globalists
+                    else {CGContextSetRGBStrokeColor(context, 100/255.0, 100/255.0, 100/255.0, 1.0);}       /*               if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30))
        {   CGContextSetRGBStrokeColor(context, 180/255.0, 150/255.0, 29/255.0, 1.0);
            corporation2 = @"CityCorp+West";
            faction2 = @"capitalists";
@@ -191,8 +191,8 @@ int number2;
                     if([districts12[number2] isEqualToString:@"statists"]){CGContextSetRGBFillColor(context, 75/255.0, 0.0, 130/255.0, 0.4);}//north statists
                     else if([districts12[number2] isEqualToString:@"capitalists"]){CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);}//west capitalists
                     else if([districts12[number2] isEqualToString:@"outlaws"]){CGContextSetRGBFillColor(context, 255/255.0, 69/255.0, 0/255.0, 0.4);}//south outlaws
-                    else {CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}
-                 /*              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
+                    else if([districts12[number2] isEqualToString:@"globalists"]){CGContextSetRGBFillColor(context, 0.0, 100/255.0, 0.0, 0.4);}//east globalists
+                    else {CGContextSetRGBFillColor(context, 100/255.0, 100/255.0, 100/255.0, 0.4);}                 /*              if((number2 >= 12 && number2 <= 16) || (number2 >= 23 && number2 <= 30)){ CGContextSetRGBFillColor(context, 255/255.0, 215/255.0, 0/255.0, 0.4);
                      corporation2 = @"CityCorp+West";
                      faction2 = @"capitalists";
                  }
