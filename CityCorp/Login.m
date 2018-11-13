@@ -114,15 +114,15 @@ NSUserDefaults *preferences;
         if (screenSize.height >= 812) offset = 60;
         
         Button* login = [[Button alloc] init];
-        login.name = @"login";
+        login.name = @"Login";
         [self.view addSubview:[login button: CGRectMake(screenSize.width/2-100, screenSize.height/1.28-125-offset, 100, 40.0)]];
         
         Button *register1 = [[Button alloc] init];
-        register1.name = @"signup";
+        register1.name = @"Signup";
         [self.view addSubview:[register1 button: CGRectMake(screenSize.width/2+5, screenSize.height/1.28 - 125-offset, 110.0, 40.0)]];
         
         Button *forgot = [[Button alloc] init];
-        forgot.name = @"forgot_password";
+        forgot.name = @"Forgot Password";
         [self.view addSubview:[forgot button2: CGRectMake(screenSize.width/2-100, screenSize.height/1.28 - 80-offset, 215.0, 20.0)]];
         preferences = [NSUserDefaults standardUserDefaults];
         printf("%s", [[preferences stringForKey:@"username"] UTF8String]);

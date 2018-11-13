@@ -125,7 +125,7 @@ static UIView *panel;
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
         [panel addSubview:commandline];
         Button *cancel = [[Button alloc] init];
-        cancel.name = @"cancel";
+        cancel.name = @"Cancel";
     //    cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
         cancel2 = [cancel button2:CGRectMake(67+167-20, panel.frame.size.height-50-10, 75, 50)];
  //       [viewController.view addSubview:cancel2];
@@ -146,7 +146,7 @@ static UIView *panel;
         [panel addSubview:commandline];
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
-        dismiss.name = @"dismiss";
+        dismiss.name = @"Dismiss";
         //dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         dismiss2 = [dismiss button2:CGRectMake(67+167-20, panel.frame.size.height-50-10, 75, 50)];
         [panel addSubview:dismiss2];
@@ -158,7 +158,7 @@ static UIView *panel;
     getTime = [timestamp2 componentsSeparatedByString:@"|"];
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp2 intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
         Button *cancel21 = [[Button alloc] init];
-        cancel21.name = @"cancel";
+        cancel21.name = @"Cancel";
         //    cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
         cancel22 = [cancel21 button2:CGRectMake(67+167, 40, 75, 50)];
         //       [viewController.view addSubview:cancel2];
@@ -175,7 +175,7 @@ static UIView *panel;
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
         [cancel22 removeFromSuperview];
         Button *dismiss21 = [[Button alloc] init];
-        dismiss21.name = @"dismiss_";
+        dismiss21.name = @"Dismiss_";
         //dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         dismiss22 = [dismiss21 button2:CGRectMake(67+167, 40, 85, 50)];
         [self.view addSubview:dismiss22];
@@ -303,7 +303,7 @@ static UIView *panel;
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
-        dismiss.name = @"dismiss";
+        dismiss.name = @"Dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167-20, panel.frame.size.height-50-10, 75, 50.0)];
 //        [viewController.view addSubview:dismiss2];
         [panel addSubview:dismiss2];
@@ -373,7 +373,7 @@ static UIView *panel;
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
-        dismiss.name = @"dismiss_";
+        dismiss.name = @"Dismiss_";
         dismiss22 = [dismiss button2: CGRectMake(67+167, 40, 85, 50.0)];
         [viewController.view addSubview:dismiss22];
         
@@ -401,7 +401,7 @@ static UIView *panel;
     }@catch(NSException *error){}
     [timer invalidate];
     Button *dismiss = [[Button alloc] init];
-    dismiss.name = @"dismiss";
+    dismiss.name = @"Dismiss";
     dismiss2 = [dismiss button2: CGRectMake(67+167-20, panel.frame.size.height-50-10, 75, 50.0)];
     [panel addSubview:dismiss2];
     commandline.text = @"...hacking canceled";
@@ -424,7 +424,7 @@ static UIView *panel;
     }@catch(NSException *error){}
     [timer2 invalidate];
     Button *dismiss = [[Button alloc] init];
-    dismiss.name = @"dismiss_";
+    dismiss.name = @"Dismiss_";
     dismiss22 = [dismiss button2: CGRectMake(67+167, 40, 85, 50.0)];
     [viewController.view addSubview:dismiss22];
     commandline2.text = @"...hacking canceled";
@@ -453,7 +453,7 @@ static UIView *panel;
         else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
-        dismiss.name = @"dismiss";
+        dismiss.name = @"Dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167-20, panel.frame.size.height-50-10, 75, 50)];
         [panel addSubview:dismiss2];
         if([city isEqualToString:@"Reykjavik"]){
@@ -527,7 +527,7 @@ static UIView *panel;
         else if([getTime[0] isEqualToString:@"hacked"]) commandline2.text = @"...hacking successful! Check your inventory...";
         [cancel22 removeFromSuperview];
         Button *dismiss21 = [[Button alloc] init];
-        dismiss21.name = @"dismiss_";
+        dismiss21.name = @"Dismiss_";
         dismiss22 = [dismiss21 button2: CGRectMake(67+167, 40, 85, 50)];
         [viewController.view addSubview:dismiss22];
     }
@@ -587,7 +587,7 @@ static UIView *panel;
         NSString *chance = [scan httprequest:@"hacker,name,server" :[NSString stringWithFormat:@"%@,%@,%ld", username, district,[preferences3 integerForKey:@"server"]] :@"techscan.php"];
         array4 = [chance componentsSeparatedByString:@"|"];
         if([array4[0] isEqualToString:@"notcorporate"]){ chance2 = @"You can only hack dark red, black and red districts. Only the corporate class can hack tech districts";
-        }else if([array4[0] isEqualToString:@"nocorp"]){ chance2 = @"You need to create a corporation first to be able to hack tech districts.";
+        }else if([array4[0] isEqualToString:@"nocorp"]){ chance2 = @"You need to be in a corporation first to be able to hack tech districts.";
         }else if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
          }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked";
          }else if([array4[0] isEqualToString:@"samefaction"]){ chance2 = @"Can't Hack District In Same Faction As You";
@@ -629,7 +629,7 @@ static UIView *panel;
                       if([type isEqualToString:@"tech"]){
                           [panel addSubview:commandline];
                           Button *cancel = [[Button alloc] init];
-                          cancel.name = @"cancel";
+                          cancel.name = @"Cancel";
                           cancel2 = [cancel button2: CGRectMake(67+167-20, panel.frame.size.height-50-10, 75, 50.0)];
                           [panel addSubview:cancel2];
                           @try{[scan httprequest:@"hacker,name,server" :[NSString stringWithFormat:@"%@,%@,%ld", username,district,[preferences3 integerForKey:@"server"]] :@"techcontests.php"];}@catch(NSException *error){}
@@ -647,7 +647,7 @@ static UIView *panel;
                       }else{
                           
                           Button *cancel = [[Button alloc] init];
-                          cancel.name = @"cancel_";
+                          cancel.name = @"Cancel_";
                           cancel22 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
                           [viewController.view addSubview:cancel22];
                           @try{[scan httprequest:@"hacker,name,level" :[NSString stringWithFormat:@"%@,%@,%d", username,district,[level intValue]] :@"industrialcontests.php"];}@catch(NSException *error){}

@@ -52,7 +52,7 @@ NSUserDefaults *preferences1;
     [corporate_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [corporate_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     corporate_info.editable=NO;
-    corporate_info.text = @"Corporate CEOs are the only ones that can hack tech districts as only they can create a corporation. Capturing these districts gives bonuses to their corporation as well as their entire faction. (Note: You can only be in a corporation that you created)";
+    corporate_info.text = @"Corporate CEOs are the only ones that can create a corporation of their own. They have bonuses when hacking tech districts. (Note: You can only be in a corporation that you created)";
     [self.view addSubview:corporate_info];
     
     UITextView *researcher_info = [[UITextView alloc] init];

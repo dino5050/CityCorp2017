@@ -73,19 +73,19 @@ static int iD;
     CGSize screenSize = screenBound.size;
     
     Button* terminal = [[Button alloc] init];
-    terminal.name = @"terminal";
+    terminal.name = @"Terminal";
     [self.view addSubview:[terminal button2: CGRectMake(10, 40, 85, 50.0)]];
     
     Button* map = [[Button alloc] init];
-    map.name = @"map";
+    map.name = @"Map";
     [self.view addSubview:[map button2: CGRectMake(10+87, 40, 65, 50.0)]];
     
     Button* market = [[Button alloc] init];
-    market.name = @"market";
+    market.name = @"Market";
     [self.view addSubview:[market button2: CGRectMake(10+87+67, 40, 68, 50.0)]];
     
     Button* social = [[Button alloc] init];
-    social.name = @"social";
+    social.name = @"Social";
     [self.view addSubview:[social button2: CGRectMake(10+87+67+70, 40, 68, 50.0)]];
     
     Button* space = [[Button alloc] init];
@@ -113,25 +113,25 @@ static int iD;
 -(void)viewDidAppear:(BOOL)animated{
     //load data from default values (username)
     Button *changeProfession = [[Button alloc] init];
-    changeProfession.name = @"change_profession";
+    changeProfession.name = @"Change Profession";
  //   [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
     
     Button *help = [[Button alloc] init];
-    help.name = @"help";
+    help.name = @"Help";
  //   [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     Button *tutorial = [[Button alloc] init];
-    tutorial.name = @"tutorial";
+    tutorial.name = @"Tutorial";
     [panel addSubview:[tutorial button2: CGRectMake(panel.frame.size.width-85-5, panel.frame.size.height-50-5-50-5, 85, 50.0)]];
     
     preferences3 = [NSUserDefaults standardUserDefaults];
  //   [preferences3 setInteger:0 forKey:@"hasCorp"];
     Button *computer = [[Button alloc] init];
-    computer.name = @"computer";
+    computer.name = @"Computer";
     [panel addSubview:[computer button2: CGRectMake(panel.frame.size.width-115-5, 5, 115, 50.0)]];
     
     Button *inventory = [[Button alloc] init];
-    inventory.name = @"inventory";
+    inventory.name = @"Inventory";
     [panel addSubview:[inventory button2: CGRectMake(panel.frame.size.width-115-5, 5 + 55, 115, 50.0)]];
     
     info = [[UITextView alloc] init];
@@ -164,10 +164,11 @@ static int iD;
 
     [panel addSubview:info];
     [preferences3 setObject:values[7] forKey:@"faction"];
+    
     message = [[UITextView alloc] init];
-    message.font = [UIFont fontWithName:@"Abduction" size:13];
-    message.frame = CGRectMake(5, 5+155+15, 255, 25);
-    message.text = @"Message from the city";
+    message.font = [UIFont fontWithName:@"Arial" size:13+5];
+    message.frame = CGRectMake(5, 5+155+10, 255, 30);
+    message.text = @"Message From The City";
         message.editable = NO;
     [message setTextColor:[UIColor orangeColor]];
     [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
@@ -194,10 +195,10 @@ static int iD;
     }@catch(NSException *error){info.text = @"No Internet Connection"; [panel addSubview:info];}
   //  if([info.text isEqualToString:@""]) info.text = @"No Internet Connection";
     Button *corp = [[Button alloc] init];
-    if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"] && [preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
-    else if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"]) corp.name = @"create_corp";
-    else if([preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
-    else corp.name = @"join_corp";
+    if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"] && [preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"Goto Corp";
+    else if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"]) corp.name = @"Create Corp";
+    else if([preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"Goto Corp";
+    else corp.name = @"Join Corp";
     [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-55, 180, 50.0)]];
   
     Functions *getversion = [[Functions alloc] init];
@@ -254,10 +255,10 @@ static int iD;
 -(void)create_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     whichTable = @"create_corp";
-    UITextView *title = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 315, 25)];
+    UITextView *title = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 315, 25+5)];
     title.text = @"Create Your Corporation";
     title.backgroundColor = [UIColor blackColor];
-    title.font = [UIFont fontWithName:@"Abduction" size:13];
+    title.font = [UIFont fontWithName:@"Arial" size:13+5];
     title.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     title.editable = NO;
     [panel addSubview:title];
@@ -282,14 +283,14 @@ static int iD;
     UITextView *name = [[UITextView alloc] initWithFrame:CGRectMake(1, 80, 55, 25)];
     name.text = @"Name";
     name.backgroundColor = [UIColor blackColor];
-    name.font = [UIFont fontWithName:@"Abduction" size:11];
+    name.font = [UIFont fontWithName:@"Arial" size:11+5];
     name.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     name.editable = NO;
     [panel addSubview:name];
     UITextView *ticker = [[UITextView alloc] initWithFrame:CGRectMake(1, 120, 120, 25)];
     ticker.text = @"Ticker";
     ticker.backgroundColor = [UIColor blackColor];
-    ticker.font = [UIFont fontWithName:@"Abduction" size:10];
+    ticker.font = [UIFont fontWithName:@"Arial" size:10+5];
     ticker.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     ticker.editable = NO;
     [panel addSubview:ticker];
@@ -300,10 +301,10 @@ static int iD;
     corp_ticker.textColor = [UIColor whiteColor];
     [panel addSubview:corp_ticker];
     Button *create_corp = [[Button alloc] init];
-    create_corp.name = @"create_corp_";
+    create_corp.name = @"Create Corp_";
     [panel addSubview:[create_corp button: CGRectMake(panel.frame.size.width/2-190/2, 160, 170, 50.0)]];
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, 160, 60, 50.0)]];
 
  //   preferences3 = [NSUserDefaults standardUserDefaults];
@@ -338,15 +339,15 @@ static int iD;
 }
 -(void)computer{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *equipment = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    equipment.text = @"Computer   Setup";
+    UITextView *equipment = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
+    equipment.text = @"Computer Setup";
     equipment.backgroundColor = [UIColor blackColor];
-    equipment.font = [UIFont fontWithName:@"Abduction" size:14];
+    equipment.font = [UIFont fontWithName:@"Arial" size:14+5];
     equipment.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     equipment.editable = NO;
     [panel addSubview:equipment];
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
  //   array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
   //  array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
@@ -366,25 +367,25 @@ static int iD;
     }@catch(NSException *error){}
  //   tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
     Button *modify1 = [[Button alloc] init];
-    modify1.name = @"modify_1";
+    modify1.name = @"Modify 1";
     [panel addSubview:[modify1 button2: CGRectMake(210, 50, 80, 50)]];
     
     Button *modify2 = [[Button alloc] init];
-    modify2.name = @"modify_2";
+    modify2.name = @"Modify 2";
     [panel addSubview:[modify2 button2: CGRectMake(210, 50+60, 80, 50)]];
     if(slots>0){
         Button *modify3 = [[Button alloc] init];
-        modify3.name = @"modify_3";
+        modify3.name = @"Modify 3";
         [panel addSubview:[modify3 button2: CGRectMake(210, 50+120, 80, 50)]];
     }
     if(slots>1){
         Button *modify4 = [[Button alloc] init];
-        modify4.name = @"modify_4";
+        modify4.name = @"Modify 4";
         [panel addSubview:[modify4 button2: CGRectMake(210, 50+180, 80, 50)]];
     }
     if(slots>2){
         Button *modify5 = [[Button alloc] init];
-        modify5.name = @"modify_5";
+        modify5.name = @"Modify 5";
         [panel addSubview:[modify5 button2: CGRectMake(210, 50+240, 80, 50)]];
     }
     [self configureTableview];
@@ -392,10 +393,10 @@ static int iD;
 -(void)inventory{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     inventory.text = @"Inventory";
     inventory.backgroundColor = [UIColor blackColor];
-    inventory.font = [UIFont fontWithName:@"Abduction" size:14];
+    inventory.font = [UIFont fontWithName:@"Arial" size:14+5];
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     inventory.editable = NO;
     [panel addSubview:inventory];
@@ -427,13 +428,13 @@ static int iD;
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 
     [self configureTableview];
@@ -441,10 +442,10 @@ static int iD;
 }
 -(void)modify_1{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    motherboards.text = @"Motherboards";
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
+    motherboards.text = @"Mainboards";
     motherboards.backgroundColor = [UIColor blackColor];
-    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.font = [UIFont fontWithName:@"Arial" size:14+5];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
     [panel addSubview:motherboards];
@@ -467,23 +468,23 @@ static int iD;
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back_";
+    back.name = @"Back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
 }
 -(void)modify_2{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     motherboards.text = @"CPUs";
     motherboards.backgroundColor = [UIColor blackColor];
-    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.font = [UIFont fontWithName:@"Arial" size:14+5];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
     [panel addSubview:motherboards];
@@ -506,23 +507,23 @@ static int iD;
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back_";
+    back.name = @"Back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
 }
 -(void)modify_3{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     motherboards.text = @"Mods";
     motherboards.backgroundColor = [UIColor blackColor];
-    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.font = [UIFont fontWithName:@"Arial" size:14+5];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
     if(array2.count>3){
@@ -549,23 +550,23 @@ static int iD;
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back_";
+    back.name = @"Back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
 }
 -(void)modify_4{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     motherboards.text = @"Mods";
     motherboards.backgroundColor = [UIColor blackColor];
-    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.font = [UIFont fontWithName:@"Arial" size:14+5];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
     if(array2.count>4){
@@ -592,23 +593,23 @@ static int iD;
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back_";
+    back.name = @"Back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
 }
 -(void)modify_5{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *motherboards = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     motherboards.text = @"Mods";
     motherboards.backgroundColor = [UIColor blackColor];
-    motherboards.font = [UIFont fontWithName:@"Abduction" size:14];
+    motherboards.font = [UIFont fontWithName:@"Arial" size:14+5];
     motherboards.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     motherboards.editable = NO;
     if(array2.count>5){
@@ -635,13 +636,13 @@ static int iD;
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back_";
+    back.name = @"Back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -662,17 +663,17 @@ static int iD;
         else counts = 0;
     }@catch(NSException *error){}
     NSArray *get_corp = [array2[0] componentsSeparatedByString:@","];
-    UITextView *corporation = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, 215, 25)];
+    UITextView *corporation = [[UITextView alloc] initWithFrame:CGRectMake(5, 5-6, 215, 25+5)];
     corporation.text = get_corp[3];
     corporation.backgroundColor = [UIColor blackColor];
-    corporation.font = [UIFont fontWithName:@"Abduction" size:14];
+    corporation.font = [UIFont fontWithName:@"Arial" size:13+5];
     corporation.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     corporation.editable = NO;
     [panel addSubview:corporation];
-    UITextView *members = [[UITextView alloc] initWithFrame:CGRectMake(5, 28, 215, 20)];
+    UITextView *members = [[UITextView alloc] initWithFrame:CGRectMake(5, 28-2, 215, 20+2)];
     members.text = @"Members";
     members.backgroundColor = [UIColor blackColor];
-    members.font = [UIFont fontWithName:@"Abduction" size:11];
+    members.font = [UIFont fontWithName:@"Arial" size:10+5];
     members.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     members.editable = NO;
     [panel addSubview:members];
@@ -682,21 +683,21 @@ static int iD;
     NSString *districts;
     @try{districts = [get_districts httprequest:@"name,menu,corporation,server" :[NSString stringWithFormat:@"%@,%@,%@,%ld",username3,@"districts",corp,[preferences3  integerForKey:@"server"]] :@"corporation.php"];
     }@catch(NSException *error){}
-    UITextView *districtsNum = [[UITextView alloc] initWithFrame:CGRectMake(125, 28, 215, 20)];
-    districtsNum.text = [NSString stringWithFormat:@"%@  districts  owned", districts];
+    UITextView *districtsNum = [[UITextView alloc] initWithFrame:CGRectMake(125, 28-5, 215, 20+5)];
+    districtsNum.text = [NSString stringWithFormat:@"%@  Districts  Owned", districts];
     districtsNum.backgroundColor = [UIColor blackColor];
-    districtsNum.font = [UIFont fontWithName:@"Abduction" size:10];
+    districtsNum.font = [UIFont fontWithName:@"Arial" size:10+5];
     districtsNum.textColor = [UIColor orangeColor];
     districtsNum.editable = NO;
     [panel addSubview:districtsNum];
     //   NSLog(@"%@ |||||||||||||||||||",username3);
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     NSString *profession = [preferences3 stringForKey:@"profession"];
     if(![profession isEqualToString:@"corporate"]){
         Button *leave = [[Button alloc] init];
-        leave.name = @"leave";
+        leave.name = @"Leave";
         [panel addSubview:[leave button2: CGRectMake(panel.frame.size.width-60-5-61, panel.frame.size.height-50-5, 60, 50.0)]];
     }
     [self configureTableview];
@@ -744,10 +745,10 @@ static int iD;
 }
 -(void)join_corp{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *corporations = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *corporations = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     corporations.text = @"Corporations";
     corporations.backgroundColor = [UIColor blackColor];
-    corporations.font = [UIFont fontWithName:@"Abduction" size:14];
+    corporations.font = [UIFont fontWithName:@"Arial" size:14+5];
     corporations.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     corporations.editable = NO;
     [panel addSubview:corporations];
@@ -767,7 +768,7 @@ static int iD;
     }@catch(NSException *error){}
  //   NSLog(@"%@ |||||||||||||||||||",username3);
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -797,6 +798,7 @@ static int iD;
     //   [self dismissViewControllerAnimated:true completion:nil];
 }
 -(void)help{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, 100+125 -45, 60, 50.0)]];
     UITextView *help = [[UITextView alloc] init];
@@ -816,7 +818,7 @@ static int iD;
     message3.backgroundColor = [UIColor grayColor];
     message3.textColor = [UIColor whiteColor];
     Button *send = [[Button alloc] init];
-    send.name = @"send";
+    send.name = @"Send";
     [panel addSubview:[send button2: CGRectMake(panel.frame.size.width/2-30, 100+125 -45, 60, 50.0)]];
 
     [panel addSubview:message3];
@@ -1015,7 +1017,7 @@ static int iD;
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     Button *tutorial = [[Button alloc] init];
-    tutorial.name = @"tutorial";
+    tutorial.name = @"Tutorial";
     [panel addSubview:[tutorial button2: CGRectMake(panel.frame.size.width-85-5, panel.frame.size.height-50-5-50-5, 85, 50.0)]];
     
  /*   Button *changeProfession = [[Button alloc] init];
@@ -1023,15 +1025,15 @@ static int iD;
     [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
     */
     Button *help = [[Button alloc] init];
-    help.name = @"help";
-    [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    help.name = @"Help";
+ //   [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     Button *computer = [[Button alloc] init];
-    computer.name = @"computer";
+    computer.name = @"Computer";
     [panel addSubview:[computer button2: CGRectMake(panel.frame.size.width-115-5, 5, 115, 50.0)]];
     
     Button *inventory = [[Button alloc] init];
-    inventory.name = @"inventory";
+    inventory.name = @"Inventory";
     [panel addSubview:[inventory button2: CGRectMake(panel.frame.size.width-115-5, 5 + 55, 115, 50.0)]];
     
     username3 = [preferences3 stringForKey:@"username"];
@@ -1058,16 +1060,16 @@ static int iD;
     else if ([values[2] isEqualToString:@"Constructor"]) [preferences3 setObject:@"constructor" forKey:@"profession"];
     }@catch(NSException *error){info.text = @"No Internet Connection"; [panel addSubview:info];}
     Button *corp = [[Button alloc] init];
-    if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"] && [preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
-    else if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"]) corp.name = @"create_corp";
-    else if([preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"goto_corp";
-    else corp.name = @"join_corp";
+    if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"] && [preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"Goto Corp";
+    else if([[preferences3 stringForKey:@"profession"] isEqualToString:@"corporate"]) corp.name = @"Create Corp";
+    else if([preferences3 integerForKey:@"hasCorp"] == 1) corp.name = @"Goto Corp";
+    else corp.name = @"Join Corp";
     [panel addSubview:[corp button: CGRectMake(5, panel.frame.size.height-50-5-50-5, 180, 50.0)]];
     
     message = [[UITextView alloc] init];
-    message.font = [UIFont fontWithName:@"Abduction" size:13];
+    message.font = [UIFont fontWithName:@"Arial" size:13+5];
     message.frame = CGRectMake(5, 5+155+15, 220, 25);
-    message.text = @"Message of the day";
+    message.text = @"Message From The City";
     message.editable = NO;
     [message setTextColor:[UIColor orangeColor]];
     [message setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
@@ -1088,15 +1090,15 @@ static int iD;
 }
 -(void)back_{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *equipment = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
-    equipment.text = @"Computer   Setup";
+    UITextView *equipment = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
+    equipment.text = @"Computer Setup";
     equipment.backgroundColor = [UIColor blackColor];
-    equipment.font = [UIFont fontWithName:@"Abduction" size:14];
+    equipment.font = [UIFont fontWithName:@"Arial" size:14+5];
     equipment.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     equipment.editable = NO;
     [panel addSubview:equipment];
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     //   array2 = @[@"CC-1000", @"CCPU-100", @"Mod Slot"];
     //  array3 = @[@"Generic motherboard", @"Generic CPU", @"Empty slot"];
@@ -1116,25 +1118,25 @@ static int iD;
     }@catch(NSException *error){}
     //   tech = [NSArray arrayWithObjects:[UIImage imageNamed:@"computer_bluegreen"],[UIImage imageNamed:@"cpu_bluegreen"],[UIImage imageNamed:@"slot.png"], nil];
     Button *modify1 = [[Button alloc] init];
-    modify1.name = @"modify_1";
+    modify1.name = @"Modify 1";
     [panel addSubview:[modify1 button2: CGRectMake(210, 50, 80, 50)]];
     
     Button *modify2 = [[Button alloc] init];
-    modify2.name = @"modify_2";
+    modify2.name = @"Modify 2";
     [panel addSubview:[modify2 button2: CGRectMake(210, 50+60, 80, 50)]];
     if(slots>0){
         Button *modify3 = [[Button alloc] init];
-        modify3.name = @"modify_3";
+        modify3.name = @"Modify 3";
         [panel addSubview:[modify3 button2: CGRectMake(210, 50+120, 80, 50)]];
     }
     if(slots>1){
         Button *modify4 = [[Button alloc] init];
-        modify4.name = @"modify_4";
+        modify4.name = @"Modify 4";
         [panel addSubview:[modify4 button2: CGRectMake(210, 50+180, 80, 50)]];
     }
     if(slots>2){
         Button *modify5 = [[Button alloc] init];
-        modify5.name = @"modify_5";
+        modify5.name = @"Modify 5";
         [panel addSubview:[modify5 button2: CGRectMake(210, 50+240, 80, 50)]];
     }
     [self configureTableview];

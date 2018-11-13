@@ -57,11 +57,11 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [self.view addSubview:[back2 back: CGRectMake(10, 40, 50, 50.0)]];
     
     Button* blackmarket = [[Button alloc] init];
-    blackmarket.name = @"blackmarket";
+    blackmarket.name = @"Black Market";
     [self.view addSubview:[blackmarket button2: CGRectMake(10+52, 40, 117, 50.0)]];
     
     Button* jobs = [[Button alloc] init];
-    jobs.name = @"jobs_market";
+    jobs.name = @"Jobs Market";
     [self.view addSubview:[jobs button2: CGRectMake(10+52+119, 40, 115, 50.0)]];
     
     Button* space = [[Button alloc] init];
@@ -129,7 +129,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
-    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
     credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     credits.editable = NO;
     [panel addSubview:credits];
@@ -153,13 +153,13 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *ccmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     ccmarket3.text = @"CityCorp  Market";
     ccmarket3.backgroundColor = [UIColor blackColor];
-    ccmarket3.font = [UIFont fontWithName:@"Abduction" size:14];
+    ccmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     ccmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     ccmarket3.editable = NO;
     [panel addSubview:ccmarket3];
     
     Button *sell = [[Button alloc] init];
-    sell.name = @"sell_to_ccmarket";
+    sell.name = @"Sell To CCmarket";
     [panel addSubview:[sell button2: CGRectMake(5, 60*6, 200, 50.0)]];
  //   sell to ccmarket button
 //    Button *sell = [[Button alloc] init];
@@ -167,7 +167,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 //    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-50-9, 29, 55, 45.0)]];
     
     Button *jobOrders = [[Button alloc] init];
-    jobOrders.name = @"job_listing";
+    jobOrders.name = @"Job Listing";
 //    [panel addSubview:[jobOrders button2: CGRectMake(panel.frame.size.width-115-5, 60+55, 115, 50.0)]];
     
     self.bannerView = [[GADBannerView alloc]
@@ -184,7 +184,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)blackmarket{
+-(void)black_market{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
  /*   self.waterButton.multipleSelectionEnabled = YES;
@@ -224,7 +224,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-270/2, 70, 220, 25)];
     empty.text = @"No items for sale";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
@@ -246,7 +246,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
-    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
     credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     credits.editable = NO;
     [panel addSubview:credits];
@@ -271,20 +271,20 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     blackmarket3.text = @"Black Market";
     blackmarket3.backgroundColor = [UIColor blackColor];
-    blackmarket3.font = [UIFont fontWithName:@"Abduction" size:14];
+    blackmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     blackmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     blackmarket3.editable = NO;
     [panel addSubview:blackmarket3];
     
     Button *sell = [[Button alloc] init];
-    sell.name = @"sell_to_blackmarket";
+    sell.name = @"Sell To Black Market";
     [panel addSubview:[sell button2: CGRectMake(5, 60*6, 200, 50.0)]];
     
     Button *jobOrders = [[Button alloc] init];
-    jobOrders.name = @"job_listing";
+    jobOrders.name = @"Job Listing";
     //    [panel addSubview:[jobOrders button2: CGRectMake(panel.frame.size.width-115-5, 60+55, 115, 50.0)]];
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
 -(void)jobs_market{
@@ -292,7 +292,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
-    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
     credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     credits.editable = NO;
     [panel addSubview:credits];
@@ -335,16 +335,16 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *blackmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     blackmarket3.text = @"Jobs Market";
     blackmarket3.backgroundColor = [UIColor blackColor];
-    blackmarket3.font = [UIFont fontWithName:@"Abduction" size:14];
+    blackmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     blackmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     blackmarket3.editable = NO;
     [panel addSubview:blackmarket3];
     
     Button *jobOrders = [[Button alloc] init];
-    jobOrders.name = @"job_listing";
+    jobOrders.name = @"Job Listing";
     //    [panel addSubview:[jobOrders button2: CGRectMake(panel.frame.size.width-115-5, 60+55, 115, 50.0)]];
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
 -(void)sell_to_blackmarket{
@@ -356,7 +356,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
-    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
     credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     credits.editable = NO;
     [panel addSubview:credits];
@@ -381,7 +381,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     inventory.text = @"Items to sell";
     inventory.backgroundColor = [UIColor blackColor];
-    inventory.font = [UIFont fontWithName:@"Abduction" size:14];
+    inventory.font = [UIFont fontWithName:@"Arial" size:14+5];
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     inventory.editable = NO;
     [panel addSubview:inventory];
@@ -403,13 +403,13 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     
     [self configureTableview];
@@ -419,7 +419,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     inventory.text = @"Choose item";
     inventory.backgroundColor = [UIColor blackColor];
-    inventory.font = [UIFont fontWithName:@"Abduction" size:14];
+    inventory.font = [UIFont fontWithName:@"Arial" size:14+5];
     inventory.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     inventory.editable = NO;
     [panel addSubview:inventory];
@@ -438,7 +438,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
-    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
     credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     credits.editable = NO;
     [panel addSubview:credits];
@@ -465,13 +465,13 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *empty = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-80/2, 70, 80, 25)];
     empty.text = @"Empty";
     empty.backgroundColor = [UIColor blackColor];
-    empty.font = [UIFont fontWithName:@"Abduction" size:14];
+    empty.font = [UIFont fontWithName:@"Arial" size:14+5];
     empty.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:255];
     empty.editable = NO;
     [panel addSubview:empty];
     
     Button *back = [[Button alloc] init];
-    back.name = @"back_";
+    back.name = @"Back_";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
     [self configureTableview];
     
@@ -498,7 +498,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
-    credits.font = [UIFont fontWithName:@"Abduction" size:10]; //rgb(30,144,255)
+    credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
     credits.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     credits.editable = NO;
     [panel addSubview:credits];
@@ -522,13 +522,13 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     UITextView *ccmarket3 = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
     ccmarket3.text = @"CityCorp  Market";
     ccmarket3.backgroundColor = [UIColor blackColor];
-    ccmarket3.font = [UIFont fontWithName:@"Abduction" size:14];
+    ccmarket3.font = [UIFont fontWithName:@"Arial" size:14+5];
     ccmarket3.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     ccmarket3.editable = NO;
     [panel addSubview:ccmarket3];
     
     Button *sell = [[Button alloc] init];
-    sell.name = @"sell_to_ccmarket";
+    sell.name = @"Sell To CCmarket";
     [panel addSubview:[sell button2: CGRectMake(5, 60*6, 200, 50.0)]];
     //   sell to ccmarket button
     //    Button *sell = [[Button alloc] init];
@@ -536,7 +536,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     //    [panel addSubview:[sell button2: CGRectMake(panel.frame.size.width-50-9, 29, 55, 45.0)]];
     
     Button *jobOrders = [[Button alloc] init];
-    jobOrders.name = @"job_listing";
+    jobOrders.name = @"Job Listing";
     //    [panel addSubview:[jobOrders button2: CGRectMake(panel.frame.size.width-115-5, 60+55, 115, 50.0)]];
 }
 -(void)back_{
@@ -855,7 +855,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
       
         color = [UIColor orangeColor];
         NSString *string1 = @"Market Order\n";
-        NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color, NSFontAttributeName : [UIFont fontWithName:@"Abduction" size:16]};
+        NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color, NSFontAttributeName : [UIFont fontWithName:@"Arial" size:16+5]};
         NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString:string1 attributes:attrs1];
         [alert setValue:attrStr1 forKey:@"attributedTitle"];
       

@@ -33,19 +33,19 @@ static UITextField *message;
     //send message to buddy on home screen, number of messages
     
     Button* back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 50, 50.0)]];
     
     Button* corp = [[Button alloc] init];
-    corp.name = @"corp";
+    corp.name = @"Corp";
  //   [self.view addSubview:[corp button2: CGRectMake(10+52, 40, 70, 50.0)]];
     
     Button* faction = [[Button alloc] init];
-    faction.name = @"faction";
+    faction.name = @"Faction";
  //   [self.view addSubview:[faction button2: CGRectMake(10+52+72, 40, 80, 50.0)]];
     
     Button* mail = [[Button alloc] init];
-    mail.name = @"mail";
+    mail.name = @"Mail";
  //   [self.view addSubview:[mail button2: CGRectMake(10+52+72+82, 40, 64, 50.0)]];
     
     Button* space = [[Button alloc] init];
@@ -70,7 +70,7 @@ static UITextField *message;
     general.text = @"General Chat";
     general.editable = NO;
     general.backgroundColor = [UIColor blackColor];
-    general.font = [UIFont fontWithName:@"Abduction" size:14];
+    general.font = [UIFont fontWithName:@"Arial" size:14+5];
     general.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     [panel addSubview:general];
     
@@ -93,7 +93,7 @@ static UITextField *message;
  //   [panel addSubview:new];
     
     Button *inbox = [[Button alloc] init];
-    inbox.name = @"inbox";
+    inbox.name = @"Inbox";
  //   [panel addSubview:[inbox button2: CGRectMake(panel.frame.size.width-83-3, 100+20, 83, 50.0)]];
     
     message = [[UITextField alloc] initWithFrame:CGRectMake(3+1, 85-32, 210-1, 30)];
@@ -104,7 +104,7 @@ static UITextField *message;
     [panel addSubview:message];
     
     Button *send = [[Button alloc] init];
-    send.name = @"send";
+    send.name = @"Send";
     [panel addSubview:[send button2: CGRectMake(3+212, 85-32, 60, 30.0)]];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(runScheduledTask:) userInfo:nil repeats:YES];
@@ -122,6 +122,7 @@ static UITextField *message;
     Functions *get = [[Functions alloc] init];
     int i = 0;
     @try{NSString *text = [get httprequest:@"chat,action" :[NSString stringWithFormat:@"%@,%@",@"general", @"get"] :@"chat.php"];
+
         NSArray *text1 = [text componentsSeparatedByString:@"|&|"];
         chat.text = @"";
         while(i < text1.count){

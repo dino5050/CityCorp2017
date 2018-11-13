@@ -26,12 +26,14 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]]; */
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:20]]; */
     
 //}
 
 -(UIButton *) button: (CGRect) rect{
-    SEL selector1 = NSSelectorFromString(name);
+    NSString *name2 = [name stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    name2 = [name2 lowercaseString];
+    SEL selector1 = NSSelectorFromString(name2);
     button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:selector1 forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:name forState:UIControlStateNormal];
@@ -40,12 +42,14 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:14]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:14+6]];
     return button;
 }
 
 -(UIButton *) button2: (CGRect) rect{
-    SEL selector1 = NSSelectorFromString(name);
+    NSString *name2 = [name stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    name2 = [name2 lowercaseString];
+    SEL selector1 = NSSelectorFromString(name2);
     button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:selector1 forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:name forState:UIControlStateNormal];
@@ -54,7 +58,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:10]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:10+6]];
     return button;
 }
 
@@ -68,7 +72,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:20+5]];
     return button;
 }
 -(UIButton *) previous: (CGRect) rect{
@@ -81,7 +85,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:20+5]];
     return button;
 }
 -(UIButton *) next: (CGRect) rect{
@@ -94,7 +98,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:20+5]];
     return button;
 }
 -(UIButton *) add: (CGRect) rect{
@@ -107,7 +111,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:20+5]];
     return button;
 }
 -(UIButton *) subtract: (CGRect) rect{
@@ -120,7 +124,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:20+5]];
     return button;
 }
 -(UIButton *) space: (CGRect) rect{
@@ -133,7 +137,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:10]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:10+5]];
     return button;
 }
 

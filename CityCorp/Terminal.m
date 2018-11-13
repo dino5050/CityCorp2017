@@ -43,7 +43,7 @@ static UIView *dismiss2;
     CGSize screenSize = screenBound.size;
     
     Button* back = [[Button alloc] init];
-    back.name = @"back";
+    back.name = @"Back";
     [self.view addSubview:[back back: CGRectMake(10, 40, 55, 50.0)]];
     
     preferences3 = [NSUserDefaults standardUserDefaults];
@@ -67,7 +67,7 @@ static UIView *dismiss2;
     NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
         Button *cancel = [[Button alloc] init];
-        cancel.name = @"cancel";
+        cancel.name = @"Cancel";
         cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
         [self.view addSubview:cancel2];
         secondsLeft = [timestamp intValue] - (int)[[NSDate date] timeIntervalSince1970] ;
@@ -79,7 +79,7 @@ static UIView *dismiss2;
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
-        dismiss.name = @"dismiss";
+        dismiss.name = @"Dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         [self.view addSubview:dismiss2];
         
@@ -155,7 +155,7 @@ static UIView *dismiss2;
     if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
-        dismiss.name = @"dismiss";
+        dismiss.name = @"Dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         [self.view addSubview:dismiss2];
         
@@ -183,7 +183,7 @@ static UIView *dismiss2;
     }@catch(NSException *error){}
     [timer invalidate];
     Button *dismiss = [[Button alloc] init];
-    dismiss.name = @"dismiss";
+    dismiss.name = @"Dismiss";
     dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
     [self.view addSubview:dismiss2];
     commandline.text = @"...hacking canceled";
@@ -211,7 +211,7 @@ static UIView *dismiss2;
         else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"...hacking successful! Check your inventory...";
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
-        dismiss.name = @"dismiss";
+        dismiss.name = @"Dismiss";
         dismiss2 = [dismiss button2: CGRectMake(67+167, 40, 75, 50.0)];
         [self.view addSubview:dismiss2];
         
@@ -324,7 +324,7 @@ static UIView *dismiss2;
                                                                           @try{[playerdelete httprequest:@"hacker,contest" :[NSString stringWithFormat:@"%@,%@", username, @"player"] :@"contestdelete.php"];
                                                                           }@catch(NSException *error){}
                                                                           Button *cancel = [[Button alloc] init];
-                                                                          cancel.name = @"cancel";
+                                                                          cancel.name = @"Cancel";
                                                                           cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
                                                                           [self.view addSubview:cancel2];
                                                                           @try{[scan httprequest:@"hacker,player" :[NSString stringWithFormat:@"%@,%@", username, array3[0]] :@"playercontests.php"];}@catch(NSException *error){}
