@@ -145,7 +145,7 @@ static UIView *panel;
     else if([getTime[0] isEqualToString:@"hacked"]) {commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
         [panel addSubview:commandline];
     }
-    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
+    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"] || [getTime[0] isEqualToString:@"samefaction"] || [getTime[0] isEqualToString:@"nocorp"]){
         [panel addSubview:commandline];
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
@@ -161,7 +161,7 @@ static UIView *panel;
     getTime = [timestamp2 componentsSeparatedByString:@"|"];
     if(![getTime[0] isEqualToString:@"nothacking"] && [timestamp2 intValue] >= (int)[[NSDate date] timeIntervalSince1970]){
         Button *cancel21 = [[Button alloc] init];
-        cancel21.name = @"Cancel";
+        cancel21.name = @"Cancel ";
         //    cancel2 = [cancel button2: CGRectMake(67+167, 40, 75, 50.0)];
         cancel22 = [cancel21 button2:CGRectMake(67+167, 40, 75, 50)];
         //       [viewController.view addSubview:cancel2];
@@ -173,9 +173,12 @@ static UIView *panel;
     }
     else if([getTime[0] isEqualToString:@"samefaction"]){ commandline2.text = @"hacking failed... district same faction as yours";
     }
+    else if([getTime[0] isEqualToString:@"nocorp"]){ commandline.text = @"hacking failed... you're not in a corporation at time of hack";
+        [panel addSubview:commandline];
+    }
     else if([getTime[0] isEqualToString:@"hacked"]) {commandline2.text = @"...hacking successful! Check your inventory...";
     }
-    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"]){
+    if([getTime[0] isEqualToString:@"hacked"] || [getTime[0] isEqualToString:@"nothing"] || [getTime[0] isEqualToString:@"failure"] || [getTime[0] isEqualToString:@"samefaction"] || [getTime[0] isEqualToString:@"nocorp"]){
         [cancel22 removeFromSuperview];
         Button *dismiss21 = [[Button alloc] init];
         dismiss21.name = @"Dismiss ";
@@ -453,6 +456,7 @@ static UIView *panel;
         NSArray *getTime = [timestamp componentsSeparatedByString:@"|"];
         if([getTime[0] isEqualToString:@"failure"]) commandline.text = @"hacking complete: awaiting result...\nhacking failed";
         else if([getTime[0] isEqualToString:@"samefaction"]) commandline.text = @"hacking failed... district same faction as yours";
+        else if([getTime[0] isEqualToString:@"nocorp"]) commandline.text = @"hacking failed... you're not in a corporation at time of hack";
         else if([getTime[0] isEqualToString:@"hacked"]) commandline.text = @"hacking complete: awaiting result...\nhacking successful!";
         [cancel2 removeFromSuperview];
         Button *dismiss = [[Button alloc] init];
@@ -527,6 +531,7 @@ static UIView *panel;
         NSArray *getTime = [timestamp2 componentsSeparatedByString:@"|"];
         if([getTime[0] isEqualToString:@"failure"]) commandline2.text = @"hacking complete: awaiting result...\nhacking failed";
         else if([getTime[0] isEqualToString:@"samefaction"]) commandline2.text = @"hacking failed... district same faction as yours";
+        else if([getTime[0] isEqualToString:@"nocorp"]) commandline.text = @"hacking failed... you're not in a corporation at time of hack";
         else if([getTime[0] isEqualToString:@"hacked"]) commandline2.text = @"...hacking successful! Check your inventory...";
         [cancel22 removeFromSuperview];
         Button *dismiss21 = [[Button alloc] init];
@@ -606,8 +611,8 @@ static UIView *panel;
         
         //    NSLog(@"?????%@?????", chance2);
         
-        if([array4[0] isEqualToString:@"slotused"]){ chance2 = @"Hacking Slot in Terminal Already Used";
-        }if([array4[0] isEqualToString:@"noexploit"]){
+        if([array4[0] isEqualToString:@"slotused"]) chance2 = @"Hacking Slot in Terminal Already Used";
+        else if([array4[0] isEqualToString:@"noexploit"]){
             if([level intValue]/10==1) chance2 = [NSString stringWithFormat:@"Level %d Compiled Exploit required. Go to Market -> BlackMarket to buy Level 1 exploits",[level intValue]/10];
             else chance2 = [NSString stringWithFormat:@"Level %d Compiled Exploit required.",[level intValue]/10];
         }else if([array4[0] isEqualToString:@"locked"]){ chance2 = @"This District is Temporarily Locked. Try another district";

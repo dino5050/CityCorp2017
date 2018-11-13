@@ -504,7 +504,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     }@catch(NSException *error){}
     [self configureTableview];
     
-    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18)];
+    UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18+5)];
     credits.text = @"Credits: ";
     credits.backgroundColor = [UIColor blackColor];
     credits.font = [UIFont fontWithName:@"Arial" size:10+5]; //rgb(30,144,255)
