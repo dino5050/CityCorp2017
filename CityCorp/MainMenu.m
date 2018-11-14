@@ -163,7 +163,7 @@ static int iD;
     }else [preferences3 setInteger:0 forKey:@"hasCorp"];
 
     [panel addSubview:info];
-    [preferences3 setObject:values[7] forKey:@"faction"];
+    [preferences3 setObject:[values[7] lowercaseString] forKey:@"faction"];
     
     message = [[UITextView alloc] init];
     message.font = [UIFont fontWithName:@"Arial" size:13+5];

@@ -87,7 +87,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]]; */
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
-    whichMarket = @"ccmarket";
+//    whichMarket = @"ccmarket";
     whichTable = @"ccmarket";
     username3 = [preferences3 stringForKey:@"username"];
     ccmarket1 = [[Functions alloc] init];
@@ -353,7 +353,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     back.name = @"Back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
--(void)sell_to_blackmarket{
+-(void)sell_to_black_market{
     [self sell_to_ccmarket];
     whichMarket = @"blackmarket";
 }
@@ -647,9 +647,10 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         if([identified intValue] == 0) price = pow([level intValue],2)*10;
         else price = pow([level intValue],5)*10;
     }
-    if([whichMarket isEqualToString:@"ccmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"statists"] && [action1 isEqualToString:@"Buy"]) price2 = price2 - price2*0.15;
-    else if([whichMarket isEqualToString:@"ccmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"globalists"] && [action1 isEqualToString:@"Sell"]) price2 = price2*1.15;
-    else if([whichMarket isEqualToString:@"blackmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"capitalists"] && [action1 isEqualToString:@"Sell"]) price2 = price2*1.05;
+    if([whichMarket isEqualToString:@"ccmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"statists"] && [action isEqualToString:@"Buy"]) {price = price - price*0.15;}
+    else if([whichMarket isEqualToString:@"ccmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"globalists"] && [action isEqualToString:@"Sell"]) {price = price*1.15;}
+    else if([whichMarket isEqualToString:@"blackmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"capitalists"] && [action isEqualToString:@"Sell"]) {price = price*1.05;}
+    NSLog(@"||||||||||| %@", [preferences3 stringForKey:@"faction"]);
     return price;
 }
 - (void)addBannerViewToView:(UIView *)bannerView {
