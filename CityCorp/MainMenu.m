@@ -116,6 +116,10 @@ static int iD;
     changeProfession.name = @"Change Profession";
  //   [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
     
+    Button *scoreboard = [[Button alloc] init];
+    scoreboard.name = @"Scoreboard";
+    [panel addSubview:[scoreboard button: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
+    
     Button *help = [[Button alloc] init];
     help.name = @"Help";
  //   [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -207,8 +211,8 @@ static int iD;
     NSString *version2 = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     //printf("%s", [version1 UTF8String]);
     //printf("Hello");
-    int version_1 = [version1 intValue];
-    int version_2 = [version2 intValue];
+    double version_1 = [version1 doubleValue];
+    double version_2 = [version2 doubleValue];
     //printf("%d", version_2);
     NSLog(@"%@ %@|||||||||||||||", version1, version2);
     if(version_1>version_2){
@@ -777,6 +781,39 @@ static int iD;
 //    whichTable = @"join_corp";
 
 }
+-(void)scoreboard{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UITextView *scoreboard = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
+    scoreboard.text = @"Scoreboard";
+    scoreboard.backgroundColor = [UIColor blackColor];
+    scoreboard.font = [UIFont fontWithName:@"Arial" size:14+5];
+    scoreboard.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
+    scoreboard.editable = NO;
+    [panel addSubview:scoreboard];
+    
+    preferences3 = [NSUserDefaults standardUserDefaults];
+    //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
+    whichTable = @"scoreboard";
+    username3 = [preferences3 stringForKey:@"username"];
+    //    [username3 lowercaseString];
+    inventory1 = [[Functions alloc] init];
+    iD = 0;
+    @try{get_items = [inventory1 httprequest:@"server" :[NSString stringWithFormat:@"%ld",(long)[preferences3 integerForKey:@"server"]] :@"scoreboard.php"];
+        array2 = [get_items componentsSeparatedByString: @"|"];
+        if([array2 count] > 5) counts = [array2[5] intValue];
+        else counts = 0;
+    }@catch(NSException *error){}
+    //   NSLog(@"%@ |||||||||||||||||||",username3);
+    Button *back = [[Button alloc] init];
+    back.name = @"Back";
+    [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+    
+    [self configureTableview];
+    
+    //    array2 = @[ @"Nezennin Corp.", @"Nez Enterprises"];
+    //    whichTable = @"join_corp";
+    
+}
 -(void)map{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self performSegueWithIdentifier:@"map" sender:self];
@@ -828,35 +865,35 @@ static int iD;
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UIImage *tutorial1 = [UIImage imageNamed:@"tutorial1.png"];
     UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-    tutorial.frame = CGRectMake(5, 5, 419/1.8, 386/1.8);
+    tutorial.frame = CGRectMake(5, 5, 640/2.9, 808/2.9);
     [panel addSubview:tutorial];
     
      Button *previous = [[Button alloc] init];
      previous.name = @"previous";
-     [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-     Button *next = [[Button alloc] init];
-     next.name = @"next";
-     [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
-     iD = 1;
+    [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
+     iD = 0;
     Button *back = [[Button alloc] init];
     back.name = @"back";
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
 -(void)next{
-    if(iD<5){
+    if(iD<6){
+        iD++;
         if(iD==0){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial1.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 419/1.7, 386/1.7);
+            tutorial.frame = CGRectMake(5, 5, 640/2.9, 808/2.9);
             [panel addSubview:tutorial];
-            iD++;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -864,28 +901,29 @@ static int iD;
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial2.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
+            tutorial.frame = CGRectMake(5, 5, 598/2.4, 994/2.4);
             [panel addSubview:tutorial];
-            iD++;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
+            Button *back = [[Button alloc] init];
+            back.name = @"back";
+            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
         }else if(iD==2){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial3.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
+            tutorial.frame = CGRectMake(5, 5, 558/2.6, 1062/2.6);
             [panel addSubview:tutorial];
-            iD++;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -893,15 +931,14 @@ static int iD;
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial4.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
+            tutorial.frame = CGRectMake(5, 5, 618/2.9, 994/2.9);
             [panel addSubview:tutorial];
-            iD++;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -909,15 +946,44 @@ static int iD;
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial5.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
+            tutorial.frame = CGRectMake(5, 5, 616/2.9, 1018/2.9);
             [panel addSubview:tutorial];
-           // iD++;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
+            Button *back = [[Button alloc] init];
+            back.name = @"back";
+            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+        }else if(iD==5){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial6.png"];
+            UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
+            tutorial.frame = CGRectMake(5, 5, 598/3.3, 1236/3.3);
+            [panel addSubview:tutorial];
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
+            Button *back = [[Button alloc] init];
+            back.name = @"back";
+            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+        }else if(iD==6){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial7.png"];
+            UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
+            tutorial.frame = CGRectMake(5, 5, 620/3, 1230/3);
+            [panel addSubview:tutorial];
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -926,80 +992,109 @@ static int iD;
 }
 -(void)previous{
     if(iD>0){
-        if(iD==1){
+        iD--;
+        if(iD==0){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial1.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 419/1.7, 386/1.7);
+            tutorial.frame = CGRectMake(5, 5, 640/2.9, 808/2.9);
             [panel addSubview:tutorial];
-       //     iD--;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
+            Button *back = [[Button alloc] init];
+            back.name = @"back";
+            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+        }else if(iD==1){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial2.png"];
+            UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
+            tutorial.frame = CGRectMake(5, 5, 598/2.4, 994/2.4);
+            [panel addSubview:tutorial];
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
         }else if(iD==2){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial2.png"];
-            UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
-            [panel addSubview:tutorial];
-            iD--;
-            Button *previous = [[Button alloc] init];
-            previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
-            Button *next = [[Button alloc] init];
-            next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
-        }else if(iD==3){
-            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial3.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
+            tutorial.frame = CGRectMake(5, 5, 558/2.6, 1062/2.6);
             [panel addSubview:tutorial];
-            iD--;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
+            Button *back = [[Button alloc] init];
+            back.name = @"back";
+            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+        }else if(iD==3){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial4.png"];
+            UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
+            tutorial.frame = CGRectMake(5, 5, 618/2.9, 994/2.9);
+            [panel addSubview:tutorial];
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
         }else if(iD==4){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial4.png"];
+            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial5.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
+            tutorial.frame = CGRectMake(5, 5, 616/2.9, 1018/2.9);
             [panel addSubview:tutorial];
-            iD--;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
         }else if(iD==5){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial5.png"];
+            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial6.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 320/1.7, 600/1.7);
+            tutorial.frame = CGRectMake(5, 5, 598/3.3, 1236/3.3);
             [panel addSubview:tutorial];
-            iD--;
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
-            [panel addSubview:[previous previous: CGRectMake(5, 60*6, 55, 50.0)]];
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
             Button *next = [[Button alloc] init];
             next.name = @"next";
-            [panel addSubview:[next next: CGRectMake(5+55+1, 60*6, 55, 50.0)]];
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
+            Button *back = [[Button alloc] init];
+            back.name = @"back";
+            [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
+        }else if(iD==6){
+            [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            UIImage *tutorial1 = [UIImage imageNamed:@"tutorial5.png"];
+            UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
+            tutorial.frame = CGRectMake(5, 5, 620/3.0, 1230/3.0);
+            [panel addSubview:tutorial];
+            Button *previous = [[Button alloc] init];
+            previous.name = @"previous";
+            [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width-10-102, 60*5, 55, 50.0)]];
+            Button *next = [[Button alloc] init];
+            next.name = @"next";
+            [panel addSubview:[next next: CGRectMake(panel.frame.size.width-60, 60*5, 55, 50.0)]];
             Button *back = [[Button alloc] init];
             back.name = @"back";
             [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -1024,6 +1119,10 @@ static int iD;
     changeProfession.name = @"change_profession";
     [panel addSubview:[changeProfession button2: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
     */
+    Button *scoreboard = [[Button alloc] init];
+    scoreboard.name = @"Scoreboard";
+    [panel addSubview:[scoreboard button: CGRectMake(5, panel.frame.size.height-50-5, 180, 50.0)]];
+    
     Button *help = [[Button alloc] init];
     help.name = @"Help";
  //   [panel addSubview:[help button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
@@ -1337,6 +1436,19 @@ static int iD;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ members", array3[2]];
         
      //   cell.detailTextLabel.text = @"1 member";
+    }else if([whichTable isEqualToString:@"scoreboard"]){
+        cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];
+        cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:255];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:11];
+        NSString *items = [array2 objectAtIndex:indexPath.row];
+        //     NSLog(@"%@", items);
+        array3 = [items componentsSeparatedByString: @","];
+        cell.textLabel.text =  [NSString stringWithFormat:@"%ld. %@     %@", (long)indexPath.row+1,array3[0],array3[3]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"CEO: %@   Faction: %@", array3[1],[array3[2] capitalizedString]];
+        
+        //   cell.detailTextLabel.text = @"1 member";
     }else if([whichTable isEqualToString:@"goto_corp"]){
         UIImage *avatar = [UIImage imageNamed:@"avatar.png"];
         cell.textLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:255];

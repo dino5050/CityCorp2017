@@ -270,7 +270,6 @@ static UIView *dismiss2;
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction * action)
                          {
-                             
                              [alert dismissViewControllerAnimated:YES completion:nil];
                          }];
     UIAlertAction* befriend = [UIAlertAction
