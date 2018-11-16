@@ -42,7 +42,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:14+6]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Copperplate-Light" size:14+6]];
     return button;
 }
 
@@ -58,7 +58,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Arial" size:10+6]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Copperplate-Light" size:10+6]];
     return button;
 }
 
@@ -72,7 +72,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20+5]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
     return button;
 }
 -(UIButton *) previous: (CGRect) rect{
@@ -85,7 +85,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20+5]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
     return button;
 }
 -(UIButton *) next: (CGRect) rect{
@@ -98,7 +98,7 @@ UIButton *button;
     [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     button.layer.borderWidth = 2.0f;
     button.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:255].CGColor;
-    [button.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20+5]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Abduction" size:20]];
     return button;
 }
 -(UIButton *) add: (CGRect) rect{

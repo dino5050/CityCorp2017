@@ -647,9 +647,9 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         if([identified intValue] == 0) price = pow([level intValue],2)*10;
         else price = pow([level intValue],5)*10;
     }
-    if([whichMarket isEqualToString:@"ccmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"statists"] && [action isEqualToString:@"Buy"]) {price = price - price*0.15;}
-    else if([whichMarket isEqualToString:@"ccmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"globalists"] && [action isEqualToString:@"Sell"]) {price = price*1.15;}
-    else if([whichMarket isEqualToString:@"blackmarket"] && [[preferences3 stringForKey:@"faction"] isEqualToString:@"capitalists"] && [action isEqualToString:@"Sell"]) {price = price*1.05;}
+    if([whichMarket isEqualToString:@"ccmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"statists"] && [action isEqualToString:@"Buy"]) {price = price - price*0.15;}
+    else if([whichMarket isEqualToString:@"ccmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"globalists"] && [action isEqualToString:@"Sell"]) {price = price*1.15;}
+    else if([whichMarket isEqualToString:@"blackmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"capitalists"] && [action isEqualToString:@"Sell"]) {price = price*1.05;}
     NSLog(@"||||||||||| %@", [preferences3 stringForKey:@"faction"]);
     return price;
 }
@@ -793,7 +793,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                              Functions *buy = [[Functions alloc] init];
                              
                              NSString *transaction = [buy httprequest:@"name,item,cost,market,action" :[NSString stringWithFormat:@"%@,%@,%d,%@,%@", username, item_id, price2,whichTable,action1] :@"buy.php"];
-                             
+                             transaction = [transaction stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                              @try{get_items = [get_credits httprequest:@"name" :[NSString stringWithFormat:@"%@",username3] :@"credits.php"];
                              }@catch(NSException *error){}
                              

@@ -163,7 +163,7 @@ static int iD;
     }else [preferences3 setInteger:0 forKey:@"hasCorp"];
 
     [panel addSubview:info];
-    [preferences3 setObject:[values[7] lowercaseString] forKey:@"faction"];
+    [preferences3 setObject:values[7] forKey:@"faction"];
     
     message = [[UITextView alloc] init];
     message.font = [UIFont fontWithName:@"Arial" size:13+5];
@@ -301,7 +301,7 @@ static int iD;
     corp_ticker.textColor = [UIColor whiteColor];
     [panel addSubview:corp_ticker];
     Button *create_corp = [[Button alloc] init];
-    create_corp.name = @"Create Corp_";
+    create_corp.name = @"Create Corp ";
     [panel addSubview:[create_corp button: CGRectMake(panel.frame.size.width/2-190/2, 160, 170, 50.0)]];
     Button *back = [[Button alloc] init];
     back.name = @"Back";
@@ -323,14 +323,13 @@ static int iD;
         Functions *corporation = [[Functions alloc] init];
         @try{NSString *check = [corporation httprequest:@"name,menu,corp,ticker" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3, whichTable, corp_name2,corp_ticker.text] :@"corporation.php"];
         NSArray *check_corp = [check componentsSeparatedByString: @"|"];
-            if([check_corp[0] isEqualToString:@"illegalTicker"]) ticker_warning.text=@"illegal characters";
+        if([check_corp[0] isEqualToString:@"illegalTicker"]) ticker_warning.text=@"illegal characters";
         else if([check_corp[0] isEqualToString:@"illegalCorp"]) name_warning.text=@"illegal characters";
         else if([check_corp[0] isEqualToString:@"sameCorp"]) name_warning.text=@"name already taken";
         else if([check_corp[0] isEqualToString:@"sameTicker"]) ticker_warning.text=@"ticker already taken";
         else if([check_corp[0] isEqualToString:@"accepted"]){
-            preferences3 = [NSUserDefaults standardUserDefaults];
             [preferences3 setInteger:1 forKey:@"hasCorp"];
-            [preferences3 setObject:corp_name forKey:@"corporation"];
+            [preferences3 setObject:corp_name.text forKey:@"corporation"];
             [self goto_corp];
         }
             
@@ -677,13 +676,14 @@ static int iD;
     members.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:255/255.0 alpha:255];
     members.editable = NO;
     [panel addSubview:members];
+    [panel bringSubviewToFront:corporation];
     Functions *get_districts = [[Functions alloc] init];
     iD = 0;
     NSString *corp = [get_corp[3] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     NSString *districts;
     @try{districts = [get_districts httprequest:@"name,menu,corporation,server" :[NSString stringWithFormat:@"%@,%@,%@,%ld",username3,@"districts",corp,[preferences3  integerForKey:@"server"]] :@"corporation.php"];
     }@catch(NSException *error){}
-    UITextView *districtsNum = [[UITextView alloc] initWithFrame:CGRectMake(125, 28-5, 215, 20+5)];
+    UITextView *districtsNum = [[UITextView alloc] initWithFrame:CGRectMake(125+25, 28-5, 215, 20+5)];
     districtsNum.text = [NSString stringWithFormat:@"%@  Districts  Owned", districts];
     districtsNum.backgroundColor = [UIColor blackColor];
     districtsNum.font = [UIFont fontWithName:@"Arial" size:10+5];
