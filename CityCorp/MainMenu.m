@@ -158,7 +158,12 @@ static int iD;
     NSInteger value = [values[8] intValue];
     NSString *result = [fmt stringFromNumber:@(value)];
     int nextLevel = ([values[1] intValue]+1)*10*([values[1] intValue]+1)*10;
-    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@\nCredits: ₡%@", values[0], values[1], values[2], values[4], values[5], values[6], nextLevel, values[7], result];
+        NSString *color;
+    if([[values[7] lowercaseString] isEqualToString:@"statists"]) color = @"(Purple)";
+    else if([[values[7] lowercaseString] isEqualToString:@"globalists"]) color = @"(Green)";
+    else if([[values[7] lowercaseString] isEqualToString:@"capitalists"]) color = @"(Gold)";
+    else if([[values[7] lowercaseString] isEqualToString:@"outlaws"]) color = @"(Orange)";
+    info.text = [[NSString alloc] initWithFormat: @"Name: %@\nLevel: %@\nProfession: %@\nCorporation: %@\nDate Joined: %@\nSkill Points: %@/%d\nFaction: %@ %@\nCredits: ₡%@", values[0], values[1], values[2], values[4], values[5], values[6], nextLevel, values[7], color, result];
     [preferences3 setObject:values[1] forKey:@"level"];
 //    NSLog(@"%ld |||||||||||||||", [preferences3 integerForKey:@"server"]);
     [preferences3 setInteger:[values[9] intValue] forKey:@"server"];
@@ -1308,7 +1313,9 @@ static int iD;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"] || [whichTable isEqualToString:@"modify"] || [whichTable isEqualToString:@"goto_corp"]) return array2.count-1;
+  /*  if([whichTable isEqualToString:@"inventory"] || [whichTable isEqualToString:@"join_corp"] || [whichTable isEqualToString:@"modify"] || [whichTable isEqualToString:@"goto_corp"] || [whichTable isEqualToString:@"scoreboard"]) return array2.count-1;
+   */
+    if(![whichTable isEqualToString:@"equipment"]) return array2.count-1;
     else return array2.count-1+slots;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -1492,24 +1499,24 @@ static int iD;
                 if([array3[1] isEqualToString:@"21"] || [array3[1] isEqualToString:@"19"]){
                     cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
                     
-                }
+                }//  FIX POWER IN HERE AND MARKET BEFORE LAUNCH
             }if([array3[3] isEqualToString:@"cpu"]){
                 type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
                 if([array3[1] isEqualToString:@"1"]){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +3"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
                 if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +10"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
                 if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                    detail = [NSString stringWithFormat:@"Power +20"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
                 if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-                    detail = [NSString stringWithFormat:@"Power +30"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
             }if([array3[3] isEqualToString:@"mod"]){
                 type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
@@ -1591,19 +1598,19 @@ static int iD;
                 type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
                 if([array3[1] isEqualToString:@"1"]){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +3"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
                 if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +10"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
                 if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
-                    detail = [NSString stringWithFormat:@"Power +20"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
                 if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
-                    detail = [NSString stringWithFormat:@"Power +30"];
+                    detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
                 }
             }else if([array3[3] isEqualToString:@"mod"]){
                 type = [NSString stringWithFormat:@"Blueprint Lvl.%@", array3[1]];
@@ -1643,19 +1650,19 @@ static int iD;
             type = [NSString stringWithFormat:@"CPU Lvl.%@", array3[1]];
             if([array3[1] isEqualToString:@"1"]){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +3"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
             if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +10"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
             if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                detail = [NSString stringWithFormat:@"Power +20"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
             if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-                detail = [NSString stringWithFormat:@"Power +30"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
         }else if([array3[3] isEqualToString:@"mod"]){
             type = [NSString stringWithFormat:@"Mod Lvl.%@", array3[1]];
@@ -1722,19 +1729,19 @@ static int iD;
             type = [NSString stringWithFormat:@"CPU Lvl.%@", array3[1]];
             if([array3[1] isEqualToString:@"1"]){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +3"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
             if([array3[1] intValue]>=3 && [array3[1] intValue]<=9){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +10"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
             if([array3[1] intValue]>=10 && [array3[1] intValue]<=18){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                detail = [NSString stringWithFormat:@"Power +20"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
             if([array3[1] intValue]>=19 && [array3[1] intValue]<=27){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-                detail = [NSString stringWithFormat:@"Power +30"];
+                detail = [NSString stringWithFormat:@"Power +%@", array3[1]];
             }
         }else if([array3[3] isEqualToString:@"mod"]){
             type = [NSString stringWithFormat:@"Mod Lvl.%@", array3[1]];

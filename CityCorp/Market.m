@@ -88,7 +88,10 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
 //    whichMarket = @"ccmarket";
+    
+    action1 = @"Buy";
     whichTable = @"ccmarket";
+    whichMarket = @"ccmarket";
     username3 = [preferences3 stringForKey:@"username"];
     ccmarket1 = [[Functions alloc] init];
     iD = 0;
@@ -358,6 +361,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     whichMarket = @"blackmarket";
 }
 -(void)sell_to_ccmarket{
+    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     whichMarket = @"ccmarket";
     UITextView *credits = [[UITextView alloc] initWithFrame:CGRectMake(panel.frame.size.width-185, -3, 85, 18+5)];
     credits.text = @"Credits: ";
@@ -383,8 +387,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
     amount.editable = NO;
     [panel addSubview:amount];
     
-    [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20, 215, 25)];
+    UITextView *inventory = [[UITextView alloc] initWithFrame:CGRectMake(5, 20-5, 215, 25+5)];
     inventory.text = @"Items to sell";
     inventory.backgroundColor = [UIColor blackColor];
     inventory.font = [UIFont fontWithName:@"Arial" size:14+5];
@@ -490,7 +493,8 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
 }
 -(void)back{
     [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
+    action1 = @"Buy";
+    whichMarket = @"ccmarket";
     preferences3 = [NSUserDefaults standardUserDefaults];
     //  items = @[ @"Nezennin Corp.", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises", @"Nez Enterprises"];
     whichTable = @"ccmarket";
@@ -647,10 +651,11 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
         if([identified intValue] == 0) price = pow([level intValue],2)*10;
         else price = pow([level intValue],5)*10;
     }
-    if([whichMarket isEqualToString:@"ccmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"statists"] && [action isEqualToString:@"Buy"]) {price = price - price*0.15;}
-    else if([whichMarket isEqualToString:@"ccmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"globalists"] && [action isEqualToString:@"Sell"]) {price = price*1.15;}
+  /*  if([whichMarket isEqualToString:@"ccmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"statists"] && [action isEqualToString:@"Buy"]) {price = price - price*0.15;} */
+    if([whichMarket isEqualToString:@"ccmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"globalists"] && [action isEqualToString:@"Sell"]) {price = price*1.15;}
     else if([whichMarket isEqualToString:@"blackmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"capitalists"] && [action isEqualToString:@"Sell"]) {price = price*1.05;}
-    NSLog(@"||||||||||| %@", [preferences3 stringForKey:@"faction"]);
+ //   NSLog(@"||||||||||| %@", [preferences3 stringForKey:@"faction"]);
+ //   NSLog(@"|||||||||");
     return price;
 }
 - (void)addBannerViewToView:(UIView *)bannerView {
@@ -777,6 +782,7 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
             }
         }
         else { price2 = [items3[7] intValue];
+            if([whichMarket isEqualToString:@"ccmarket"] && [[[preferences3 stringForKey:@"faction"] lowercaseString] isEqualToString:@"statists"] && [action1 isEqualToString:@"Buy"]){price2 = price2 - price2*0.15;}
             item_id = items3[0];
         }
     UIAlertController * alert=   [UIAlertController
@@ -953,19 +959,19 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                 type = [NSString stringWithFormat:@"BP Lvl.%@", items3[1]];
                 if([items3[1] isEqualToString:@"1"]){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +3"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=3 && [items3[1] intValue]<=9){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +10"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=10 && [items3[1] intValue]<=18){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
-                    detail = [NSString stringWithFormat:@"Power +20"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=19 && [items3[1] intValue]<=27){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
-                    detail = [NSString stringWithFormat:@"Power +30"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
             }else if([items3[3] isEqualToString:@"mod"]){
                 type = [NSString stringWithFormat:@"BP Lvl.%@", items3[1]];
@@ -1005,19 +1011,19 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
             type = [NSString stringWithFormat:@"CPU Lvl.%@", items3[1]];
             if([items3[1] isEqualToString:@"1"]){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +3"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
             if([items3[1] intValue]>=3 && [items3[1] intValue]<=9){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +10"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
             if([items3[1] intValue]>=10 && [items3[1] intValue]<=18){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                detail = [NSString stringWithFormat:@"Power +20"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
             if([items3[1] intValue]>=19 && [items3[1] intValue]<=27){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-                detail = [NSString stringWithFormat:@"Power +30"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
         }else if([items3[3] isEqualToString:@"mod"]){
             type = [NSString stringWithFormat:@"Mod Lvl.%@", items3[1]];
@@ -1093,19 +1099,19 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                 type = [NSString stringWithFormat:@"BP Lvl.%@", items3[1]];
                 if([items3[1] isEqualToString:@"1"]){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +3"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=3 && [items3[1] intValue]<=9){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +10"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=10 && [items3[1] intValue]<=18){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
-                    detail = [NSString stringWithFormat:@"Power +20"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=19 && [items3[1] intValue]<=27){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
-                    detail = [NSString stringWithFormat:@"Power +30"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
             }else if([items3[3] isEqualToString:@"mod"]){
                 type = [NSString stringWithFormat:@"BP Lvl.%@", items3[1]];
@@ -1141,19 +1147,19 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
             type = [NSString stringWithFormat:@"CPU Lvl.%@", items3[1]];
             if([items3[1] isEqualToString:@"1"]){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +3"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
             if([items3[1] intValue]>=3 && [items3[1] intValue]<=9){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"Power +10"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
             if([items3[1] intValue]>=10 && [items3[1] intValue]<=18){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                detail = [NSString stringWithFormat:@"Power +20"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
             if([items3[1] intValue]>=19 && [items3[1] intValue]<=27){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-                detail = [NSString stringWithFormat:@"Power +30"];
+                detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
             }
         }else if([items3[3] isEqualToString:@"mod"]){
             type = [NSString stringWithFormat:@"Mod Lvl.%@", items3[1]];
@@ -1216,19 +1222,19 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
                 type = [NSString stringWithFormat:@"BP Lvl.%@", items3[1]];
                 if([items3[1] isEqualToString:@"1"]){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +3"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=3 && [items3[1] intValue]<=9){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_bluegreen.png"];
-                    detail = [NSString stringWithFormat:@"Power +10"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=10 && [items3[1] intValue]<=18){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_blue.png"];
-                    detail = [NSString stringWithFormat:@"Power +20"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
                 if([items3[1] intValue]>=19 && [items3[1] intValue]<=27){
                     cell.imageView.image=[UIImage imageNamed:@"cpu_bp_green.png"];
-                    detail = [NSString stringWithFormat:@"Power +30"];
+                    detail = [NSString stringWithFormat:@"Power +%@", items3[1]];
                 }
             }else if([items3[3] isEqualToString:@"mod"]){
                 type = [NSString stringWithFormat:@"BP Lvl.%@", items3[1]];
@@ -1274,19 +1280,19 @@ static UITextView *quantity1; static UITextView *quantity2; static UITextView *q
             type = [NSString stringWithFormat:@"CPU Lvl.%@", items3[1]];
             if([items3[1] isEqualToString:@"1"]){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"₡%@-Speed +10",items3[7]];
+                detail = [NSString stringWithFormat:@"₡%@-Power +%@", items3[7], items3[1]];
             }
             if([items3[1] intValue]>=3 && [items3[1] intValue]<=9){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_bluegreen.png"];
-                detail = [NSString stringWithFormat:@"₡%@-Speed +10",items3[7]];
+                detail = [NSString stringWithFormat:@"₡%@-Power +%@", items3[7], items3[1]];
             }
             if([items3[1] intValue]>=10 && [items3[1] intValue]<=18){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_blue.png"];
-                detail = [NSString stringWithFormat:@"₡%@-Speed +20",items3[7]];
+                detail = [NSString stringWithFormat:@"₡%@-Power +%@", items3[7], items3[1]];
             }
             if([items3[1] intValue]>=19 && [items3[1] intValue]<=27){
                 cell.imageView.image=[UIImage imageNamed:@"cpu_green.png"];
-                detail = [NSString stringWithFormat:@"₡%@-Speed +30",items3[7]];
+                detail = [NSString stringWithFormat:@"₡%@-Power +%@", items3[7], items3[1]];
             }
         }else if([items3[3] isEqualToString:@"mod"]){
             type = [NSString stringWithFormat:@"Mod Lvl.%@", items3[1]];

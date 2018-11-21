@@ -43,7 +43,7 @@ NSUserDefaults *preferences1;
     [hacker_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [hacker_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     hacker_info.editable=NO;
-    hacker_info.text = @"A hacker's specialty is in creating exploits for use in hacking which can be used or be sold to other players, and have bonuses when using exploits for hacking.";
+    hacker_info.text = @"A hacker's specialty is in creating exploits for use in hacking which can be used or be sold, and have bonuses when using exploits for hacking.";
     [self.view addSubview:hacker_info];
     
     UITextView *corporate_info = [[UITextView alloc] init];
@@ -61,7 +61,7 @@ NSUserDefaults *preferences1;
     [researcher_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     [researcher_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
     researcher_info.editable=NO;
-    researcher_info.text = @"Researchers can use tools capable of identifying blueprints that are obtained from hacking industrial districts. They can also increase the quality of blueprints which can make them more valuable.";
+    researcher_info.text = @"Researchers can use tools capable of identifying blueprints that are obtained from hacking industrial districts. The cost for identifying blueprints is zero for this profession";
     [self.view addSubview:researcher_info];
     
     UITextView *constructor_info = [[UITextView alloc] init];
@@ -70,7 +70,7 @@ NSUserDefaults *preferences1;
     [constructor_info setTextColor: [UIColor colorWithRed:255 green:255 blue:255 alpha:255]];
     constructor_info.editable=NO;
     [constructor_info setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:255]];
-    constructor_info.text = @"Constructors are the richest of all the classes. They can use tools to create tech equipment from blueprints that are vital to all citizens. Using high quality blueprints, they can also add modification slots that make what they create more valuable.";
+    constructor_info.text = @"Constructors are the richest of all the classes. They can use tools to create hardware from identified blueprints. The cost for constructing items is zero for this profession";
     [self.view addSubview:constructor_info];
 }
 
