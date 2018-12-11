@@ -136,7 +136,10 @@ static UITextField *message;
     username3 = [preferences3 stringForKey:@"username"];
  //   NSLog(@"|||||||||%@",username3);
     Functions *post = [[Functions alloc] init];
-    @try{[post httprequest:@"name,message,chat,action" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3,[message.text stringByReplacingOccurrencesOfString:@" " withString:@"%20"],@"general", @"post"] :@"chat.php"];
+    NSString *message2;
+    message2 = [message.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    @try{[post httprequest:@"name,message,chat,action" :[NSString stringWithFormat:@"%@,%@,%@,%@",username3,message2,@"general", @"post"] :@"chat.php"];
       //  chat.text = text;
     }@catch(NSException *error){}
     message.text = @"";

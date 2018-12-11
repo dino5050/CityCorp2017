@@ -56,6 +56,7 @@ NSUserDefaults *preferences2;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _errorPassword.text = @"Letters / numbers only";
     Button* next = [[Button alloc] init];
     next.name = @"next";
     [self.view addSubview:[next button: CGRectMake(180, 230, 100, 50.0)]];
@@ -85,6 +86,7 @@ NSUserDefaults *preferences2;
         [self performSegueWithIdentifier:@"register" sender:self];
         preferences2 = [NSUserDefaults standardUserDefaults];
         [preferences2 setObject:username forKey:@"username"];
+        _errorPassword.text = @"Letters / numbers only";
     }
     else _errorCharacters.text = @"Illegal characters used"; //Check all illegal characters!
     

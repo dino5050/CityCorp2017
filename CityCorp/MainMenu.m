@@ -223,9 +223,9 @@ static int iD;
     if(version_1>version_2){
         
    //     [super viewDidAppear:animated];
-        UIAlertController * alert=   [UIAlertController
-                                      alertControllerWithTitle:[NSString stringWithFormat:@"Update Required"]
-                                      message:@"Please go to App Store -> Updates to update to new version."
+        UIAlertController * alert2=   [UIAlertController
+                                      alertControllerWithTitle:@""
+                                      message:@""
                                       preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* ok = [UIAlertAction
@@ -233,9 +233,15 @@ static int iD;
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
-                                 NSString *updateLink = [NSString stringWithFormat:@"http://itunes.apple.com/app/%@"];
-                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:updateLink]];
-                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 NSString *updateLink = [NSString stringWithFormat:@"https://itunes.apple.com/app/citycorp/id1441879942"];
+                                 UIApplication *application = [UIApplication sharedApplication];
+                                 [application openURL:[NSURL URLWithString:updateLink] options:@{} completionHandler:^(BOOL success){
+                                     if(success){
+                                         [self exit_app];
+                                     }
+                                 }];
+                                 [alert2 dismissViewControllerAnimated:YES completion:nil];
+                            //     [self exit_app];
                                  
                              }];
         UIAlertAction* exit = [UIAlertAction
@@ -243,15 +249,31 @@ static int iD;
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction * action)
                                  {
-                                     [alert dismissViewControllerAnimated:YES completion:nil];
+                                     [alert2 dismissViewControllerAnimated:YES completion:nil];
                                      [self exit_app];
                                      
                                  }];
         
-   //     [alert addAction:ok];
-        [alert addAction:exit];
+        UIColor *color = [UIColor whiteColor]; // select needed color
+        NSString *string = @"Update Now?";
+        NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+        NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+        [alert2 setValue:attrStr forKey:@"attributedMessage"];
         
-        [self presentViewController:alert animated:YES completion:nil];
+        color = [UIColor orangeColor];
+        NSString *string1 = @"Update Required";
+        NSDictionary *attrs1 = @{ NSForegroundColorAttributeName : color, NSFontAttributeName : [UIFont fontWithName:@"Arial" size:16+5]};
+        NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString:string1 attributes:attrs1];
+        [alert2 setValue:attrStr1 forKey:@"attributedTitle"];
+        
+        [alert2 addAction:ok];
+        [alert2 addAction:exit];
+        
+        [self presentViewController:alert2 animated:YES completion:nil];
+        
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        [[UIVisualEffectView appearanceWhenContainedInInstancesOfClasses:@[[alert2 class]]] setEffect:blurEffect];
     }
 }
 - (void)didReceiveMemoryWarning {
@@ -277,6 +299,7 @@ static int iD;
     name_warning.font = [UIFont fontWithName:@"Arial-BoldMT" size:10];
 //    name_warning.text = @"name already taken";
     [panel addSubview:name_warning];
+    name_warning.text = @"Use only letters, numbers, spaces";
     ticker_warning = [[UITextView alloc] initWithFrame:CGRectMake(120+75, 110, 65, 50)];
     ticker_warning.backgroundColor = [UIColor blackColor];
     ticker_warning.textColor = [UIColor redColor];
@@ -325,7 +348,7 @@ static int iD;
     else if(corp_ticker.text.length>4) ticker_warning.text=@"Too many characters";
     else if(corp_ticker.text.length<1) ticker_warning.text=@"Too few characters";
     else{
-        name_warning.text = @"";
+        name_warning.text = @"Use only letters, numbers, spaces";
         ticker_warning.text = @"";
         NSString *corp_name2 = [corp_name.text stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         username3 = [preferences3 stringForKey:@"username"];
@@ -1723,7 +1746,7 @@ static int iD;
                 cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
             }
             if([array3[1] isEqualToString:@"21"] || [array3[1] isEqualToString:@"19"]){
-                cell.imageView.image=[UIImage imageNamed:@"computer_blue.png"];
+                cell.imageView.image=[UIImage imageNamed:@"computer_green.png"];
             }
         }else if([array3[3] isEqualToString:@"cpu"]){
             type = [NSString stringWithFormat:@"CPU Lvl.%@", array3[1]];
