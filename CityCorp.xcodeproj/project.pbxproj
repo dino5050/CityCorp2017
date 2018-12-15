@@ -71,6 +71,7 @@
 		4B2EDF442128A25C004F97D0 /* Lisbon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Lisbon.m; sourceTree = "<group>"; };
 		4B2EDF462128B747004F97D0 /* Torindor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Torindor.h; sourceTree = "<group>"; };
 		4B2EDF472128B747004F97D0 /* Torindor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Torindor.m; sourceTree = "<group>"; };
+		4B32A7AC21C580B300A4F992 /* CityCorp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CityCorp.entitlements; sourceTree = "<group>"; };
 		4B49D7A01FFBD1EF00F33B24 /* Signup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Signup.h; sourceTree = "<group>"; };
 		4B49D7A11FFBD1EF00F33B24 /* Signup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Signup.m; sourceTree = "<group>"; };
 		4B62F178202A72DC00DD99BD /* Terminal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
@@ -181,6 +182,7 @@
 		4B9ECE8E1FE09FEE00D55D5B /* CityCorp */ = {
 			isa = PBXGroup;
 			children = (
+				4B32A7AC21C580B300A4F992 /* CityCorp.entitlements */,
 				4BD8DD1C21A9E5A400F9C579 /* GoogleService-Info.plist */,
 				4BF35C91216274230062CC6F /* DLRadioButton.h */,
 				4BF35C92216274230062CC6F /* DLRadioButton.m */,
@@ -343,6 +345,11 @@
 					4B9ECE8B1FE09FEE00D55D5B = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					4B9ECEA31FE09FF000D55D5B = {
 						CreatedOnToolsVersion = 9.1;
@@ -663,6 +670,7 @@
 			baseConfigurationReference = CAB0BC4E5C88852BF8CE2DFA /* Pods-CityCorp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CityCorp/CityCorp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A9E9253ZW;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -682,6 +690,7 @@
 			baseConfigurationReference = 12D03E0FA35F8C16C9D3069C /* Pods-CityCorp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CityCorp/CityCorp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A9E9253ZW;
 				FRAMEWORK_SEARCH_PATHS = (

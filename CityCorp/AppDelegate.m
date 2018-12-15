@@ -7,8 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
-@interface AppDelegate ()
+#import <UserNotifications/UserNotifications.h>
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+@interface AppDelegate () <UIApplicationDelegate,UNUserNotificationCenterDelegate>
 
 @end
 @import Firebase;
@@ -17,12 +18,80 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self registerForRemoteNotifications];
     [FIRApp configure];
 
     return YES;
 }
+//Called when a notification is delivered to a foreground app.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    NSLog(@"User Info : %@",notification.request.content.userInfo);
+    completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
+}
 
-
+//Called to let your app know which action was selected by the user for a given notification.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler{
+    NSLog(@"User Info : %@",response.notification.request.content.userInfo);
+    completionHandler();
+}
+- (void)registerForRemoteNotifications {
+    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")){
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+            if(!error){
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }
+        }];
+    }
+    else {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+        {
+            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        }
+        else
+        {
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        }
+        
+    }
+}
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *currentLevelKey = @"currentlevel";
+    if([preferences objectForKey:currentLevelKey] == nil){
+        NSLog(@"deviceToken: %@", deviceToken);
+        NSString * token = [NSString stringWithFormat:@"%@", deviceToken];
+        //Format token as you need:
+        token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        printf("DEVICE TOKEN %s", [token UTF8String]);
+        NSString *url = @"http://nezennin.com/citycorp/push.php?";
+        NSString *fullURL = [[NSString alloc] initWithFormat:@"%@token=%@",url,token];
+        NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
+        NSError __block *err = NULL;
+        NSData __block *data;
+        BOOL __block reqProcessed = false;
+        NSURLResponse __block *resp;
+        
+        [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+            resp = _response;
+            err = _error;
+            data = _data;
+            reqProcessed = true;
+        }] resume];
+        
+        while (!reqProcessed) {
+            [NSThread sleepForTimeInterval:0];
+        }
+   //     const NSInteger *currentLevel = 1;
+        [preferences setInteger:1 forKey:currentLevelKey];
+    }
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
