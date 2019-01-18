@@ -23,6 +23,7 @@ static UIView *panel;
 static NSArray *array2;
 static NSArray *array3;
 static int iD;
+static NSString *rows;
 static NSUserDefaults *preferences3;
 static NSString *username3;
 static UITextView *commandline;
@@ -31,6 +32,7 @@ static NSTimer *timer;
 static NSString *timestamp;
 static UIView *cancel2;
 static UIView *dismiss2;
+static UICollectionView *collectionView;
 
 
 - (void)viewDidLoad{
@@ -97,7 +99,7 @@ static UIView *dismiss2;
     [self.view addSubview:panel];
     
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    UICollectionView *collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-250/2,40,250,350) collectionViewLayout:layout];
+    collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-250/2,40,250,300) collectionViewLayout:layout];
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
     
@@ -105,7 +107,8 @@ static UIView *dismiss2;
     [collectionView setBackgroundColor:[UIColor blackColor]];
     collectionView.layer.borderWidth = 2.0f;
     collectionView.layer.borderColor = [UIColor blueColor].CGColor;
-    collectionView.alwaysBounceVertical = YES;
+ //   collectionView.alwaysBounceVertical = YES;
+ //   collectionView.bounces = YES;
     
     Functions *terminal = [[Functions alloc] init];
     NSString *players;
@@ -113,6 +116,20 @@ static UIView *dismiss2;
     @try{players = [terminal httprequest:@"id,name,server" :[NSString stringWithFormat:@"%d,%@,%ld",iD,username3,[preferences3 integerForKey:@"server"]] :@"terminal.php"];
     }@catch(NSException *error){}
     array2 = [players componentsSeparatedByString:@"|"];
+    
+
+    iD = 0;  //ADD NEXT/PREVIOUS AND MAKE CELLS WIDER
+    @try{players = [terminal httprequest:@"" :@"" :@"characters_rows.php"];
+    }@catch(NSException *error){}
+    NSArray *rows1 = [players componentsSeparatedByString:@"|"];
+    rows = rows1[0];
+    NSLog(@"%@ |||||||||||||||||||",rows);
+    Button *previous = [[Button alloc] init];
+    previous.name = @"previous";
+    [panel addSubview:[previous previous: CGRectMake(panel.frame.size.width/2-10-51, panel.frame.size.height-5-50, 55, 50.0)]];
+    Button *next = [[Button alloc] init];
+    next.name = @"next";
+    [panel addSubview:[next next: CGRectMake(panel.frame.size.width/2+1, panel.frame.size.height-5-50, 55, 50.0)]];
     
     [panel addSubview: collectionView];
     
@@ -124,6 +141,56 @@ static UIView *dismiss2;
     self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/3829260800";
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
+}
+-(void)next{
+    if(iD<[rows intValue]-20 && rows > 20){
+        iD = iD + 20;
+        Functions *terminal = [[Functions alloc] init];
+        NSString *players;
+        //ADD NEXT/PREVIOUS AND MAKE CELLS WIDER
+        @try{players = [terminal httprequest:@"id,name,server" :[NSString stringWithFormat:@"%d,%@,%ld",iD,username3,[preferences3 integerForKey:@"server"]] :@"terminal.php"];
+        }@catch(NSException *error){}
+        array2 = [players componentsSeparatedByString:@"|"];
+        
+        [collectionView removeFromSuperview];
+        
+        UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+        collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-250/2,40,250,300) collectionViewLayout:layout];
+        [collectionView setDataSource:self];
+        [collectionView setDelegate:self];
+        
+        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+        [collectionView setBackgroundColor:[UIColor blackColor]];
+        collectionView.layer.borderWidth = 2.0f;
+        collectionView.layer.borderColor = [UIColor blueColor].CGColor;
+        
+        [panel addSubview:collectionView];
+    }
+}
+-(void)previous{
+    if(iD>0){
+        iD = iD - 20;
+        Functions *terminal = [[Functions alloc] init];
+        NSString *players;
+        //ADD NEXT/PREVIOUS AND MAKE CELLS WIDER
+        @try{players = [terminal httprequest:@"id,name,server" :[NSString stringWithFormat:@"%d,%@,%ld",iD,username3,[preferences3 integerForKey:@"server"]] :@"terminal.php"];
+        }@catch(NSException *error){}
+        array2 = [players componentsSeparatedByString:@"|"];
+        
+        [collectionView removeFromSuperview];
+        
+        UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+        collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(panel.frame.size.width/2-250/2,40,250,300) collectionViewLayout:layout];
+        [collectionView setDataSource:self];
+        [collectionView setDelegate:self];
+        
+        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+        [collectionView setBackgroundColor:[UIColor blackColor]];
+        collectionView.layer.borderWidth = 2.0f;
+        collectionView.layer.borderColor = [UIColor blueColor].CGColor;
+        
+        [panel addSubview:collectionView];
+    }
 }
 -(void)scrollTextViewToBottom:(UITextView *)textView {
     if(textView.text.length > 0 ) {

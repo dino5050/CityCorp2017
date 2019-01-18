@@ -908,7 +908,7 @@ static int iD;
     [panel addSubview:[back button2: CGRectMake(panel.frame.size.width-60-5, panel.frame.size.height-50-5, 60, 50.0)]];
 }
 -(void)next{
-    if(iD<6){
+    if(iD<3){
         iD++;
         if(iD==0){
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -980,7 +980,7 @@ static int iD;
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial1.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 640/2.9, 808/2.9);
+            tutorial.frame = CGRectMake(0, 0, 347/1.6, 579/1.6);
             [panel addSubview:tutorial];
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -995,7 +995,7 @@ static int iD;
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial2.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 598/2.4, 994/2.4);
+            tutorial.frame = CGRectMake(0, 0, 321/1.5, 555/1.5);
             [panel addSubview:tutorial];
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -1010,7 +1010,7 @@ static int iD;
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial3.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 558/2.6, 1062/2.6);
+            tutorial.frame = CGRectMake(0, 0, 320/1.6, 590/1.6);
             [panel addSubview:tutorial];
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
@@ -1025,7 +1025,7 @@ static int iD;
             [[panel subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UIImage *tutorial1 = [UIImage imageNamed:@"tutorial4.png"];
             UIImageView *tutorial = [[UIImageView alloc] initWithImage:tutorial1];
-            tutorial.frame = CGRectMake(5, 5, 618/2.9, 994/2.9);
+            tutorial.frame = CGRectMake(0, 0, 332/1.6, 564/1.6);
             [panel addSubview:tutorial];
             Button *previous = [[Button alloc] init];
             previous.name = @"previous";
