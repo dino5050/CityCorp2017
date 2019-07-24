@@ -143,7 +143,7 @@ static UICollectionView *collectionView;
     [self.bannerView loadRequest:[GADRequest request]];
 }
 -(void)next{
-    if(iD<[rows intValue]-20 && rows > 20){
+    if(iD<[rows intValue]-20 && [rows intValue] > 20){
         iD = iD + 20;
         Functions *terminal = [[Functions alloc] init];
         NSString *players;
@@ -437,7 +437,9 @@ static UICollectionView *collectionView;
      alertContentView.backgroundColor = [UIColor blackColor];
      */
     UIColor *color = [UIColor whiteColor]; // select needed color
-    NSString *string = @"Choose Action";
+    NSString *string;
+    if(![array3[0] isEqualToString:username3]) string = @"Choose Action";
+    else string = @"Can't access self";
     NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrs];
     [alert setValue:attrStr forKey:@"attributedMessage"];
@@ -451,7 +453,7 @@ static UICollectionView *collectionView;
     
 //    [alert addAction:message];
 //    [alert addAction:befriend];
-    [alert addAction:hack];
+    if(![array3[0] isEqualToString:username3]) [alert addAction:hack];
     [alert addAction:cancel];
     
     
